@@ -14,25 +14,25 @@ def populate():
     # through each data structure, and add the data to our models.
 
     python_pages = [
-        {"title": "Official Python Tutorial",
+        {"title": "Official Python Tutorial", "views":5,
          "url":"http://docs.python.org/2/tutorial/"},
-        {"title":"How to Think like a Computer Scientist",
+        {"title":"How to Think like a Computer Scientist", "views":66,
          "url":"http://www.greenteapress.com/thinkpython/"},
-        {"title":"Learn Python in 10 Minutes",
+        {"title":"Learn Python in 10 Minutes", "views":98,
          "url":"http://www.korokithakis.net/tutorials/python/"} ]
 
     django_pages = [
-        {"title":"Official Django Tutorial",
+        {"title":"Official Django Tutorial", "views":55,
          "url":"https://docs.djangoproject.com/en/1.9/intro/tutorial01/"},
-        {"title":"Django Rocks",
+        {"title":"Django Rocks", "views":12,
          "url":"http://www.djangorocks.com/"},
-        {"title":"How to Tango with Django",
+        {"title":"How to Tango with Django", "views":98,
          "url":"http://www.tangowithdjango.com/"} ]
     
     other_pages = [
-            {"title":"Bottle",
+            {"title":"Bottle", "views":56,
              "url":"http://bottlepy.org/docs/dev/"},
-            {"title":"Flask",
+            {"title":"Flask", "views":5673,
              "url":"http://flask.pocoo.org"} ]
         
     cats = {"Python": {"pages": python_pages, "views":128, "likes":64},
@@ -42,13 +42,13 @@ def populate():
     for cat, cat_data in cats.items():
         c = add_cat(cat, cat_data["views"], cat_data["likes"])
         for p in cat_data["pages"]:
-            add_page(c, p["title"], p["url"])
+            add_page(c, p["title"], p["url"], p["views"])
 
     for c in Category.objects.all():
         for p in Page.objects.filter(category=c):
             print("- {0} - {1}".format(str(c), str(p)))
 
-def add_page(cat, title, url, views=0):
+def add_page(cat, title, url, views):
     p = Page.objects.get_or_create(category=cat, title=title)[0]
     p.url = url
     p.views = views
