@@ -10,6 +10,9 @@ from rango.forms import CategoryForm
 # Import the Page model
 from rango.models import Page
 
+# Import the PageForm
+from rango.forms import PageForm
+
 def index(request):
     # Query the database for a list of ALL categories currently stored
     # Order the categories by number of likes in descending order
@@ -77,5 +80,28 @@ def add_category(request):
             print(form.errors)
 
     return render(request, 'rango/add_category.html', {'form': form})
+
+def add_page(request, category_name_slug):
+    try :
+        category = Category.objects.get(slug=category_name_slug)
+    except Category.DoesNotExist:
+        category = None
+
+    form = PageForm()
+    if request.method == 'POST':
+        form = PageForm(request.POST)
+        if form.is_valid():
+            if category:
+                page = form.save(commit=False)
+                page.category = category
+                page.views = 0
+                page.save()
+                return show_category(request, category_name_slug)
+        else:
+            print(form.errors)
+
+    context_dict = {'form':form, 'category': category}
+    return render(request, 'rango/add_page.html', context_dict)
+    
 
     
