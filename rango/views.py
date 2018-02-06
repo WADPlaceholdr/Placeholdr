@@ -4,6 +4,9 @@ from django.http import HttpResponse
 # Import the Category model
 from rango.models import Category
 
+# Import the CategoryForm
+from rango.forms import CategoryForm
+
 # Import the Page model
 from rango.models import Page
 
@@ -56,3 +59,23 @@ def show_category(request, category_name_slug):
 
     # Go render the response and return it to the client
     return render(request, 'rango/category.html', context_dict)
+
+def add_category(request):
+    form = CategoryForm()
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+
+        # Check if the form is valid
+        if form.is_valid():
+            # Save the new category to the database.
+            form.save(commit=True)
+            # Now that the category is saved, direct the user back to the index page
+            return index(request)
+        else:
+            # Print the errors to the terminal
+            print(form.errors)
+
+    return render(request, 'rango/add_category.html', {'form': form})
+
+    
