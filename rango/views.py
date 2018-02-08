@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rango.forms import UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # Import the Category model
 from rango.models import Category
@@ -148,3 +153,42 @@ def register(request):
                   {'user_form': user_form,
                    'profile_form':profile_form,
                    'registered': registered})
+
+def user_login(request):
+    # If the request is HTTP POST, try to get the relevant information
+    if request.method == 'POST':
+        # Use request.POST.get('<variable>') instead of .get['<v as
+        # it returns None if the value does not exist instead of an error
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Check if login combination is valid
+        user = authenticate(username=username, password=password)
+
+        # If we have a User object, the details are correct
+        if user:
+            # Is the account active?
+            if user.is_active:
+                # If valid and active, log in
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                # Inactive account
+                return HttpResponse("Your Rango account is disabled.")
+        else:
+            # Bad login details provided
+            print("Invalid login details: {0}, {1}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        # Not a POST so display the login form
+        return render(request, 'rango/login.html', {})
+
+@login_required
+def restricted(request):
+    return HttpResponse("Since you're logged in, you can see this text!")
+
+@login_required
+def user_logout(request):
+    # Since we know they are logged in, we can log them out
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))

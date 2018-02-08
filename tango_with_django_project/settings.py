@@ -24,6 +24,9 @@ STATIC_DIR = os.path.join(BASE_DIR,'static')
 # Dynamic pathing to the media folder
 MEDIA_DIR = os.path.join(BASE_DIR,'media')
 
+# Login Url
+LOGIN_URL = '/rango/login/'
+
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
