@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body_block %}
+		{% if user.is_authenticated %}
 		{% if category %}
 		<h1>Add a Page for {{ category.name }}</h1>
 		<div>
@@ -22,9 +23,11 @@
 				{% endfor %}
 				<input type="submit" name="submit" value="Add Page" />
 			</form>
-			{% else %}
-				This category does not exist
-			{% endif %}
-			
+		{% else %}
+			This category does not exist
+		{% endif %}
+		{% else %}
+			You must be logged in to add pages!
+		{% endif %}
 		</div>
 {% endblock %}
