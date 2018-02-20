@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'placeholdr.urls'
+ROOT_URLCONF = 'placeholdr_project.urls'
 
 TEMPLATES = [
     {
@@ -83,7 +83,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'placeholdr.wsgi.application'
+WSGI_APPLICATION = 'placeholdr_project.wsgi.application'
 
 
 # Database
