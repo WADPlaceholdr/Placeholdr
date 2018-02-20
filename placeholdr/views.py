@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rango.forms import UserForm, UserProfileForm
+from placeholdr.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -9,16 +9,16 @@ from django.contrib.auth import logout
 from datetime import datetime
 
 # Import the Category model
-from rango.models import Category
+from placeholdr.models import Category
 
 # Import the CategoryForm
-from rango.forms import CategoryForm
+from placeholdr.forms import CategoryForm
 
 # Import the Page model
-from rango.models import Page
+from placeholdr.models import Page
 
 # Import the PageForm
-from rango.forms import PageForm
+from placeholdr.forms import PageForm
 
 def index(request):
     request.session.set_test_cookie()
@@ -39,7 +39,7 @@ def index(request):
     context_dict['visits'] = request.session['visits']
 
     # Render the response and send it back!
-    response = render(request, 'rango/index.html', context_dict)
+    response = render(request, 'placeholdr/index.html', context_dict)
 
     # Return response back to user, updating any cookies that need changed
     return response
@@ -52,7 +52,7 @@ def about(request):
     visitor_cookie_handler(request)
     context_dict = {'visits' : request.session['visits']}
     
-    return render(request, 'rango/about.html', context_dict)
+    return render(request, 'placeholdr/about.html', context_dict)
 
 def show_category(request, category_name_slug):
     # Create a context dictionary which we can pass
@@ -83,7 +83,7 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = None
 
     # Go render the response and return it to the client
-    return render(request, 'rango/category.html', context_dict)
+    return render(request, 'placeholdr/category.html', context_dict)
 
 def add_category(request):
     form = CategoryForm()
@@ -101,7 +101,7 @@ def add_category(request):
             # Print the errors to the terminal
             print(form.errors)
 
-    return render(request, 'rango/add_category.html', {'form': form})
+    return render(request, 'placeholdr/add_category.html', {'form': form})
 
 def add_page(request, category_name_slug):
     try :
@@ -123,7 +123,7 @@ def add_page(request, category_name_slug):
             print(form.errors)
 
     context_dict = {'form':form, 'category': category}
-    return render(request, 'rango/add_page.html', context_dict)
+    return render(request, 'placeholdr/add_page.html', context_dict)
     
 def register(request):
     # Boolean for when registration was successful, false initially,
@@ -165,7 +165,7 @@ def register(request):
         profile_form = UserProfileForm()
 
     return render(request,
-                  'rango/register.html',
+                  'placeholdr/register.html',
                   {'user_form': user_form,
                    'profile_form':profile_form,
                    'registered': registered})
@@ -190,18 +190,18 @@ def user_login(request):
                 return HttpResponseRedirect(reverse('index'))
             else:
                 # Inactive account
-                return HttpResponse("Your Rango account is disabled.")
+                return HttpResponse("Your Placeholdr account is disabled.")
         else:
             # Bad login details provided
             print("Invalid login details: {0}, {1}".format(username, password))
             return HttpResponse("Invalid login details supplied.")
     else:
         # Not a POST so display the login form
-        return render(request, 'rango/login.html', {})
+        return render(request, 'placeholdr/login.html', {})
 
 @login_required
 def restricted(request):
-    return render(request, 'rango/restricted.html', {})
+    return render(request, 'placeholdr/restricted.html', {})
 
 @login_required
 def user_logout(request):
