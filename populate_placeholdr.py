@@ -1,10 +1,10 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                      'tango_with_django_project.settings')
+                      'placeholdr_project.settings')
 
 import django
 django.setup()
-from rango.models import Category, Page
+from placeholdr.models import Category, Page
 
 def populate():
     # First, we will create lists of dictionaries containing the pages
@@ -61,5 +61,5 @@ def add_cat(name,views,likes):
     return c
 
 if __name__ == '__main__':
-    print("Starting Rango population script...")
+    print("Starting Placeholdr (tm) population script...")
     populate()
