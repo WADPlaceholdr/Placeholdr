@@ -4,14 +4,74 @@
 
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="/static/styles/style.css" />
 		<title>
 			placeholdr - 
 			{% block title_block %}
 				How to Tango with Django!
 			{% endblock %}
 		</title>
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function doDropdown(tabId) {
+    document.getElementById(tabId).classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 	</head>
-	<body>
+	<body">
+		<div id="header">
+  			<div id="logo"><a href="/rango/index.html"><img src="/static/images/logonobg.png" alt="Logo"></a></div>
+  			<div id="searchtabs">
+				<form id="search"><input type="text"><input type="submit" value="Search"></form>
+				<div id="tabs">
+					<div class = "tabs" onmouseover="doDropdown('dropPlaces')" onmouseout="doDropdown('dropPlaces')">
+						<button  class="dropbtn">Places</button>
+						<div id="dropPlaces" class="dropdown-content">
+							<p class="dropP">Top Places</p>
+							<p class="dropP">New Places</p>
+							<p class="dropP">Popular Places</p>
+							<p class="dropP">Submit a Place</p>
+						</div>
+					</div>
+					<div class = "tabs" onmouseover="doDropdown('dropTrips')" onmouseout="doDropdown('dropTrips')">
+						<button class="dropbtn">Trips</button>
+						<div id="dropTrips" class="dropdown-content">
+							<p class="dropP">Top Trips</p>
+							<p class="dropP">New Trips</p>
+							<p class="dropP">Popular Trips</p>
+							<p class="dropP">Submit a Trip</p>
+						</div>
+					</div>
+					<div class = "tabs" onmouseover="doDropdown('dropUsers')" onmouseout="doDropdown('dropUsers')">
+						<button class="dropbtn">Users</button>
+						<div id="dropUsers" class="dropdown-content">
+							<p class="dropP">Top Users</p>
+							<p class="dropP">New Users</p>
+							<p class="dropP">Popular Users</p>
+							<p class="dropP">Submit a User</p>
+						</div>
+					</div>
+				</div>	
+			</div>
+  			<div id="user" style="position:absolute; float:right; right:10px">{% if user.is_authenticated %} Hello {{ user.username }} {% else %} Login u fool {% endif %}</div>
+		</div>
+		<div id = "mid" style="position:absolute; top:20%;">
 		<div>
 			{% block sidebar_block %}
 				{% get_category_list category %}
@@ -22,19 +82,13 @@
 			{% endblock %}
 		</div>
 		<hr />
-		<div>
-			<ul>
-			{% if user.is_authenticated %}
-				<li><a href="{% url 'restricted' %}">Restricted Page</a></li>
-				<li><a href="{% url 'logout' %}">Logout</a></li>
-				<li><a href="{% url 'add_category' %}">Add New Category</a></li>
-			{% else %}
-				<li><a href="{% url 'login' %}">Sign In</a></li>
-				<li><a href="{% url 'register' %}">Sign Up</a></li>
-			{% endif %}
-				<li><a href="{% url 'index' %}">Index</a></li>
-				<li><a href="{% url 'about' %}">About</a></li>
-			</ul>
-		</div>
+</div>
+<div id="footer" style="position:fixed; width:100%; bottom:0%; background-color:coral; float:left;">
+<div id="links" style="text-align: left; position:relative; left:10%; float:left;"><a href="/placeholdr/about/">About</a> | <a href="/placeholdr/about/">Our Team</a> | <a href="/placeholdr/about/">Contact Us</a> | <a href="/placeholdr/about/">Help</a></div>
+  <div id="rights" style="position:relative; top:0px; right: 10%; text-align: right; ">Placeholdr All Rights Reserved 2018</div>
+</div>
 	</body>
+
+
+	
 </html>
