@@ -3,39 +3,102 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Place(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	userId = models.ForeignKey(User)
+	lat = models.CharField(max_length=20)
+	long = models.CharField(max_length=20)
+	desc = models.CharField(max_length=400)
+	picLink = models.ImageField(upload_to='place_images', blank=True)
+	slug = models.SlugField(unique=True)
+	name = models.CharField(max_length=128, unique=True)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(Place, self).save(*args, **kwargs)
+
+	def __str__(self):
+		return self.name
+
+class Trip(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	userId = models.ForeignKey(User)
+	desc = models.CharField(max_length=400)
+	picLink = models.ImageField(upload_to='trip_images', blank=True)
+	name = models.CharField(max_length=128, unique=True)
+	slug = models.SlugField(unique=True)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(Trip, self).save(*args, **kwargs)
+
+	def __str__(self):
+		return self.name
+		
+class TripNode(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	placeId = models.ForeignKey(Place)
+	tripId = models.ForeignKey(Trip)
+	tripPoint = models.IntegerField()
+
+	def __str__(self):
+		return self.tripPoint
+		
+class PlaceReview(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	userId = models.ForeignKey(User)
+	placeId = models.ForeignKey(Place)
+	stars = models.IntegerField()
+	review = models.CharField(max_length=400)
+
+	def __str__(self):
+		return self.stars
+		
+class TripReview(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	userId = models.ForeignKey(User)
+	tripId = models.ForeignKey(Trip)
+	stars = models.IntegerField()
+	review = models.CharField(max_length=400)
+
+	def __str__(self):
+		return self.stars
+		
 class Category(models.Model):
-    name = models.CharField(max_length=128, unique=True)
-    views = models.IntegerField(default=0)
-    likes = models.IntegerField(default=0)
-    slug = models.SlugField(unique=True)
+	name = models.CharField(max_length=128, unique=True)
+	views = models.IntegerField(default=0)
+	likes = models.IntegerField(default=0)
+	slug = models.SlugField(unique=True)
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(Category, self).save(*args, **kwargs)
 
-    class Meta:
-        verbose_name_plural = 'Categories'
+	class Meta:
+		verbose_name_plural = 'Categories'
 
-    def __str__(self):
-        return self.name
+	def __str__(self):
+		return self.name
 
 class Page(models.Model):
-    category = models.ForeignKey(Category)
-    title = models.CharField(max_length=128)
-    url = models.URLField()
-    views = models.IntegerField(default=0)
+	category = models.ForeignKey(Category)
+	title = models.CharField(max_length=128)
+	url = models.URLField()
+	views = models.IntegerField(default=0)
 
-    def __str__(self):
-        return self.title
+	def __str__(self):
+		return self.title
 
 class UserProfile(models.Model):
-    # Links UserProfile to a User model instance
-    user = models.OneToOneField(User)
+	# Links UserProfile to a User model instance
+	user = models.OneToOneField(User)
 
-    # Additional attributes
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+	# Additional attributes
+	bio = models.CharField(max_length=400,default='Hello is me')
+	livesIn = models.CharField(max_length=20, default='Somewhere')
+	rep = models.IntegerField(default=0)
+	picture = models.ImageField(upload_to='profile_images', blank=True)
 
-    # Override this to make it return something useful
-    def __str__(self):
-        return self.user.username
+	# Override this to make it return something useful
+	def __str__(self):
+		return self.user.username
