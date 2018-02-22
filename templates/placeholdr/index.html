@@ -15,33 +15,30 @@
 	{% endif %}
 	</div>
 	<div>
-		{% if categories %}
-		<h3>Most Liked Categories</h3>
+		{% if places %}
+		<h3>Featured Places</h3>
 		<ul>
-			{% for category in categories %}
+			{% for place in places %}
 				<li>
-				<a href="{% url 'show_category' category.slug %}">{{ category.name }}</a>
+				<a href="">{{ place.name }}</a>
 				</li>
 			{% endfor %}
 		</ul>
 		{% else %}
-			<strong>There are no categories present.</strong>
+			<strong>There are no featured places today.</strong>
 		{% endif %}
-		{% if pages %}
-		<h3>Most Liked Page</h3>
+		{% if users %}
+		<h3>Top Users</h3>
 		<ul>
-			{% for page in pages %}
+			{% for user in users %}
 				<li>
-				<a href="{{ 'page.url' }}">{{ page.title }}</a>
+				<a href="">{{ user.user }}</a>
 				</li>
 			{% endfor %}
 		</ul>
 		{% else %}
-			<strong>There are no pages present.</strong>
+			<strong>There are no top users today.</strong>
 		{% endif %}
 	</div>
 	<p>visits: {{ visits }}</p>
-	<div>
-		<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" />
-	</div>
 {% endblock %}
