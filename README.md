@@ -14,4 +14,6 @@ The objective of PlaceholdR is to allow people to browse through places of inter
 ## Installation
 
 clone this repository
-`git clone https://github.com/WADPlaceholdr/Placeholdr.git`
+```
+git clone https://github.com/WADPlaceholdr/Placeholdr.git
+```
