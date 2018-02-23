@@ -8,7 +8,7 @@ placeholdr is a Django web application with the objective of allowing people to 
 a live demo is available at https://placeholdr.pythonanywhere.com/
 
 ## Requirements
-### (see requirements.txt)
+(see requirements.txt)
 * Python 3.x
 * pip
 * Django 1.11.7
