@@ -6,10 +6,10 @@ placeholder is a Django web application with the objective of allowing people to
 
 
 ## Requirements
+### (see requirements.txt)
 * Python 3.x
 * pip
-* Django > 1.11.7
-* Bcrypt
+* Django 1.11.7
 * Pillow
 
 ## Installation
