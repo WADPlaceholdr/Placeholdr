@@ -37,9 +37,10 @@ def index(request):
 	page_list = Page.objects.order_by('-views')[:5]
 	
 	place_list = Place.objects.order_by('?')[:5]
+	trip_list = Trip.objects.order_by('?')[:5]
 	user_list = UserProfile.objects.select_related('user').order_by('-rep')[:7]
 	
-	context_dict = {'categories' : category_list, 'pages' : page_list, 'places' : place_list, 'users' : user_list}
+	context_dict = {'categories' : category_list, 'pages' : page_list, 'places' : place_list, 'users' : user_list, 'trips': trip_list}
 	
 	visitor_cookie_handler(request)
 	

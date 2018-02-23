@@ -1,41 +1,104 @@
 {% extends 'placeholdr/base.html' %}
 {% load staticfiles %}
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="/static/styles/index.css" />
+{% endblock %}
 
 {% block title_block %}
 	Index
 {% endblock %}
 
 {% block body_block %}
-	<h1>Placeholdr says...</h1>
-	<div>
-	{% if user.is_authenticated %}
-		howdy {{ user.username }}
-	{% else %}
-		hey there partner!
-	{% endif %}
-	</div>
 	<div>
 		{% if places %}
-		<h3>Featured Places</h3>
-		<ul>
+		<h1>Featured Places</h1>
+			<table style="width:100%">
+
+			
+			<tr>
 			{% for place in places %}
-				<li>
-				<a href="">{{ place.name }}</a>
-				</li>
+				{% if place.picLink %}
+    				<td width="15%" align="center"><img class="places" width="350px" height="200px" src="/media/{{ place.picLink }}" alt="eiffel"></td>
+				{% else %}
+				<td width="15%" align="center"><img class="places" width="350px" height="200px" src="/static/images/eiffel.jpg" alt="eiffel"></td>
+				{% endif %}
 			{% endfor %}
-		</ul>
+			</tr>
+			<tr>
+			{% for place in places %}
+    				<th width="15%"><a href=""><h2>{{ place.name }}</h2></a></th>
+			{% endfor %}
+			</tr>
+			<tr>
+			{% for place in places %}
+    				<td align="center">&#9733; &#9733; &#9734; &#9734; &#9734;</td>
+			{% endfor %}
+			</tr>
+			<tr>
+			{% for place in places %}
+    				<td align="center">Reviews: </td>
+			{% endfor %}
+			</tr>
+		</table>
 		{% else %}
 			<strong>There are no featured places today.</strong>
 		{% endif %}
-		{% if users %}
-		<h3>Top Users</h3>
-		<ul>
-			{% for user in users %}
-				<li>
-				<a href="">{{ user.user }}</a>
-				</li>
+
+		{% if trips %}
+		<h1>Top Trips</h1>
+			<table style="width:100%">
+
+			
+			<tr>
+			{% for trip in trips %}
+    				<td width="15%" align="center"><img class="trips" width="350px" height="200px" src="/static/images/eiffel.jpg" alt="eiffel"></td>
 			{% endfor %}
-		</ul>
+			</tr>
+			<tr>
+			{% for place in places %}
+    				<th width="15%"><a href=""><h2>{{ trip.name }}</h2></a></th>
+			{% endfor %}
+			</tr>
+			<tr>
+			{% for place in places %}
+    				<td align="center">&#9733; &#9733; &#9734; &#9734; &#9734;</td>
+			{% endfor %}
+			</tr>
+			<tr>
+			{% for place in places %}
+    				<td align="center">Reviews: </td>
+			{% endfor %}
+			</tr>
+		</table>
+		{% else %}
+			<strong>There are no featured trips today.</strong>
+		{% endif %}
+
+		{% if users %}
+		<h1>Top Users</h1>
+		<table style="width:100%">
+
+			<tr>
+			{% for user in users %}
+				<td align="center" ><img width="200px" height="200px" src="/static/images/user.jpg" alt="gustav"></td>
+			{% endfor %}
+			</tr>
+			<tr>
+			{% for user in users %}
+				<th align="center"><a href=""><h2>{{ user.user }}</h2></a></th>
+			{% endfor %}
+			</tr>
+			<tr>
+			{% for user in users %}
+				<td align="center">{{ user.livesIn }}</a></td>
+			{% endfor %}
+			</tr>
+			<tr>
+			{% for user in users %}
+				<td align="center">Reputation: {{ user.rep }}</a></td>
+			{% endfor %}
+			</tr>
+		</table>
 		{% else %}
 			<strong>There are no top users today.</strong>
 		{% endif %}

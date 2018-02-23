@@ -1,0 +1,11 @@
+.places {
+  object-fit: cover;
+  width:350px;
+  height:200px;
+}
+
+.trips {
+  object-fit: cover;
+  width:350px;
+  height:200px;
+}
