@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
+from placeholdr.models import Trip, Place, TripNode
 
 # Import the Category model
 from placeholdr.models import Category
@@ -36,7 +37,7 @@ def index(request):
 	page_list = Page.objects.order_by('-views')[:5]
 	
 	place_list = Place.objects.order_by('?')[:5]
-	user_list = UserProfile.objects.select_related('user').order_by('-rep')[:5]
+	user_list = UserProfile.objects.select_related('user').order_by('-rep')[:7]
 	
 	context_dict = {'categories' : category_list, 'pages' : page_list, 'places' : place_list, 'users' : user_list}
 	
@@ -240,3 +241,30 @@ def visitor_cookie_handler(request):
 		
 	# Update/set the visits cookie
 	request.session['visits'] = visits
+
+def show_trip(request, trip_slug):
+	# If the request is HTTP POST, try to get the relevant information
+	if trip_slug:
+		# Use request.POST.get('<variable>') instead of .get['<v as
+		# it returns None if the value does not exist instead of an error
+
+
+                print(Trip.objects.all()[0].slug)
+                # Check if login combination is valid
+                trip = Trip.objects.get(slug=trip_slug)
+                
+		# If we have a User object, the details are correct
+                if trip:
+                        places = {}
+                        trip_nodes = TripNode.objects.filter(tripId=trip)
+                        print(trip_nodes)
+                        for trip_n in trip_nodes:
+                                places[len(places)] = trip_n.placeId
+                        return render(request,
+				  'placeholdr/trip.html',
+				  {'trip': trip, 'places':places, 'trip_nodes':trip_nodes})
+                else:
+                        return HttpResponse("Invalid trip slug supplied.")
+	else:
+		# Not a POST so display the login form
+		return HttpResponseRedirect(reverse('index'))
