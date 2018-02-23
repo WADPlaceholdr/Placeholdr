@@ -34,9 +34,9 @@ window.onclick = function(event) {
 }
 </script>
 	</head>
-	<body">
+	<body>
 		<div id="header">
-  			<div id="logo"><a href="/rango/index.html"><img src="/static/images/logonobg.png" alt="Logo"></a></div>
+  			<div id="logo"><a href="/placeholdr/"><img src="/static/images/logonobg.png" alt="Logo"></a></div>
   			<div id="searchtabs">
 				<form id="search"><input type="text"><input type="submit" value="Search"></form>
 				<div id="tabs">
@@ -46,7 +46,9 @@ window.onclick = function(event) {
 							<p class="dropP">Top Places</p>
 							<p class="dropP">New Places</p>
 							<p class="dropP">Popular Places</p>
+							{% if user.is_authenticated %}
 							<p class="dropP">Submit a Place</p>
+							{% endif %}
 						</div>
 					</div>
 					<div class = "tabs" onmouseover="doDropdown('dropTrips')" onmouseout="doDropdown('dropTrips')">
@@ -55,7 +57,9 @@ window.onclick = function(event) {
 							<p class="dropP">Top Trips</p>
 							<p class="dropP">New Trips</p>
 							<p class="dropP">Popular Trips</p>
+							{% if user.is_authenticated %}
 							<p class="dropP">Submit a Trip</p>
+							{% endif %}
 						</div>
 					</div>
 					<div class = "tabs" onmouseover="doDropdown('dropUsers')" onmouseout="doDropdown('dropUsers')">
@@ -69,7 +73,7 @@ window.onclick = function(event) {
 					</div>
 				</div>	
 			</div>
-  			<div id="user" style="position:absolute; float:right; right:10px">{% if user.is_authenticated %} Hello {{ user.username }} {% else %} Login u fool {% endif %}</div>
+  			<div id="user" style="position:absolute; float:right; right:10px">{% if user.is_authenticated %} Hello {{ user.username }} {% else %} <a href="{% url 'login' %}">Sign In</a> or <a href="{% url 'register' %}">Sign Up</a> {% endif %}</div>
 		</div>
 		<div id = "mid" style="position:absolute; top:20%;">
 		<div>
