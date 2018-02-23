@@ -25,4 +25,4 @@ pip install –r requirements.txt
 for support please submit an issue on [GitHub](https://github.com/WADPlaceholdr/Placeholdr/issues)
 
 ## Contact
-[wadplaceholdr@gmail.com]
+wadplaceholdr@gmail.com
