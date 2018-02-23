@@ -2,7 +2,7 @@
 
 
 ## Description
-placeholder is a Django web application with the objective of allowing people to browse through places of interest and create trips based on those places, with a user community that provides ratings, comments, pictures.
+placeholdr is a Django web application with the objective of allowing people to browse through places of interest and create trips based on those places, with a user community that provides ratings, comments, pictures.
 
 
 ## Requirements
