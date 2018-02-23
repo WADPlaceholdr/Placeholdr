@@ -1,6 +1,6 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                      'placeholdr_project.settings')
+				      'placeholdr_project.settings')
 
 import django
 django.setup()
@@ -55,7 +55,7 @@ def populate():
 	placeReviews = [{"userId":1, "placeId":2,"stars":5,"review":"Could be better"}]
 	
 	tripReviews = [{"userId":1, "tripId":2,"stars":5,"review":"Could be better"}]
-
+		
 	for user in users:
 		us = add_user(user["username"], user["password"])
 		
@@ -67,9 +67,12 @@ def populate():
 		
 	for tripR in tripReviews:
 		tr = add_trip_review(tripR["userId"],tripR["tripId"],tripR["stars"], tripR["review"])
-		
+			
 	for placeR in placeReviews:
 		pr = add_place_review(placeR["userId"],placeR["placeId"],placeR["stars"], placeR["review"])
+		
+	for trip_n in tripNodes:
+		t_n = add_trip_node(trip_n["tripId"],trip_n["placeId"],trip_n["tripPoint"])
 
 def add_place(puserId, plat, plong, pdesc, pname):
 	p = Place.objects.get_or_create(name=pname,userId=User.objects.get(pk=puserId),lat=plat,long=plong,desc=pdesc,slug=slugify(pname))[0]
@@ -80,7 +83,7 @@ def add_trip(tuserId, tdesc, tname):
 	return t
 
 def add_trip_node(tnTripId, tnPlaceId, tnTripPoint):
-	tn = Trip.objects.get_or_create(tripId=Trip.objects.get(pk=tnTripId),placeId=Place.objects.get(pk=tnPlaceId),tripPoint=tnTripPoint)[0]
+	tn = TripNode.objects.get_or_create(tripId=Trip.objects.get(pk=tnTripId),placeId=Place.objects.get(pk=tnPlaceId),tripPoint=tnTripPoint)[0]
 	return tn
 	
 def add_place_review(prUId, prPId, prS, prR):

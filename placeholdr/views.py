@@ -255,11 +255,11 @@ def show_trip(request, trip_slug):
                 
 		# If we have a User object, the details are correct
                 if trip:
-                        places = {}
+                        places = []
                         trip_nodes = TripNode.objects.filter(tripId=trip)
-                        print(trip_nodes)
-                        for trip_n in trip_nodes:
-                                places[len(places)] = trip_n.placeId
+                        if trip_nodes:
+                                for trip_n in trip_nodes:
+                                        places.append(trip_n.placeId)
                         return render(request,
 				  'placeholdr/trip.html',
 				  {'trip': trip, 'places':places, 'trip_nodes':trip_nodes})

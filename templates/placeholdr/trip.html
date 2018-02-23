@@ -10,18 +10,20 @@
 		<h1>{{ trip.name }}</h1>
 
 		{% if places %}
+			Places
 			<ul>
 			{% for place in places %}
-				<li>{{ place.name }}</li>
+				<li>{{ place }}</li>
 			{% endfor %}
 			</ul>
 		{% else %}
 			<strong>No places currently in trip.</strong>
 		{% endif %}
 		{% if trip_nodes %}
+			TripNodes
 			<ul>
 			{% for trip_n in trip_nodes %}
-				<li>{{ trip_n.name }}</li>
+				<li>{{ trip_n.tripPoint }}</li>
 			{% endfor %}
 			</ul>
 		{% else %}
