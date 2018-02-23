@@ -18,6 +18,7 @@ git clone https://github.com/WADPlaceholdr/Placeholdr.git
 ```
 install requirements
 ```
+cd WADPlaceholdr
 pip install –r requirements.txt
 ```
 
