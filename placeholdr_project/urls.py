@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^placeholdr/', include('placeholdr.urls')),
     # above maps any URLs starting
-    # with rango/ to be handled by
-    # the rango application
+    # with placeholdr/ to be handled by
+    # the placeholdr application
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

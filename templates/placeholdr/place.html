@@ -1,0 +1,14 @@
+{% extends 'placeholdr/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ place.name }}
+{% endblock %}
+
+{% block body_block %}
+	{% if place %}
+		<h1>{{ place.name }}</h1>
+	{% else %}
+		The specified place does not exist!
+	{% endif %}
+{% endblock %}

@@ -7,7 +7,12 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
-from placeholdr.models import Trip, Place, TripNode
+
+# Import Trip
+from placeholdr.models import Trip, TripNode
+
+# Import Place
+from placeholdr.models import Place
 
 # Import the Category model
 from placeholdr.models import Category
@@ -19,7 +24,7 @@ from placeholdr.forms import CategoryForm
 from placeholdr.models import Page
 
 from placeholdr.models import UserProfile
-from placeholdr.models import Place
+
 
 # Import the PageForm
 from placeholdr.forms import PageForm
@@ -266,6 +271,28 @@ def show_trip(request, trip_slug):
 				  {'trip': trip, 'places':places, 'trip_nodes':trip_nodes})
                 else:
                         return HttpResponse("Invalid trip slug supplied.")
+	else:
+		# Not a POST so display the login form
+		return HttpResponseRedirect(reverse('index'))
+
+def show_place(request, place_slug):
+	# If the request is HTTP POST, try to get the relevant information
+	if place_slug:
+		# Use request.POST.get('<variable>') instead of .get['<v as
+		# it returns None if the value does not exist instead of an error
+
+
+                print(Place.objects.all()[0].slug)
+                # Check if login combination is valid
+                place = Place.objects.get(slug=place_slug)
+                
+		# If we have a User object, the details are correct
+                if place:
+                        return render(request,
+				  'placeholdr/place.html',
+				  {})
+                else:
+                        return HttpResponse("Invalid place slug supplied.")
 	else:
 		# Not a POST so display the login form
 		return HttpResponseRedirect(reverse('index'))

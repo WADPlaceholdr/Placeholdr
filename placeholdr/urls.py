@@ -2,15 +2,20 @@ from django.conf.urls import url
 from placeholdr import views
 
 urlpatterns = [
+    # Index page
     url(r'^$', views.index, name='index'),
+    # About page
     url(r'^about/', views.about, name='about'),
-    url(r'^add_category/$', views.add_category, name='add_category'),
+    # Trip page
     url(r'^trip/(?P<trip_slug>[\w\-]+)/$', views.show_trip, name='show_trip'),
-    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.show_category, name='show_category'),
-    url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.show_category, name='show_category'),
-    url(r'^category/(?P<category_name_slug>[\w\-]+)/add_page/$', views.add_page, name='add_page'),
+    # Place page
+    url(r'^place/(?P<place_slug>[\w\-]+)/$', views.show_place, name='show_place'),
+    # Register page
     url(r'^register/$', views.register, name='register'),
+    # Login page
     url(r'^login/$', views.user_login, name='login'),
+    # Restricted page
     url(r'^restricted/', views.restricted, name='restricted'),
+    # logout page
     url(r'^logout/$', views.user_logout, name='logout'),
-    ]
+]
