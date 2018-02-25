@@ -7,9 +7,10 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
+from django.utils.encoding import iri_to_uri
 
 # Import Trip
-from placeholdr.models import Trip, TripNode
+from placeholdr.models import Trip, TripNode, TripReview
 
 # Import Place
 from placeholdr.models import Place
@@ -182,22 +183,37 @@ def show_trip(request, trip_slug):
 		# it returns None if the value does not exist instead of an error
 
 
-                print(Trip.objects.all()[0].slug)
-                # Check if login combination is valid
-                trip = Trip.objects.get(slug=trip_slug)
-                
+		print(Trip.objects.all()[0].slug)
+		# Check if login combination is valid
+		trip = Trip.objects.get(slug=trip_slug)
+		
 		# If we have a User object, the details are correct
-                if trip:
-                        places = []
-                        trip_nodes = TripNode.objects.filter(tripId=trip)
-                        if trip_nodes:
-                                for trip_n in trip_nodes:
-                                        places.append(trip_n.placeId)
-                        return render(request,
-				  'placeholdr/trip.html',
-				  {'trip': trip, 'places':places, 'trip_nodes':trip_nodes})
-                else:
-                        return HttpResponse("Invalid trip slug supplied.")
+		if trip:
+			places = []
+			mapsUrl = ""
+			trip_stars = 0
+			trip_stars_string = ""
+			trip_nodes = TripNode.objects.filter(tripId=trip).order_by("-tripPoint")
+			trip_reviews = TripReview.objects.filter(tripId=trip)
+			if trip_reviews:
+				for trip_r in trip_reviews:
+					trip_stars += trip_r.stars
+				trip_stars = round(trip_stars/len(trip_reviews))
+				for i in range(5):
+					if i < trip_stars:
+						trip_stars_string += "\u2605 "
+					else:
+						trip_stars_string += "\u2606 "
+			if trip_nodes:
+				mapsUrl="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + trip_nodes[0].placeId.lat + "%2C" + trip_nodes[0].placeId.long + "&waypoints="
+				for trip_n in trip_nodes:
+					places.append(trip_n.placeId)
+					mapsUrl+= trip_n.placeId.lat + "%2C" + trip_n.placeId.long + "|"
+				mapsUrl=mapsUrl[:-1]
+ 				mapsUrl+="&destination=" + trip_nodes[len(trip_nodes)-1].placeId.lat + "%2C" + trip_nodes[len(trip_nodes)-1].placeId.long
+			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mUrl':mapsUrl,'stars':trip_stars_string})
+		else:
+			return HttpResponse("Invalid trip slug supplied.")
 	else:
 		# Not a POST so display the login form
 		return HttpResponseRedirect(reverse('index'))

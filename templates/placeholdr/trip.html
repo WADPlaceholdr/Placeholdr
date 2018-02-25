@@ -7,8 +7,20 @@
 
 {% block body_block %}
 	{% if trip %}
+		</br>
 		<h1>{{ trip.name }}</h1>
 
+		{% if trip.picLink %}
+		<img src="{{ trip.picLink }}"></img>
+		{% endif %}
+		{% if stars %}
+			<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
+		{% else %}
+			<h3>No current star rating</h3>
+		{% endif %}
+		{% if trip.desc %}
+			{{ trip.desc }}
+		{% endif %}
 		{% if places %}
 			Places
 			<ul>
@@ -20,12 +32,11 @@
 			<strong>No places currently in trip.</strong>
 		{% endif %}
 		{% if trip_nodes %}
-			TripNodes
-			<ul>
-			{% for trip_n in trip_nodes %}
-				<li>{{ trip_n.tripPoint }}</li>
-			{% endfor %}
-			</ul>
+			<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"  src="{{ mUrl }}" allowfullscreen>
+</iframe>
 		{% else %}
 			<strong>No places currently in trip.</strong>
 		{% endif %}
