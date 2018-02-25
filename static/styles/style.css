@@ -20,6 +20,7 @@ body {
 	float:center; 
 	top:25px; 
 	left:20px;
+	z-index:-1;
 }
 
 #tabs{
