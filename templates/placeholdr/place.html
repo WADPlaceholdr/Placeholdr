@@ -8,6 +8,24 @@
 {% block body_block %}
 	{% if place %}
 		<h1>{{ place.name }}</h1>
+		{% if stars %}
+			<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
+		{% else %}
+			<h3>No current star rating</h3>
+		{% endif %}
+		{% if place.desc %}
+			{{ place.desc }}
+		{% endif %}
+		{%if place.picLink %}
+			<img src="{{ place.picLink }}">
+		{% endif %}
+		</br>
+		{% if reviews %}
+			{% for pl_rev in reviews %}
+				</br>
+				Esteemed user {{ pl_rev.userId }} says " {{ pl_rev.review }} - {{ pl_rev.stars }}/5 "
+			{% endfor %}
+		{% endif %}
 	{% else %}
 		The specified place does not exist!
 	{% endif %}

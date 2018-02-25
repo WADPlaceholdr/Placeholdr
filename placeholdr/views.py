@@ -13,7 +13,7 @@ from django.utils.encoding import iri_to_uri
 from placeholdr.models import Trip, TripNode, TripReview
 
 # Import Place
-from placeholdr.models import Place
+from placeholdr.models import Place, PlaceReview
 
 # Import the Category model
 from placeholdr.models import Category
@@ -224,18 +224,31 @@ def show_place(request, place_slug):
 		# Use request.POST.get('<variable>') instead of .get['<v as
 		# it returns None if the value does not exist instead of an error
 
-
-                print(Place.objects.all()[0].slug)
-                # Check if login combination is valid
-                place = Place.objects.get(slug=place_slug)
+		# Check if login combination is valid
+		place = Place.objects.get(slug=place_slug)
                 
 		# If we have a User object, the details are correct
-                if place:
-                        return render(request,
-				  'placeholdr/place.html',
-				  {})
-                else:
-                        return HttpResponse("Invalid place slug supplied.")
+		if place:
+		
+			place_stars = 0
+			place_stars_string = ""
+			place_reviews = PlaceReview.objects.filter(placeId=place)
+
+			if place_reviews:
+				for place_r in place_reviews:
+					place_stars += place_r.stars
+				place_stars = round(place_stars/len(place_reviews))
+				for i in range(5):
+					if i < place_stars:
+						place_stars_string += "\u2605 "
+					else:
+						place_stars_string += "\u2606 "
+		
+				return render(request,
+		  'placeholdr/place.html',
+		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews})
+		else:
+			return HttpResponse("Invalid place slug supplied.")
 	else:
 		# Not a POST so display the login form
 		return HttpResponseRedirect(reverse('index'))
