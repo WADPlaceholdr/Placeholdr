@@ -252,3 +252,24 @@ def show_place(request, place_slug):
 	else:
 		# Not a POST so display the login form
 		return HttpResponseRedirect(reverse('index'))
+		
+def show_user(request, user_id):
+	# If the request is HTTP POST, try to get the relevant information
+	if user_id:
+		# Use request.POST.get('<variable>') instead of .get['<v as
+		# it returns None if the value does not exist instead of an error
+
+		# Check if login combination is valid
+		user = UserProfile.objects.get(pk=user_id)
+                
+		# If we have a User object, the details are correct
+		if user:
+
+			return render(request,
+		  'placeholdr/user.html',
+		  {'user':user})
+		else:
+			return HttpResponse("Invalid user slug supplied.")
+	else:
+		# Not a POST so display the login form
+		return HttpResponseRedirect(reverse('index'))

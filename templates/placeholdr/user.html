@@ -1,0 +1,26 @@
+{% extends 'placeholdr/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ user }}
+{% endblock %}
+
+{% block body_block %}
+	{% if user %}
+		<h1>{{ user }}</h1>
+		{% if user.rep or user.rep == 0 %}
+			<h3 id="star_rating">Reputation : {{ user.rep }}</h3>
+		{% else %}
+			<h3>No current rep rating</h3>
+		{% endif %}
+		{% if user.bio %}
+			{{ user.bio }}
+		{% endif %}
+		{%if user.picLink %}
+			<img src="{{ user.picLink }}">
+		{% endif %}
+		</br>
+	{% else %}
+		The specified user does not exist!
+	{% endif %}
+{% endblock %}

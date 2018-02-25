@@ -98,7 +98,7 @@ class UserProfile(models.Model):
 	livesIn = models.CharField(max_length=20, default='Somewhere')
 	rep = models.IntegerField(default=0)
 	picture = models.ImageField(upload_to='profile_images', blank=True)
-
+	
 	# Override this to make it return something useful
 	def __str__(self):
 		return self.user.username

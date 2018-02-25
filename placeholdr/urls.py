@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^trip/(?P<trip_slug>[\w\-]+)/$', views.show_trip, name='show_trip'),
     # Place page
     url(r'^place/(?P<place_slug>[\w\-]+)/$', views.show_place, name='show_place'),
+	# User page
+    url(r'^user/(?P<user_id>[\w\-]+)/$', views.show_user, name='show_user'),
     # Register page
     url(r'^register/$', views.register, name='register'),
     # Login page
