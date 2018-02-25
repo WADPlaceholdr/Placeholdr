@@ -26,7 +26,7 @@
 			</tr>
 			<tr>
 			{% for place in places %}
-    				<th width="15%"><a href=""><h2>{{ place.name }}</h2></a></th>
+    				<th width="15%"><a href="/placeholdr/place/{{ place.slug }}"><h2>{{ place.name }}</h2></a></th>
 			{% endfor %}
 			</tr>
 			<tr>
@@ -51,12 +51,16 @@
 			
 			<tr>
 			{% for trip in trips %}
-    				<td width="15%" align="center"><img class="trips" width="350px" height="200px" src="/static/images/eiffel.jpg" alt="eiffel"></td>
+				{% if place.picLink %}
+    				<td width="15%" align="center"><img class="trips" width="350px" height="200px" src="/media/{{ trip.picLink }}" alt="eiffel"></td>
+				{% else %}
+					<td width="15%" align="center"><img class="trips" width="350px" height="200px" src="/static/images/eiffel.jpg" alt="eiffel"></td>
+				{% endif %}
 			{% endfor %}
 			</tr>
 			<tr>
 			{% for trip in trips %}
-    				<th width="15%"><a href=""><h2>{{ trip.name }}</h2></a></th>
+    				<th width="15%"><a href="/placeholdr/trip/{{ trip.slug }}"><h2>{{ trip.name }}</h2></a></th>
 			{% endfor %}
 			</tr>
 			<tr>
@@ -85,7 +89,7 @@
 			</tr>
 			<tr>
 			{% for user in users %}
-				<th align="center"><a href=""><h2>{{ user.user }}</h2></a></th>
+				<th align="center"><a href="/placeholdr/user/{{ user.slug }}"><h2>{{ user.user }}</h2></a></th>
 			{% endfor %}
 			</tr>
 			<tr>
