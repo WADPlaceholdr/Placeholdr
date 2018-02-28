@@ -6,15 +6,13 @@
 {% endblock %}
 
 {% block body_block %}
-	<h1>placeholdr says...</h1>
+	<h1>About Placeholdr</h1>
+
 	<div>
-		here is the about page. </br />
-		This tutorial has been put together by Henry.
+		Placeholdr is an application that was developed by 4 Computer Science students as part of a course project at the University of Glasgow.<br />
+		The objective of our application is to allow people to browse through places of interest and create trips based on those places, with a user community that provides ratings, comments, pictures.<br />
+		Our application is open source and the project code can be viewed on <a href="https://github.com/WADPlaceholdr/Placeholdr">Github</a>.<br />
 	</div>
+
 	<p>visits: {{ visits }}</p>
-	<div>
-		<img src="{{ MEDIA_URL }}cat.jpg" alt="Picture of Cat" />
-		</br>
-		<img src="{% static "images/lsurp.jpg" %}" alt="Picture of Surprise" />
-	</div>
 {% endblock %}

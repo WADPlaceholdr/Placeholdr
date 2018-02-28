@@ -65,6 +65,25 @@ def about(request):
 	context_dict = {'visits' : request.session['visits']}
 	
 	return render(request, 'placeholdr/about.html', context_dict)
+
+
+def team(request):
+	visitor_cookie_handler(request)
+	context_dict = {'visits': request.session['visits']}
+
+	return render(request, 'placeholdr/team.html', context_dict)
+
+def contact(request):
+	visitor_cookie_handler(request)
+	context_dict = {'visits': request.session['visits']}
+
+	return render(request, 'placeholdr/contact.html', context_dict)
+
+def help(request):
+	visitor_cookie_handler(request)
+	context_dict = {'visits': request.session['visits']}
+
+	return render(request, 'placeholdr/help.html', context_dict)
 	
 def register(request):
 	# Boolean for when registration was successful, false initially,
