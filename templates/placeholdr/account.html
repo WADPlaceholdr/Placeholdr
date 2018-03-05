@@ -2,22 +2,24 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{{ user }}
+	My Account
 {% endblock %}
 
 {% block body_block %}
-	<h1>{{ user }}</h1>
-	{% if user.rep or user.rep == 0 %}
-		<h3 id="star_rating">Reputation : {{ user.rep }}</h3>
+	
+	
+	<h1>My Account</h1>
+	{% if userProfile.rep or userProfile.rep == 0 %}
+		<h3 id="star_rating">Reputation : {{ userProfile.rep }}</h3>
 	{% else %}
 		<h3>No current rep rating</h3>
 	{% endif %}
-	{% if user.bio %}
-		{{ user.bio }}
+	{% if userProfile.bio %}
+		{{ userProfile.bio }}
 	{% endif %}
-	{%if user.picLink %}
-		<img src="{{ user.picLink }}">
-	{% endif %}
+	
+	<img src="{{ MEDIA_URL }}{{ userProfile.picture }}" />
+	beklg
 	</br>
 	<div>
 	<!-- this div contains actions the user can do whilst logged in  -->

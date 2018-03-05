@@ -307,14 +307,14 @@ def show_user(request, user_id):
 	else:
 		# Not a POST so display the login form
 		return HttpResponseRedirect(reverse('index'))
+
 @login_required
 def show_account(request):
-	if request.user.is_authenticated():
-		# get user object
-		user = request.user
-		return render(request, 'placeholdr/account.html', {'user':user})
-	else:
-		return HttpResponseRedirect(reverse('index'))
+	# get user object
+	user = request.user
+	#get userProfile object
+	userProfile = UserProfile.objects.get(pk=user.id)
+	return render(request, 'placeholdr/account.html', {'user':user, "userProfile":userProfile})
 
 def handler404(request):
 	print("in handler 404")
