@@ -1,4 +1,3 @@
 *.pyc
 *.sqlite3
-media/profile_images/*
-media/place_images/*
+
