@@ -74,23 +74,30 @@ window.onclick = function(event) {
 							<a class="dropP" href="">Popular Users</a>
 						</div>
 					</div>
-					<div class = "tabs" onmouseover="doDropdown('dropAccount')" onmouseout="doDropdown('dropAccount')">
-						<button class="dropbtn">My placeholdr</button>
-						{% if user.is_authenticated %}
-							<div id="dropAccount" class="dropdown-content">
-								<a class="dropP" href="{% url 'account' %}">Account</a>
-								<a class="dropP" href="{% url 'logout' %}">Logout</a>
-							</div>
-						{% else %}
-							<div id="dropAccount" class="dropdown-content">
-								<a class="dropP" href="{% url 'login' %}">Login</a>
-								<a class="dropP" href="{% url 'register' %}">Register</a>
-							</div>
-						{% endif %}
-					</div>
 				</div>	
 			</div>
-  			<div id="user" style="position:absolute; float:right; right:10px">{% if user.is_authenticated %} Hello {{ user.username }} {% endif %}</div>
+  			<div id="user">
+				<table>
+					{% if user.is_authenticated %} 
+						<tr>
+							<td>Hello {{ user.username }}</td>
+							<td><img id="profile_picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" /></td>
+						</tr>
+						<tr>
+							<td><a href="{% url 'account' %}">My palceholdr</a></td>
+							<td><a href="{% url 'logout' %}">Logout</a></td>
+						</tr>
+					{% else %}
+						<tr>
+							<td>Hello</td>
+						</tr>
+						<tr>
+							<td><a href="{% url 'login' %}">Login</a></td>
+							<td><a href="{% url 'register' %}">Register</a></td>
+						</tr>
+					{% endif %}
+				</table>
+			</div>
 		</div>
 		<div id = "mid" style="position:absolute; top:20%;">
 		<div>

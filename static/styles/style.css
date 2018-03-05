@@ -1,5 +1,7 @@
 body {
 	background-color:#5774A0;
+	margin-left: 3%;
+	margin-top: 50%;
 }
 
 #header{
@@ -8,8 +10,9 @@ body {
 	float:left; 
 	position:fixed; 
 	width:100%; 
-	left:8px;
+	left:3%;
 	top:0px;
+	max-height: 30%;
 }
 
 #logo{
@@ -26,11 +29,24 @@ body {
 
 #tabs{
 	position:relative;
-	top:20px;
+	top:1em;
 }
 
 .tabs{
 	float:left;
+}
+
+#user {
+	/*position:absolute;*/
+	position:relative;
+	float:right;
+	right: 5%;
+	border-style: solid;
+}
+
+#profile_picture {
+	max-width: 4em;
+	height: auto;
 }
 
 /* ================== DROPDOWN STUFF ================== */

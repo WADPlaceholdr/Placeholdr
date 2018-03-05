@@ -310,9 +310,9 @@ def show_user(request, user_id):
 
 @login_required
 def show_account(request):
-	# get user object
+	# get logged in user object
 	user = request.user
-	#get userProfile object
+	# get logged in userProfile object
 	userProfile = UserProfile.objects.get(pk=user.id)
 	return render(request, 'placeholdr/account.html', {'user':user, "userProfile":userProfile})
 
