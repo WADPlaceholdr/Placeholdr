@@ -75,10 +75,10 @@ window.onclick = function(event) {
 						</div>
 					</div>
 					<div class = "tabs" onmouseover="doDropdown('dropAccount')" onmouseout="doDropdown('dropAccount')">
-						<button class="dropbtn">Account</button>
+						<button class="dropbtn">My placeholdr</button>
 						{% if user.is_authenticated %}
 							<div id="dropAccount" class="dropdown-content">
-								<a class="dropP" href="{% url 'account' %}">My account</a>
+								<a class="dropP" href="{% url 'account' %}">Account</a>
 								<a class="dropP" href="{% url 'logout' %}">Logout</a>
 							</div>
 						{% else %}

@@ -6,23 +6,40 @@
 {% endblock %}
 
 {% block body_block %}
-	
-	
-	<h1>My Account</h1>
+	<table>
+		<tr>
+			{% if userProfile.picture %}
+				<td>
+					<img src="{{ MEDIA_URL }}{{ userProfile.picture }}" />
+				</td>
+			{% endif %}
+			<td>
+				<h1>{{ user.username }}</h1>
+			</td>
+			
+		</tr>
+	</table>
+	<h2>Reputation</h2>
 	{% if userProfile.rep or userProfile.rep == 0 %}
-		<h3 id="star_rating">Reputation : {{ userProfile.rep }}</h3>
+		<p id="star_rating">{{ userProfile.rep }}</p>
 	{% else %}
-		<h3>No current rep rating</h3>
+		<p>No current rep rating</p>
 	{% endif %}
+	<h2>Bio</h2>
 	{% if userProfile.bio %}
-		{{ userProfile.bio }}
+		<p id="star_rating">{{ userProfile.bio }}</p>
+	{% else %}
+		<p>no Bio</p>
 	{% endif %}
 	
-	<img src="{{ MEDIA_URL }}{{ userProfile.picture }}" />
-	beklg
+	
 	</br>
-	<div>
+	<div id="logged_in_actions">
 	<!-- this div contains actions the user can do whilst logged in  -->
 		<a href="{% url 'logout' %}">Logout</a>
+		<a href="">Edit profile</a>
+		<a href="">Add a Place</a>
+		<a href="">Add a Trip</a>
+		<a href="">Delete Account</a>
 	</div>
 {% endblock %}

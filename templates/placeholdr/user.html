@@ -17,7 +17,7 @@
 			{{ user.bio }}
 		{% endif %}
 		{%if user.picLink %}
-			<img src="{{ user.picLink }}">
+			<img src="{{ MEDIA_URL }}{{ userProfile.picture }}" />
 		{% endif %}
 		</br>
 	{% else %}
