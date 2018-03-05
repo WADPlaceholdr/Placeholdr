@@ -47,37 +47,50 @@ window.onclick = function(event) {
 					<div class = "tabs" onmouseover="doDropdown('dropPlaces')" onmouseout="doDropdown('dropPlaces')">
 						<button  class="dropbtn">Places</button>
 						<div id="dropPlaces" class="dropdown-content">
-							<p class="dropP">Top Places</p>
-							<p class="dropP">New Places</p>
-							<p class="dropP">Popular Places</p>
+							<a class="dropP" href="">Top Places</a>
+							<a class="dropP" href="">New Places</a>
+							<a class="dropP" href="">Popular Places</a>
 							{% if user.is_authenticated %}
-							<p class="dropP">Submit a Place</p>
+								<a class="dropP" href="">Submit a Place</a>
 							{% endif %}
 						</div>
 					</div>
 					<div class = "tabs" onmouseover="doDropdown('dropTrips')" onmouseout="doDropdown('dropTrips')">
 						<button class="dropbtn">Trips</button>
 						<div id="dropTrips" class="dropdown-content">
-							<p class="dropP">Top Trips</p>
-							<p class="dropP">New Trips</p>
-							<p class="dropP">Popular Trips</p>
+							<a class="dropP" href="">Top Trips</a>
+							<a class="dropP" href="">New Trips</a>
+							<a class="dropP" href="">Popular Trips</a>
 							{% if user.is_authenticated %}
-							<p class="dropP">Submit a Trip</p>
+								<a class="dropP" href="">Submit a Trip</a>
 							{% endif %}
 						</div>
 					</div>
 					<div class = "tabs" onmouseover="doDropdown('dropUsers')" onmouseout="doDropdown('dropUsers')">
 						<button class="dropbtn">Users</button>
 						<div id="dropUsers" class="dropdown-content">
-							<p class="dropP">Top Users</p>
-							<p class="dropP">New Users</p>
-							<p class="dropP">Popular Users</p>
-							<p class="dropP">Submit a User</p>
+							<a class="dropP" href="">Top Users</a>
+							<a class="dropP" href="">New Users</a>
+							<a class="dropP" href="">Popular Users</a>
 						</div>
+					</div>
+					<div class = "tabs" onmouseover="doDropdown('dropAccount')" onmouseout="doDropdown('dropAccount')">
+						<button class="dropbtn">Account</button>
+						{% if user.is_authenticated %}
+							<div id="dropAccount" class="dropdown-content">
+								<a class="dropP" href="{% url 'account' %}">My account</a>
+								<a class="dropP" href="{% url 'logout' %}">Logout</a>
+							</div>
+						{% else %}
+							<div id="dropAccount" class="dropdown-content">
+								<a class="dropP" href="{% url 'login' %}">Login</a>
+								<a class="dropP" href="{% url 'register' %}">Register</a>
+							</div>
+						{% endif %}
 					</div>
 				</div>	
 			</div>
-  			<div id="user" style="position:absolute; float:right; right:10px">{% if user.is_authenticated %} Hello {{ user.username }} <br> <a href="{% url 'account' %}">My Account</a> <a href="{% url 'logout' %}">Logout</a>{% else %} <a href="{% url 'login' %}">Sign In</a> or <a href="{% url 'register' %}">Sign Up</a> {% endif %}</div>
+  			<div id="user" style="position:absolute; float:right; right:10px">{% if user.is_authenticated %} Hello {{ user.username }} {% endif %}</div>
 		</div>
 		<div id = "mid" style="position:absolute; top:20%;">
 		<div>

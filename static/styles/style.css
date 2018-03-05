@@ -9,6 +9,7 @@ body {
 	position:fixed; 
 	width:100%; 
 	left:8px;
+	top:0px;
 }
 
 #logo{
@@ -34,8 +35,12 @@ body {
 
 /* ================== DROPDOWN STUFF ================== */
 
+.dropP{
+	text-align: center;
+}
+
 .dropP:hover{
-	background-color:red;
+	background-color:grey;
 }
 
 /* Dropdown Button */
