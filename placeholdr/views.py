@@ -9,6 +9,9 @@ from django.contrib.auth import logout
 from datetime import datetime
 from django.utils.encoding import iri_to_uri
 
+# import 404
+from django.http import Http404
+
 # Import Trip
 from placeholdr.models import Trip, TripNode, TripReview
 
@@ -150,11 +153,13 @@ def user_login(request):
 				return HttpResponseRedirect(reverse('index'))
 			else:
 				# Inactive account
-				return HttpResponse("Your Placeholdr account is disabled.")
+				# return login with error message
+				return render(request, 'placeholdr/login.html', {'error':"Your Placeholdr account is disabled."})
 		else:
 			# Bad login details provided
 			print("Invalid login details: {0}, {1}".format(username, password))
-			return HttpResponse("Invalid login details supplied.")
+			# return login with error message
+			return render(request, 'placeholdr/login.html', {'error':"Invalid login details supplied."})
 	else:
 		# Not a POST so display the login form
 		return render(request, 'placeholdr/login.html', {})
@@ -203,10 +208,16 @@ def show_trip(request, trip_slug):
 
 
 		print(Trip.objects.all()[0].slug)
-		# Check if login combination is valid
-		trip = Trip.objects.get(slug=trip_slug)
+		# Check if trip object exists
+		try:
+			trip = Trip.objects.get(slug=trip_slug)
+		# if it does not return rendered error page
+		except Trip.DoesNotExist as e:
+			print(e)
+			raise Http404("Trip does not exist")
+
 		
-		# If we have a User object, the details are correct
+		# If we have a Trip object, the details are correct
 		if trip:
 			places = []
 			mapsUrl = ""
@@ -242,9 +253,14 @@ def show_place(request, place_slug):
 	if place_slug:
 		# Use request.POST.get('<variable>') instead of .get['<v as
 		# it returns None if the value does not exist instead of an error
-
-		# Check if login combination is valid
-		place = Place.objects.get(slug=place_slug)
+		
+		# Check if place object exists
+		try:
+			place = Place.objects.get(slug=place_slug)
+		# if it does not return rendered error page
+		except Place.DoesNotExist as e:
+			print(e)
+			raise Http404("Place does not exist")
                 
 		# If we have a User object, the details are correct
 		if place:

@@ -15,4 +15,8 @@
 		<br />
 		<input type="submit" value="submit" />
 	</form>
+	
+	{% if error %}
+		{{ error }}
+	{% endif %}
 {% endblock %}
