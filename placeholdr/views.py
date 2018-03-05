@@ -229,7 +229,7 @@ def show_trip(request, trip_slug):
 					places.append(trip_n.placeId)
 					mapsUrl+= trip_n.placeId.lat + "%2C" + trip_n.placeId.long + "|"
 				mapsUrl=mapsUrl[:-1]
- 				mapsUrl+="&destination=" + trip_nodes[len(trip_nodes)-1].placeId.lat + "%2C" + trip_nodes[len(trip_nodes)-1].placeId.long
+				mapsUrl+="&destination=" + trip_nodes[len(trip_nodes)-1].placeId.lat + "%2C" + trip_nodes[len(trip_nodes)-1].placeId.long
 			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mUrl':mapsUrl,'stars':trip_stars_string})
 		else:
 			return HttpResponse("Invalid trip slug supplied.")
@@ -248,7 +248,6 @@ def show_place(request, place_slug):
                 
 		# If we have a User object, the details are correct
 		if place:
-		
 			place_stars = 0
 			place_stars_string = ""
 			place_reviews = PlaceReview.objects.filter(placeId=place)
@@ -291,4 +290,12 @@ def show_user(request, user_id):
 			return HttpResponse("Invalid user slug supplied.")
 	else:
 		# Not a POST so display the login form
+		return HttpResponseRedirect(reverse('index'))
+@login_required
+def show_account(request):
+	if request.user.is_authenticated():
+		# get user object
+		user = request.user
+		return render(request, 'placeholdr/account.html', {'user':user})
+	else:
 		return HttpResponseRedirect(reverse('index'))

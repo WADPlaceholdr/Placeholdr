@@ -76,7 +76,7 @@ window.onclick = function(event) {
 					</div>
 				</div>	
 			</div>
-  			<div id="user" style="position:absolute; float:right; right:10px">{% if user.is_authenticated %} Hello {{ user.username }} {% else %} <a href="{% url 'login' %}">Sign In</a> or <a href="{% url 'register' %}">Sign Up</a> {% endif %}</div>
+  			<div id="user" style="position:absolute; float:right; right:10px">{% if user.is_authenticated %} Hello {{ user.username }} <br> <a href="{% url 'account' %}">My Account</a> {% else %} <a href="{% url 'login' %}">Sign In</a> or <a href="{% url 'register' %}">Sign Up</a> {% endif %}</div>
 		</div>
 		<div id = "mid" style="position:absolute; top:20%;">
 		<div>
