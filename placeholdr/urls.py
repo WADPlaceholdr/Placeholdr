@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from placeholdr import views
 
+
 urlpatterns = [
     # Index page
     url(r'^$', views.index, name='index'),

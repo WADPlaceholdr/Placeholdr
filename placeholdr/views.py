@@ -315,3 +315,11 @@ def show_account(request):
 		return render(request, 'placeholdr/account.html', {'user':user})
 	else:
 		return HttpResponseRedirect(reverse('index'))
+
+def handler404(request):
+	print("in handler 404")
+	return render(request, 'placeholdr/404.html', status=404)
+
+
+def handler500(request):
+	return render(request, 'placeholdr/500.html', status=500)
