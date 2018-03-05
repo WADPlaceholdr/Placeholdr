@@ -4,7 +4,13 @@
 
 <html>
 	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap Stylesheet -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		
 		<link rel="stylesheet" type="text/css" href="/static/styles/style.css" />
+		
 		{% block css_block %}
 
 		{% endblock %}
@@ -39,82 +45,88 @@ window.onclick = function(event) {
 </script>
 	</head>
 	<body>
-		<div id="header">
-  			<div id="logo"><a href="/placeholdr/"><img src="/static/images/logonobg.png" alt="Logo"></a></div>
-  			<div id="searchtabs">
-				<form id="search"><input type="text"><input type="submit" value="Search"></form>
-				<div id="tabs">
-					<div class = "tabs" onmouseover="doDropdown('dropPlaces')" onmouseout="doDropdown('dropPlaces')">
-						<button  class="dropbtn">Places</button>
-						<div id="dropPlaces" class="dropdown-content">
-							<a class="dropP" href="">Top Places</a>
-							<a class="dropP" href="">New Places</a>
-							<a class="dropP" href="">Popular Places</a>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<a class="navbar-brand" href="#">
+				<img src="/static/images/logonobg.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+				placeholdr
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Places
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">Top Places</a>
+							<a class="dropdown-item" href="#">New Places</a>
+							<a class="dropdown-item" href="#">Popular Places</a>
 							{% if user.is_authenticated %}
-								<a class="dropP" href="">Submit a Place</a>
+								<a class="dropdown-item" href="#">Submit a Place</a>
+							{% else %}
+								<a class="dropdown-item disabled" href="#">Submit a Place</a>
 							{% endif %}
 						</div>
-					</div>
-					<div class = "tabs" onmouseover="doDropdown('dropTrips')" onmouseout="doDropdown('dropTrips')">
-						<button class="dropbtn">Trips</button>
-						<div id="dropTrips" class="dropdown-content">
-							<a class="dropP" href="">Top Trips</a>
-							<a class="dropP" href="">New Trips</a>
-							<a class="dropP" href="">Popular Trips</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Trips
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">Top Trips</a>
+							<a class="dropdown-item" href="#">New Trips</a>
+							<a class="dropdown-item" href="#">Popular Trips</a>
 							{% if user.is_authenticated %}
-								<a class="dropP" href="">Submit a Trip</a>
+								<a class="dropdown-item" href="#">Submit a Trip</a>
+							{% else %}
+								<a class="dropdown-item disabled" href="#">Submit a Trip</a>
 							{% endif %}
 						</div>
-					</div>
-					<div class = "tabs" onmouseover="doDropdown('dropUsers')" onmouseout="doDropdown('dropUsers')">
-						<button class="dropbtn">Users</button>
-						<div id="dropUsers" class="dropdown-content">
-							<a class="dropP" href="">Top Users</a>
-							<a class="dropP" href="">New Users</a>
-							<a class="dropP" href="">Popular Users</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Trips
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">Top Users</a>
+							<a class="dropdown-item" href="#">New Users</a>
+							<a class="dropdown-item" href="#">Popular Users</a>
 						</div>
-					</div>
-				</div>	
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
 			</div>
-  			<div id="user">
-				<table>
-					{% if user.is_authenticated %} 
-						<tr>
-							<td>Hello {{ user.username }}</td>
-							<td><img id="profile_picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" /></td>
-						</tr>
-						<tr>
-							<td><a href="{% url 'account' %}">My palceholdr</a></td>
-							<td><a href="{% url 'logout' %}">Logout</a></td>
-						</tr>
-					{% else %}
-						<tr>
-							<td>Hello</td>
-						</tr>
-						<tr>
-							<td><a href="{% url 'login' %}">Login</a></td>
-							<td><a href="{% url 'register' %}">Register</a></td>
-						</tr>
-					{% endif %}
-				</table>
-			</div>
-		</div>
+		</nav>
+		
 		<div id = "mid" style="position:absolute; top:20%;">
-		<div>
-			{% block sidebar_block %}
-				{% get_category_list category %}
-			{% endblock %}
-		</div>
-		<div>
-			{% block body_block %}
-			{% endblock %}
-		</div>
+			<div>
+				{% block sidebar_block %}
+					{% get_category_list category %}
+				{% endblock %}
+			</div>
+			<div>
+				{% block body_block %}
+				{% endblock %}
+			</div>
 		<hr />
-</div>
-<div id="footer" style="position:fixed; width:100%; bottom:0%; background-color:coral; float:left;">
-<div id="links" style="text-align: left; position:relative; left:10%; float:left;"><a href="{% url 'about' %}">About</a> | <a href="{% url 'team' %}">Our Team</a> | <a href="{% url 'contact' %}">Contact Us</a> | <a href="{% url 'help' %}">Help</a></div>
-  <div id="rights" style="position:relative; top:0px; right: 10%; text-align: right; z-index:-1">Placeholdr All Rights Reserved 2018</div>
-</div>
+		</div>
+		<div id="footer" style="position:fixed; width:100%; bottom:0%; background-color:coral; float:left;">
+			<div id="links" style="text-align: left; position:relative; left:10%; float:left;"><a href="{% url 'about' %}">About</a> | <a href="{% url 'team' %}">Our Team</a> | <a href="{% url 'contact' %}">Contact Us</a> | <a href="{% url 'help' %}">Help</a></div>
+			<div id="rights" style="position:relative; top:0px; right: 10%; text-align: right; z-index:-1">Placeholdr All Rights Reserved 2018</div>
+		</div>
+		
+	<!-- Bootstrap jQuery -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<!-- Bootstrap Popper.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<!-- Bootstrap JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	</body>
 
 
