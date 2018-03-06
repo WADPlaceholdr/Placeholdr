@@ -10,101 +10,75 @@
 
 {% block body_block %}
 	<div class="container-fluid">
-		{% if places %}
 		<h1>Featured Places</h1>
-			<table style="width:100%">
-
-			
-			<tr>
-			{% for place in places %}
-				{% if place.picLink %}
-    				<td width="15%" align="center"><img class="places" width="350px" height="200px" src="/media/{{ place.picLink }}" alt="eiffel"></td>
-				{% else %}
-				<td width="15%" align="center"><img class="places" width="350px" height="200px" src="/static/images/eiffel.jpg" alt="eiffel"></td>
-				{% endif %}
-			{% endfor %}
-			</tr>
-			<tr>
-			{% for place in places %}
-    				<th width="15%"><a href="/placeholdr/place/{{ place.slug }}"><h2>{{ place.name }}</h2></a></th>
-			{% endfor %}
-			</tr>
-			<tr>
-			{% for place in places %}
-    				<td align="center">&#9733; &#9733; &#9734; &#9734; &#9734;</td>
-			{% endfor %}
-			</tr>
-			<tr>
-			{% for place in places %}
-    				<td align="center">Reviews: </td>
-			{% endfor %}
-			</tr>
-		</table>
+		<br>
+		{% if places %}
+			<div class="row">
+				{% for place in places %}
+					<div class="col-sm">
+						<div class="card" style="width: 14rem;">
+							<img class="card-img-top" src="/static/images/eiffel.jpg" alt="eiffel">
+							<div class="card-body">
+								<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
+								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
 		{% else %}
-			<strong>There are no featured places today.</strong>
-		{% endif %}
-
-		{% if trips %}
-		<h1>Top Trips</h1>
-			<table style="width:100%">
-
-			
-			<tr>
-			{% for trip in trips %}
-				{% if place.picLink %}
-    				<td width="15%" align="center"><img class="trips" width="350px" height="200px" src="/media/{{ trip.picLink }}" alt="eiffel"></td>
-				{% else %}
-					<td width="15%" align="center"><img class="trips" width="350px" height="200px" src="/static/images/eiffel.jpg" alt="eiffel"></td>
-				{% endif %}
-			{% endfor %}
-			</tr>
-			<tr>
-			{% for trip in trips %}
-    				<th width="15%"><a href="/placeholdr/trip/{{ trip.slug }}"><h2>{{ trip.name }}</h2></a></th>
-			{% endfor %}
-			</tr>
-			<tr>
-			{% for trip in trips %}
-    				<td align="center">&#9733; &#9733; &#9734; &#9734; &#9734;</td>
-			{% endfor %}
-			</tr>
-			<tr>
-			{% for trip in trips %}
-    				<td align="center">Reviews: </td>
-			{% endfor %}
-			</tr>
-		</table>
-		{% else %}
-			<strong>There are no featured trips today.</strong>
-		{% endif %}
-
-		{% if userProfiles %}
-			<h1>Top Users</h1>
-			<table style="width:100%">
-				<tr>
-				{% for userProfile in userProfiles %}
-					<td align="center" ><img width="200px" height="200px" src="{% static 'images/user.jpg' %}" alt="gustav"></td>
-				{% endfor %}
-				</tr>
-				<tr>
-				{% for userProfile in userProfiles %}
-					<th align="center"><a href="/placeholdr/user/{{ userProfile.user.username }}"><h2>{{ userProfile.user.username }}</h2></a></th>
-				{% endfor %}
-				</tr>
-				<tr>
-				{% for userProfile in userProfiles %}
-					<td align="center">{{ userProfile.livesIn }}</a></td>
-				{% endfor %}
-				</tr>
-				<tr>
-				{% for userProfile in userProfiles %}
-					<td align="center">Reputation: {{ userProfile.rep }}</a></td>
-				{% endfor %}
-				</tr>
-			</table>
-		{% else %}
-			<strong>There are no top users today.</strong>
+			<h3>There are no featured places today.</h3>
 		{% endif %}
 	</div>
-	<p>visits: {{ visits }}</p>
+	<br>
+	<br>
+	<br>
+	<div class="container-fluid">
+		<h1>Featured Trips</h1>
+		<br>
+		{% if trips %}
+			<div class="row">
+				{% for trip in trips %}
+					<div class="col-sm">
+						<div class="card" style="width: 14rem;">
+							<img class="card-img-top" src="/static/images/eiffel.jpg" alt="eiffel">
+							<div class="card-body">
+								<h5 class="card-title"><a href="/tripholdr/trip/{{ trip.slug }}">{{ trip.name }}</a></h5>
+								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<h3>There are no featured trips today.</h3>
+		{% endif %}
+	</div>
+	<br>
+	<br>
+	<br>
+	<div class="container-fluid">
+		<h1>Top Users</h1>
+		<br>
+		{% if userProfiles %}
+			<div class="row">
+				{% for userProfile in userProfiles %}
+					<div class="col-sm">
+						<div class="card" style="width: 14rem;">
+							<img class="card-img-top" src="{% static 'images/user.jpg' %}" alt="gustav">
+							<div class="card-body">
+								<h5 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h5>
+								<p class="card-text">From {{ userProfile.livesIn }}</p>
+								<p class="card-text">Reputation {{ userProfile.rep }}</p>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			<h3>There are no top users today.</h3>
+		{% endif %}
+	</div>
 {% endblock %}
