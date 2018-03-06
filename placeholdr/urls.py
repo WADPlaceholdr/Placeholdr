@@ -18,7 +18,7 @@ urlpatterns = [
 	#Help page
 	url(r'^help/', views.help, name='help'),
 	# User page
-	url(r'^user/(?P<user_id>[\w\-]+)/$', views.show_user, name='show_user'),
+	url(r'^user/(?P<username>\w+)/$', views.show_user, name='show_user'),
 	# Register page
 	url(r'^register/$', views.register, name='register'),
 	# Login page

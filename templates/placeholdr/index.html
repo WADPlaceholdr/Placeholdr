@@ -78,28 +78,28 @@
 			<strong>There are no featured trips today.</strong>
 		{% endif %}
 
-		{% if users %}
+		{% if userProfiles %}
 		<h1>Top Users</h1>
 		<table style="width:100%">
 
 			<tr>
-			{% for user in users %}
-				<td align="center" ><img width="200px" height="200px" src="/static/images/user.jpg" alt="gustav"></td>
+			{% for userProfile in userProfiles %}
+				<td align="center" ><img width="200px" height="200px" src="{% static 'images/user.jpg' %}" alt="gustav"></td>
 			{% endfor %}
 			</tr>
 			<tr>
-			{% for user in users %}
-				<th align="center"><a href="/placeholdr/user/{{ user.pk }}"><h2>{{ user.user }}</h2></a></th>
+			{% for userProfile in userProfiles %}
+				<th align="center"><a href="/placeholdr/user/{{ userProfile.user.username }}"><h2>{{ userProfile.user.username }}</h2></a></th>
 			{% endfor %}
 			</tr>
 			<tr>
-			{% for user in users %}
-				<td align="center">{{ user.livesIn }}</a></td>
+			{% for userProfile in userProfiles %}
+				<td align="center">{{ userProfile.livesIn }}</a></td>
 			{% endfor %}
 			</tr>
 			<tr>
-			{% for user in users %}
-				<td align="center">Reputation: {{ user.rep }}</a></td>
+			{% for userProfile in userProfiles %}
+				<td align="center">Reputation: {{ userProfile.rep }}</a></td>
 			{% endfor %}
 			</tr>
 		</table>

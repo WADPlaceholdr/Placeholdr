@@ -9,6 +9,9 @@ from django.contrib.auth import logout
 from datetime import datetime
 from django.utils.encoding import iri_to_uri
 
+# Import User
+from django.contrib.auth.models import User
+
 # import 404
 from django.http import Http404
 
@@ -44,9 +47,10 @@ def index(request):
 	
 	place_list = Place.objects.order_by('?')[:5]
 	trip_list = Trip.objects.order_by('?')[:5]
-	user_list = UserProfile.objects.select_related('user').order_by('-rep')[:7]
-	
-	context_dict = {'places' : place_list, 'users' : user_list, 'trips': trip_list}
+	nbrTopUsers=7
+	users={}
+	userProfile_list = UserProfile.objects.select_related('user').order_by('-rep')[:nbrTopUsers]
+	context_dict = {'places' : place_list, 'userProfiles' : userProfile_list, 'trips': trip_list}
 
 	# Render the response and send it back!
 	response = render(request, 'placeholdr/index.html', context_dict)
@@ -261,21 +265,43 @@ def show_place(request, place_slug):
 		# Not a POST so display the login form
 		return HttpResponseRedirect(reverse('index'))
 		
-def show_user(request, user_id):
+# def show_user(request, user_id):
+	# # If the request is HTTP POST, try to get the relevant information
+	# if user_id:
+		# # Use request.POST.get('<variable>') instead of .get['<v as
+		# # it returns None if the value does not exist instead of an error
+
+		# # Check if login combination is valid
+		# user = UserProfile.objects.get(pk=user_id)
+                
+		# # If we have a User object, the details are correct
+		# if user:
+
+			# return render(request,
+		  # 'placeholdr/user.html',
+		  # {'user':user})
+		# else:
+			# return HttpResponse("Invalid user slug supplied.")
+	# else:
+		# # Not a POST so display the login form
+		# return HttpResponseRedirect(reverse('index'))
+
+		
+def show_user(request, username):
 	# If the request is HTTP POST, try to get the relevant information
-	if user_id:
+	if username:
 		# Use request.POST.get('<variable>') instead of .get['<v as
 		# it returns None if the value does not exist instead of an error
 
 		# Check if login combination is valid
-		user = UserProfile.objects.get(pk=user_id)
+		user = User.objects.get(username=username)
+		userProfile = UserProfile.objects.get(user_id=user.id)
                 
 		# If we have a User object, the details are correct
-		if user:
-
+		if userProfile:
 			return render(request,
 		  'placeholdr/user.html',
-		  {'user':user})
+		  {'user':user,"userProfile":userProfile})
 		else:
 			return HttpResponse("Invalid user slug supplied.")
 	else:
@@ -287,7 +313,7 @@ def show_account(request):
 	# get logged in user object
 	user = request.user
 	# get logged in userProfile object
-	userProfile = UserProfile.objects.get(pk=user.id)
+	userProfile = UserProfile.objects.get(user_id=user.id)
 	return render(request, 'placeholdr/account.html', {'user':user, "userProfile":userProfile})
 
 @login_required
@@ -295,7 +321,7 @@ def delete_user(request):
 	# get logged in user object
 	user = request.user
 	# get logged in userProfile object
-	userProfile = UserProfile.objects.get(pk=user.id)
+	userProfile = UserProfile.objects.get(username=username)
 	# Delete both objects
 	userProfile.delete()
 	user.delete()
