@@ -45,10 +45,10 @@ def index(request):
 	# Construct a dictionary to pass to the template as its context.
 	# Note the key boldmessage is the same as {{ boldmessage }} in the template!
 	
-	place_list = Place.objects.order_by('?')[:5]
-	trip_list = Trip.objects.order_by('?')[:5]
-	nbrTopUsers=5
-	userProfile_list = UserProfile.objects.select_related('user').order_by('-rep')[:nbrTopUsers]
+	nbrOfTops=4
+	place_list = Place.objects.order_by('?')[:nbrOfTops]
+	trip_list = Trip.objects.order_by('?')[:nbrOfTops]
+	userProfile_list = UserProfile.objects.select_related('user').order_by('-rep')[:nbrOfTops+2]
 	context_dict = {'places' : place_list, 'userProfiles' : userProfile_list, 'trips': trip_list}
 
 	# Render the response and send it back!

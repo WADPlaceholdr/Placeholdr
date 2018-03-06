@@ -16,11 +16,11 @@
 			<div class="row">
 				{% for place in places %}
 					<div class="col-sm">
-						<div class="card" style="width: 14rem;">
+						<div class="card stuffCard">
 							<img class="card-img-top" src="/static/images/eiffel.jpg" alt="eiffel">
 							<div class="card-body">
 								<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								<p class="card-text">{{ place.desc }}</p>
 								<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
 							</div>
 						</div>
@@ -40,11 +40,11 @@
 			<div class="row">
 				{% for trip in trips %}
 					<div class="col-sm">
-						<div class="card" style="width: 14rem;">
+						<div class="card stuffCard">
 							<img class="card-img-top" src="/static/images/eiffel.jpg" alt="eiffel">
 							<div class="card-body">
 								<h5 class="card-title"><a href="/tripholdr/trip/{{ trip.slug }}">{{ trip.name }}</a></h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								<p class="card-text">{{ trip.desc }}</p>
 								<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 			<div class="row">
 				{% for userProfile in userProfiles %}
 					<div class="col-sm">
-						<div class="card" style="width: 14rem;">
+						<div class="card stuffCard peopleCard">
 							<img class="card-img-top" src="{% static 'images/user.jpg' %}" alt="gustav">
 							<div class="card-body">
 								<h5 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h5>
