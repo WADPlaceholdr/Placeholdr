@@ -6,10 +6,18 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
 		<!-- Bootstrap Stylesheet -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		
+		<!-- Other Stylesheet -->
 		<link rel="stylesheet" type="text/css" href="/static/styles/style.css" />
+		
+		<!-- Favicon -->
+		<link rel='shortcut icon' type='image/x-icon' href="{% static 'images/favicon.ico' %}" />
+		
+		<!-- Theme Color for Chrome, Firefox OS, Opera, Android etc...-->
+		<meta name="theme-color" content="#4285f4">
 		
 		{% block css_block %}
 
@@ -24,7 +32,9 @@
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 			<a class="navbar-brand" href="#">
-				<img src="/static/images/logonobg.png" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+				<!-- Logo commented out until higher rez available -->
+				
+				<img src="{% static 'images/favicon.ico' %}" width="30" height="30" class="d-inline-block align-top" alt="Logo">
 				placeholdr
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +75,7 @@
 					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Trips
+							Users
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#">Top Users</a>
