@@ -7,13 +7,18 @@
 	Register
 {% endblock %}
 
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/register.css' %}" />
+{% endblock %}
+
 {% block body_block %}
-	<div class="container">
+	<div class="container" id="registration-container">
 		{% if registered %}
 			<h1>Thank you for registering!</h1><br>
 			<p>Now please <a href="{% url 'login' %}">login here</a></p>
 		{% else %}	
 			<h1>Register for Placeholdr</h1>
+			<br>
 			<form id="user_form" method="post" action="{% url 'register' %}"
 				enctype="multipart/form-data">
 				{% csrf_token %}
@@ -22,6 +27,7 @@
 				{% bootstrap_form user_form %}
 				{% bootstrap_form profile_form %}
 				
+				<br>
 				<!-- Provide a button to click to submit the form -->
 				<button type="submit" class="btn btn-primary" name="submit" value="Register">Register</button>
 			</form>
