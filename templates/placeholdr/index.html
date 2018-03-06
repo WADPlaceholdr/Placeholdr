@@ -17,7 +17,11 @@
 				{% for place in places %}
 					<div class="col">
 						<div class="card stuffCard">
-							<img class="card-img-top" src="/static/images/eiffel.jpg" alt="eiffel">
+							{% if trip.picLink %}
+								<img class="card-img-top" src="{{ place.picLink }}" alt="{{ place.name }} picture"></img>
+							{% else %}
+								<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
+							{% endif %}
 							<div class="card-body">
 								<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
 								<p class="card-text">{{ place.desc }}</p>
@@ -41,7 +45,11 @@
 				{% for trip in trips %}
 					<div class="col">
 						<div class="card stuffCard">
-							<img class="card-img-top" src="/static/images/eiffel.jpg" alt="eiffel">
+							{% if trip.picLink %}
+								<img class="card-img-top" src="{{ trip.picLink }}" alt="{{ trip.name }} picture"></img>
+							{% else %}
+								<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
+							{% endif %}
 							<div class="card-body">
 								<h5 class="card-title"><a href="/tripholdr/trip/{{ trip.slug }}">{{ trip.name }}</a></h5>
 								<p class="card-text">{{ trip.desc }}</p>

@@ -11,7 +11,7 @@
 			<h1>{{ trip.name }}</h1>
 
 			{% if trip.picLink %}
-			<img src="{{ trip.picLink }}"></img>
+				<img src="{{ trip.picLink }}"></img>
 			{% endif %}
 			{% if stars %}
 				<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
