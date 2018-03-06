@@ -320,7 +320,7 @@ def delete_user(request):
 	# get logged in user object
 	user = request.user
 	# get logged in userProfile object
-	userProfile = UserProfile.objects.get(username=username)
+	userProfile = UserProfile.objects.get(user_id=user.id)
 	# Delete both objects
 	userProfile.delete()
 	user.delete()
