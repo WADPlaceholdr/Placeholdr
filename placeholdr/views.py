@@ -55,17 +55,16 @@ def index(request):
 	return response
 
 def about(request):	
-	return render(request, 'placeholdr/about.html', context_dict)
-
+	return render(request, 'placeholdr/about.html', {})
 
 def team(request):
-	return render(request, 'placeholdr/team.html', context_dict)
+	return render(request, 'placeholdr/team.html', {})
 
 def contact(request):
-	return render(request, 'placeholdr/contact.html', context_dict)
+	return render(request, 'placeholdr/contact.html', {})
 
 def help(request):
-	return render(request, 'placeholdr/help.html', context_dict)
+	return render(request, 'placeholdr/help.html', {})
 	
 def register(request):
 	# Boolean for when registration was successful, false initially,

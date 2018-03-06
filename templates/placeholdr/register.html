@@ -9,11 +9,11 @@
 
 {% block body_block %}
 	<div class="container">
-		<h1>Register for Placeholdr</h1>
 		{% if registered %}
-			Placeholdr says: <strong>thank you for registering!</strong>
-			<a href="{% url 'index' %}">Return to the homepage.</a><br />
-		{% else %}		
+			<h1>Thank you for registering!</h1><br>
+			<p>Now please <a href="{% url 'login' %}">login here</a></p>
+		{% else %}	
+			<h1>Register for Placeholdr</h1>
 			<form id="user_form" method="post" action="{% url 'register' %}"
 				enctype="multipart/form-data">
 				{% csrf_token %}
