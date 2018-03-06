@@ -12,16 +12,21 @@
 		<a href="{% url 'index' %}">Return to the homepage.</a><br />
 	{% else %}
 		Placeholdr says: <strong>register here!</strong><br />
+		
 		<form id="user_form" method="post" action="{% url 'register' %}"
 			enctype="multipart/form-data">
 			{% csrf_token %}
 			
 			<!-- Display each form -->
+			<!-- {% load crispy_forms_tags %} -->
+
+			<!-- {% crispy user_form %} -->
+			<!-- {% crispy profile_form %} -->
 			{{ user_form.as_p }}
 			{{ profile_form.as_p }}
 			
-			<!-- Provide a button to click to submit the form -->
+			Provide a button to click to submit the form
 			<button type="submit" class="btn btn-primary" name="submit" value="Register">Register</button>
-		</form>
+		<!-- </form>
 	{% endif %}
 {% endblock %}
