@@ -122,7 +122,7 @@ def register(request):
 
 		else:
 
-			print(user_form.errors, profile_form.errrors)
+			print(user_form.errors, profile_form.errors)
 	else:
 		user_form = UserForm()
 		profile_form = UserProfileForm()
@@ -315,6 +315,18 @@ def show_account(request):
 	# get logged in userProfile object
 	userProfile = UserProfile.objects.get(pk=user.id)
 	return render(request, 'placeholdr/account.html', {'user':user, "userProfile":userProfile})
+
+@login_required
+def delete_user(request):
+	# get logged in user object
+	user = request.user
+	# get logged in userProfile object
+	userProfile = UserProfile.objects.get(pk=user.id)
+	# Delete both objects
+	userProfile.delete()
+	user.delete()
+	
+	return HttpResponseRedirect(reverse('logout'))
 
 def handler404(request):
 	print("in handler 404")

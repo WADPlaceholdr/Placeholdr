@@ -5,6 +5,10 @@
 	My Account
 {% endblock %}
 
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/account.css' %}" />
+{% endblock %}
+
 {% block body_block %}
 	<div class="container">
 		<div class="row">
@@ -41,8 +45,17 @@
 				<button type="button" class="btn btn-primary" href="">Add a Place</button><br><br>
 				<button type="button" class="btn btn-primary" href="">Add a Trip</button><br><br>
 				<button type="button" class="btn btn-primary" href="{% url 'logout' %}">Logout</button><br><br><br>
-				<button type="button" class="btn btn-danger" href="">Delete account</button>
+				<button type="button" class="btn btn-danger" id="delete-account-button">Delete account</button>
+				<div class="alert alert-danger" id="delete-account-confirm">
+					<strong>Are you sure?</strong><br>
+					<a href="{% url 'delete_user' %}" class="btn btn-xs btn-danger pull-left">yes</a>
+					<a id="dont-delete-account-button" class="btn btn-xs btn-primary pull-right">no</a>
+				</div>
 			</div>
 		</div>
 	</div>
+{% endblock %}
+
+{% block js_block %}
+	<script src="{% static 'js/account.js' %}"></script>
 {% endblock %}

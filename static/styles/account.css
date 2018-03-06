@@ -1,0 +1,13 @@
+#delete-account-confirm {
+	/* width: 100%; */
+	display: none;
+	margin-top: 4px;
+}
+
+#delete-account-button {
+	color:  white;
+}
+
+#dont-delete-account-button {
+	color:  white;
+}

@@ -25,6 +25,8 @@ urlpatterns = [
 	url(r'^login/$', views.user_login, name='login'),
 	# Restricted page
 	url(r'^restricted/', views.restricted, name='restricted'),
+	# Delete account page
+	url(r'^account/delete', views.delete_user, name='delete_user'),
 	# Account page
 	url(r'^account/$', views.show_account, name='account'),
 	# logout page
