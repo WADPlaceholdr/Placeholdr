@@ -12,50 +12,28 @@
 				<img class="card-img-top"src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="Card image cap">
 			{% endif %}
 			<div class="card-body">
-				<h5 class="card-title">{{ user.username }}</h5>
-				<p class="card-text">
+				<h2 class="card-title">{{ user.username }}</h2>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<h6>Reputation</h6>
+					{% if userProfile.rep or userProfile.rep == 0 %}
+						<p id="star_rating">{{ userProfile.rep }}</p>
+					{% else %}
+						<p>No current rep rating</p>
+					{% endif %}
+				</li>
+				<li class="list-group-item">
+					<h6>Bio</h6>
 					{% if userProfile.bio %}
-						<p id="star_rating">{{ userProfile.bio }}</p>
+						<p>{{ userProfile.bio }}</p>
 					{% else %}
 						<p>no Bio</p>
 					{% endif %}
-				</p>
-			</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">Cras justo odio</li>
-				<li class="list-group-item">Dapibus ac facilisis in</li>
+				</li>
 				<li class="list-group-item">Vestibulum at eros</li>
 			</ul>
-			<div class="card-body">
-				<a href="#" class="card-link">Card link</a>
-				<a href="#" class="card-link">Another link</a>
-			</div>
 		</div>
-		<table>
-			<tr>
-				{% if userProfile.picture %}
-					<td>
-						<img src="{{ MEDIA_URL }}{{ userProfile.picture }}" />
-					</td>
-				{% endif %}
-				<td>
-					<h1>{{ user.username }}</h1>
-				</td>
-				
-			</tr>
-		</table>
-		<h2>Reputation</h2>
-		{% if userProfile.rep or userProfile.rep == 0 %}
-			<p id="star_rating">{{ userProfile.rep }}</p>
-		{% else %}
-			<p>No current rep rating</p>
-		{% endif %}
-		<h2>Bio</h2>
-		{% if userProfile.bio %}
-			<p id="star_rating">{{ userProfile.bio }}</p>
-		{% else %}
-			<p>no Bio</p>
-		{% endif %}
 	</div>
 	<div class="container-fluid">
 		<!-- this div contains actions the user can do whilst logged in  -->
