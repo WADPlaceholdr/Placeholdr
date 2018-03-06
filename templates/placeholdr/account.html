@@ -6,41 +6,43 @@
 {% endblock %}
 
 {% block body_block %}
-	<div class="container-fluid">
-		<div class="card" style="width: 18rem;">
-			{% if userProfile.picture %}
-				<img class="card-img-top"src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="Card image cap">
-			{% endif %}
-			<div class="card-body">
-				<h2 class="card-title">{{ user.username }}</h2>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="card" style="width: 18rem;">
+					{% if userProfile.picture %}
+						<img class="card-img-top"src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="Card image cap">
+					{% endif %}
+					<div class="card-body">
+						<h2 class="card-title">{{ user.username }}</h2>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<h6>Reputation</h6>
+							{% if userProfile.rep or userProfile.rep == 0 %}
+								<p id="star_rating">{{ userProfile.rep }}</p>
+							{% else %}
+								<p>No current rep rating</p>
+							{% endif %}
+						</li>
+						<li class="list-group-item">
+							<h6>Bio</h6>
+							{% if userProfile.bio %}
+								<p>{{ userProfile.bio }}</p>
+							{% else %}
+								<p>no Bio</p>
+							{% endif %}
+						</li>
+					</ul>
+				</div>
 			</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">
-					<h6>Reputation</h6>
-					{% if userProfile.rep or userProfile.rep == 0 %}
-						<p id="star_rating">{{ userProfile.rep }}</p>
-					{% else %}
-						<p>No current rep rating</p>
-					{% endif %}
-				</li>
-				<li class="list-group-item">
-					<h6>Bio</h6>
-					{% if userProfile.bio %}
-						<p>{{ userProfile.bio }}</p>
-					{% else %}
-						<p>no Bio</p>
-					{% endif %}
-				</li>
-				<li class="list-group-item">Vestibulum at eros</li>
-			</ul>
+			<div class="col col-lg-2">
+				<button type="button" class="btn btn-primary" href="">Edit profile</button><br><br>
+				<button type="button" class="btn btn-primary" href="">Add a Place</button><br><br>
+				<button type="button" class="btn btn-primary" href="">Add a Trip</button><br><br>
+				<button type="button" class="btn btn-primary" href="{% url 'logout' %}">Logout</button><br><br><br>
+				<button type="button" class="btn btn-danger" href="">Delete account</button>
+			</div>
 		</div>
-	</div>
-	<div class="container-fluid">
-		<!-- this div contains actions the user can do whilst logged in  -->
-		<a href="{% url 'logout' %}">Logout</a>
-		<a href="">Edit profile</a>
-		<a href="">Add a Place</a>
-		<a href="">Add a Trip</a>
-		<a href="">Delete Account</a>
 	</div>
 {% endblock %}
