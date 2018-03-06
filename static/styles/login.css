@@ -17,3 +17,7 @@
 	padding: 15px;
 	margin: auto;
 }
+
+#logo {
+	max-width: 330px;
+}
