@@ -7,13 +7,18 @@
 
 {% block body_block %}
 	<h1>Login to Placeholdr</h1>
-	<form id="login_form" method="post" action="{% url 'login' %}">
+	
+	<form method="post" action="{% url 'login' %}">
 		{% csrf_token %}
-		Username: <input type="text" name="username" value="" size="50" />
-		<br />
-		Password: <input type="password" name="password" value="" size="50" />
-		<br />
-		<input type="submit" value="submit" />
+		<div class="form-group">
+			<label for="InputUsername">Username</label>
+			<input type="username" class="form-control" id="InputUsername" aria-describedby="emailHelp" placeholder="Enter username">
+		</div>
+		<div class="form-group">
+			<label for="InputPassword">Password</label>
+			<input type="password" class="form-control" id="InputPassword" placeholder="Password">
+		</div>
+		<button type="submit" class="btn btn-primary" value="submit">Submit</button>
 	</form>
 	
 	{% if error %}
