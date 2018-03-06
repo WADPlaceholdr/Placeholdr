@@ -127,11 +127,7 @@ def register(request):
 		user_form = UserForm()
 		profile_form = UserProfileForm()
 
-	return render(request,
-				  'placeholdr/register.html',
-				  {'user_form': user_form,
-				   'profile_form':profile_form,
-				   'registered': registered})
+	return render(request, 'placeholdr/register.html',  {'user_form': user_form, 'profile_form':profile_form, 'registered': registered})
 
 def user_login(request):
 	# If the request is HTTP POST, try to get the relevant information
