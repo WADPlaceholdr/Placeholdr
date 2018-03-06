@@ -15,7 +15,7 @@
 		{% if places %}
 			<div class="row">
 				{% for place in places %}
-					<div class="col-sm">
+					<div class="col">
 						<div class="card stuffCard">
 							<img class="card-img-top" src="/static/images/eiffel.jpg" alt="eiffel">
 							<div class="card-body">
@@ -39,7 +39,7 @@
 		{% if trips %}
 			<div class="row">
 				{% for trip in trips %}
-					<div class="col-sm">
+					<div class="col">
 						<div class="card stuffCard">
 							<img class="card-img-top" src="/static/images/eiffel.jpg" alt="eiffel">
 							<div class="card-body">
@@ -63,9 +63,13 @@
 		{% if userProfiles %}
 			<div class="row">
 				{% for userProfile in userProfiles %}
-					<div class="col-sm">
+					<div class="col">
 						<div class="card stuffCard peopleCard">
-							<img class="card-img-top" src="{% static 'images/user.jpg' %}" alt="gustav">
+							{% if userProfile.picture %}
+								<img class="card-img-top user-picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="{{ userProfile.user.username }}'s picture">
+							{% else %}
+								<img class="card-img-top user-picture" src="{% static 'images/user.jpg' %}" alt="gustav">
+							{% endif %}
 							<div class="card-body">
 								<h5 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h5>
 								<p class="card-text">From {{ userProfile.livesIn }}</p>
