@@ -48,7 +48,6 @@ def index(request):
 	place_list = Place.objects.order_by('?')[:5]
 	trip_list = Trip.objects.order_by('?')[:5]
 	nbrTopUsers=7
-	users={}
 	userProfile_list = UserProfile.objects.select_related('user').order_by('-rep')[:nbrTopUsers]
 	context_dict = {'places' : place_list, 'userProfiles' : userProfile_list, 'trips': trip_list}
 
