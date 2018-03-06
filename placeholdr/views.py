@@ -34,7 +34,6 @@ from placeholdr.models import UserProfile
 from placeholdr.forms import PageForm
 
 def index(request):
-	request.session.set_test_cookie()
 	# Query the database for a list of ALL categories currently stored
 	# Order the categories by number of likes in descending order
 	# Retrieve the top 5 only - or all if less than 5
@@ -48,10 +47,6 @@ def index(request):
 	user_list = UserProfile.objects.select_related('user').order_by('-rep')[:7]
 	
 	context_dict = {'places' : place_list, 'users' : user_list, 'trips': trip_list}
-	
-	visitor_cookie_handler(request)
-	
-	context_dict['visits'] = request.session['visits']
 
 	# Render the response and send it back!
 	response = render(request, 'placeholdr/index.html', context_dict)
@@ -59,33 +54,17 @@ def index(request):
 	# Return response back to user, updating any cookies that need changed
 	return response
 
-def about(request):
-	if request.session.test_cookie_worked():
-		print("TEST COOKIE WORKED!")
-		request.session.delete_test_cookie()
-		
-	visitor_cookie_handler(request)
-	context_dict = {'visits' : request.session['visits']}
-	
+def about(request):	
 	return render(request, 'placeholdr/about.html', context_dict)
 
 
 def team(request):
-	visitor_cookie_handler(request)
-	context_dict = {'visits': request.session['visits']}
-
 	return render(request, 'placeholdr/team.html', context_dict)
 
 def contact(request):
-	visitor_cookie_handler(request)
-	context_dict = {'visits': request.session['visits']}
-
 	return render(request, 'placeholdr/contact.html', context_dict)
 
 def help(request):
-	visitor_cookie_handler(request)
-	context_dict = {'visits': request.session['visits']}
-
 	return render(request, 'placeholdr/help.html', context_dict)
 	
 def register(request):
