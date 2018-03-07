@@ -5,38 +5,67 @@
 	{{ user }}
 {% endblock %}
 
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/user.css' %}" />
+{% endblock %}
+
 {% block body_block %}
 	{% if user %}
 		<div class="container">
 			<div class="row">
-				<div class="col">
-					<div class="card" style="width: 18rem;">
-						{% if userProfile.picture %}
-							<img class="card-img-top"src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="Card image cap">
-						{% endif %}
-						<div class="card-body">
-							<h2 class="card-title">{{ user.username }}</h2>
+				<h1>{{ user.username }}</h1>
+			</div>
+			<div class="row">
+				{% if userProfile.picture %}
+					<div class="col-xs">
+						<div class="crop-user-picture">
+							<img class="img-thumbnail user-picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="Card image cap">
 						</div>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
-								<h6>Reputation</h6>
-								{% if userProfile.rep or userProfile.rep == 0 %}
-									<p id="star_rating">{{ userProfile.rep }}</p>
-								{% else %}
-									<p>No current rep rating</p>
-								{% endif %}
-							</li>
-							<li class="list-group-item">
-								<h6>Bio</h6>
-								{% if userProfile.bio %}
-									<p>{{ userProfile.bio }}</p>
-								{% else %}
-									<p>no Bio</p>
-								{% endif %}
-							</li>
-						</ul>
 					</div>
+				{% endif %}
+				<div class="col">
+					<h2>Bio</h2>
+					<p>
+						{% if userProfile.bio %}
+							<p>{{ userProfile.bio }}</p>
+						{% else %}
+							<p>no Bio</p>
+						{% endif %}
+					</p>
 				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs">
+					<form id="user_form" method="post" action="">
+						<div class="form-group">
+							<label for="id_rep">Reputation</label>
+							<input type="number" name="rep" value="
+							{% if userProfile.rep or userProfile.rep == 0 %}
+								{{ userProfile.rep }}
+							{% else %}
+								0
+							{% endif %}
+							" class="form-control" placeholder="
+							{% if userProfile.rep or userProfile.rep == 0 %}
+								{{ userProfile.rep }}
+							{% else %}
+								0
+							{% endif %}
+							" 
+							title="" required="" id="id_rep">
+						</div>
+					</form>
+				</div>
+			</div>
+			<br>
+			<div class="seperator"/>
+			<div class="row">
+				<h1>My Favourite Places</h1>
+			</div>
+			<br>
+			<div class="seperator"/>
+			<div class="row">
+				<h1>My Recommended Trip</h1>
 			</div>
 		</div>
 	{% else %}

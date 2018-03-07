@@ -1,11 +1,13 @@
 {% extends 'placeholdr/base.html' %}
 {% load staticfiles %}
-{% block css_block %}
-	<link rel="stylesheet" type="text/css" href="/static/styles/index.css" />
-{% endblock %}
+
 
 {% block title_block %}
 	Index
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}" />
 {% endblock %}
 
 {% block body_block %}
