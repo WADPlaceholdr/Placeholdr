@@ -12,6 +12,7 @@ a live demo is available at https://placeholdr.pythonanywhere.com/
 * Python 3.x
 * pip
 * Django 1.11.7
+* django-bootstrap4
 * Pillow
 
 ## Installation
