@@ -19,6 +19,13 @@ body {
 	
 }
 
+#footer-row {
+	margin: 0;
+	padding:0;
+	border:0;
+}
+
+
 #logo {
 	max-height: 40px;
 }

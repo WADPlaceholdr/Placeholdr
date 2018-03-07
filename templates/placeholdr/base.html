@@ -109,14 +109,19 @@
 		{% endblock %}
 		
 		<footer class="footer text-center ">
-			<!-- <div class="container"> -->
-				<span class="text-muted">
-					<a href="{% url 'about' %}">About</a> | 
-					<a href="{% url 'team' %}">Our Team</a> | 
-					<a href="{% url 'contact' %}">Contact Us</a> | 
-					<a href="{% url 'help' %}">Help</a>
-				</span>
-			<!-- </div> -->
+			<div class="row" id="footer-row">
+				<div class="col-6">
+					<span class="text-muted">
+						<a href="{% url 'about' %}">About</a> | 
+						<a href="{% url 'team' %}">Our Team</a> | 
+						<a href="{% url 'contact' %}">Contact Us</a> | 
+						<a href="{% url 'help' %}">Help</a>
+					</span>
+				</div>
+				<div class="col-5">
+					Placeholdr All Rights Reserved 2018
+				</div>
+			</div>
 		</footer>
     
 		<!-- Bootstrap jQuery -->
