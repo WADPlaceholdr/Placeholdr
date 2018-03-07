@@ -1,7 +1,13 @@
 .stuffCard {
 	/* width: 15rem; */
+	min-width: 300px;
+	margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
 }
 
+.col {
+
+}
 .peopleCard {
 	width: 12rem;
 }
