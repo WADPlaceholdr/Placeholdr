@@ -1,11 +1,21 @@
 .col {
-	margin-right:1rem;
-	margin-left:1rem;
+	margin: 1rem;
+	/* margin-right:1rem; */
+	/* margin-left:1rem; */
+	/* margin-top:1rem; */
+	/* margin-bottom:1rem; */
 }
 
 .row {
-	margin-top:1rem;
-	margin-bottom:1rem;
+	margin: 1rem;
+	/* margin-top:1rem; */
+	/* margin-bottom:1rem; */
+	/* margin-right:1rem; */
+	/* margin-left:1rem; */
+	
+}
+.row-10 {
+	margin: 1rem;
 }
 
 .seperator {
