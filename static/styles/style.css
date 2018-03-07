@@ -22,3 +22,9 @@ body {
 #logo {
 	max-height: 40px;
 }
+
+.user-picture {
+    object-fit: cover;
+    width:230px;
+    height:230px;
+}

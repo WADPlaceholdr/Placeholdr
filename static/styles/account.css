@@ -11,3 +11,9 @@
 #dont-delete-account-button {
 	color:  white;
 }
+
+.user-picture {
+    object-fit: cover;
+    width:230px;
+    height:230px;
+}
