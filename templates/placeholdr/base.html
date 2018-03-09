@@ -94,18 +94,12 @@
                     <span class="nav-item dropdown">
 
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="img-thumbnail user-picture" id="navbar-user-picture"
                             {% if userProfile.picture %}
-                                src="{{ MEDIA_URL }}{{ userProfile.picture }}"
-                            {% else %}
-                                src="{% static 'images/eiffel.jpg' %}"
+                                <img class="img-thumbnail user-picture" id="navbar-user-picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="Card image cap">
                             {% endif %}
-                            alt="Card image cap">
                             Welcome
                             {% if user.is_authenticated %}
                                 {{ user.username }}
-                            {% else %}
-                                Guest
                             {% endif %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
