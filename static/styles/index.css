@@ -1,7 +1,7 @@
 .stuffCard {
 	/* width: 15rem; */
 	min-width: 300px;
-
+	max-width: 650px;
 }
 
 .col {

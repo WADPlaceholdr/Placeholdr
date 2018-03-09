@@ -3,27 +3,39 @@
 
 {% block title %} Search {% endblock %}
 
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/search.css' %}" />
+{% endblock %}
+
 {% block body_block %}
-<div>
+<div class="container">
     <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
-        <input id="id_q" class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <div class="row search">
+                <div class="col">
+                    <input id="body-search-bar" class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                </div>
+                <div class="col-xs">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </div>
+        </div>
     </form>
-
-    {% if found_entries %}
-    <p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
-        <ul>
-            {% for i in found_entries %}
-                <a href="/placeholdr/place/{{ i.slug }}">{{ i.name }}</a><br/>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if query_string and not found_entries %}
-        <p>No results found for {{ query_string }}.</p>
-    {% else %}
-        <p>Try a new search in the bar above.</p>
-    {% endif %}
-    </form>
+    <br>
+        {% if found_entries %}
+        <p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
+        <div class="spacer"/>
+            <ul>
+                {% for i in found_entries %}
+                    <div class="row result">
+                        <a href="/placeholdr/place/{{ i.slug }}">{{ i.name }}</a><br/>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if query_string and not found_entries %}
+            <p>No results found for {{ query_string }}.</p>
+        {% endif %}
+        {% if not query_string %}
+            <p>Try a new search in the bar above.</p>
+        {% endif %}
 </div>
 {% endblock %}
