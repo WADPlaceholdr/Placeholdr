@@ -51,11 +51,12 @@
 							<a class="dropdown-item" href="#">Top Places</a>
 							<a class="dropdown-item" href="#">New Places</a>
 							<a class="dropdown-item" href="#">Popular Places</a>
-							{% if user.is_authenticated %}
-								<a class="dropdown-item" href="#">Submit a Place</a>
-							{% else %}
-								<a class="dropdown-item disabled" href="#">Submit a Place</a>
-							{% endif %}
+                            <a class="dropdown-item
+                            {% if user.is_authenticated %}
+                            {% else %}
+                                disabled
+                            {% endif %}
+                            " href="#">Submit a Place</a>
 						</div>
 					</li>
 					<li class="nav-item dropdown">
@@ -66,11 +67,12 @@
 							<a class="dropdown-item" href="#">Top Trips</a>
 							<a class="dropdown-item" href="#">New Trips</a>
 							<a class="dropdown-item" href="#">Popular Trips</a>
-							{% if user.is_authenticated %}
-								<a class="dropdown-item" href="#">Submit a Trip</a>
-							{% else %}
-								<a class="dropdown-item disabled" href="#">Submit a Trip</a>
-							{% endif %}
+                            <a class="dropdown-item
+                            {% if user.is_authenticated %}
+                            {% else %}
+                                disabled
+                            {% endif %}
+                            " href="#">Submit a Trip</a>
 						</div>
 					</li>
 					<li class="nav-item dropdown">
@@ -83,39 +85,41 @@
 							<a class="dropdown-item" href="#">Popular Users</a>
 						</div>
 					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							My placeholdr
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							{% if user.is_authenticated %}
-								<a class="dropdown-item" href="{% url 'account' %}">Account</a>
-								<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-							{% else %}
-								<a class="dropdown-item" href="{% url 'login' %}">Login</a>
-								<a class="dropdown-item" href="{% url 'register' %}">Register</a>
-							{% endif %}
-						</div>
-					</li>
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
 					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				</form>
-                <span class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        My placeholdr
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        {% if user.is_authenticated %}
-                            <a class="dropdown-item" href="{% url 'account' %}">Account</a>
-                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                        {% else %}
-                            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                            <a class="dropdown-item" href="{% url 'register' %}">Register</a>
-                        {% endif %}
-                    </div>
-                </span>
+                <ul class="navbar-nav " id="account-features">
+                    <span class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="img-thumbnail user-picture" id="navbar-user-picture"
+                            {% if userProfile.picture %}
+                                src="{{ MEDIA_URL }}{{ userProfile.picture }}"
+                            {% else %}
+                                src="{% static 'images/eiffel.jpg' %}"
+                            {% endif %}
+                            alt="Card image cap">
+                            Welcome
+                            {% if user.is_authenticated %}
+                                {{ user.username }}
+                            {% else %}
+                                Guest
+                            {% endif %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            {% if user.is_authenticated %}
+                                <a class="dropdown-item" href="{% url 'account' %}">Account</a>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                                <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                            {% endif %}
+                        </div>
+                    </span>
+                </ul>
 			</div>
 		</nav>
 		
