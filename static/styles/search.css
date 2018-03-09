@@ -1,0 +1,14 @@
+#body-search-bar {
+    width: 100%;
+}
+.search {
+    width: 100%
+}
+.spacer {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.result {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
