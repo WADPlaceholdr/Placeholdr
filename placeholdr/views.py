@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from placeholdr.forms import UserForm, UserProfileForm
+from placeholdr.search import normalize_query, get_query
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -36,14 +37,9 @@ from placeholdr.models import UserProfile
 # Import the PageForm
 from placeholdr.forms import PageForm
 
+
 def index(request):
-	# Query the database for a list of ALL categories currently stored
-	# Order the categories by number of likes in descending order
-	# Retrieve the top 5 only - or all if less than 5
-	# Place the list in our context_dict dictionary
-	# that will be passed to the template engine
-	# Construct a dictionary to pass to the template as its context.
-	# Note the key boldmessage is the same as {{ boldmessage }} in the template!
+	# Query the database for a list of ALL places, trips, users currently stored
 	
 	nbrOfTops=4
 	place_list = Place.objects.order_by('?')[:nbrOfTops]
@@ -302,5 +298,26 @@ def delete_user(request):
 	# Delete both objects
 	userProfile.delete()
 	user.delete()
-	
+
 	return HttpResponseRedirect(reverse('logout'))
+
+def handler404(request):
+	print("in handler 404")
+	return render(request, 'placeholdr/404.html', status=404)
+
+
+def handler500(request):
+	return render(request, 'placeholdr/500.html', status=500)
+
+def search(request):
+    query_string = ''
+    found_entries = None
+    search_fields=('name', 'desc')
+
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+
+        entry_query = get_query(query_string, search_fields)
+        found_entries = Place.objects.filter(entry_query).order_by('id')
+
+    return render_to_response('placeholdr/search.html', {'query_string': query_string, 'found_entries': found_entries})

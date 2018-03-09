@@ -31,4 +31,6 @@ urlpatterns = [
 	url(r'^account/$', views.show_account, name='account'),
 	# logout page
 	url(r'^logout/$', views.user_logout, name='logout'),
+	# search results page
+	url(r'^search/$', views.search, name='search'),
 ]
