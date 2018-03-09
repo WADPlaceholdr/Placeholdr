@@ -56,5 +56,5 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('bio', 'livesIn', 'rep', 'picture')
         widgets = {
-            'picture': forms.FileInput(attrs={'class': 'custom-file'}),
+            'picture': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
         }
