@@ -19,23 +19,26 @@
                 </div>
         </div>
     </form>
-    <br>
-        {% if found_entries %}
-        <p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
-        <div class="spacer"/>
-            <ul>
-                {% for i in found_entries %}
-                    <div class="row result">
-                        <a href="/placeholdr/place/{{ i.slug }}">{{ i.name }}</a><br/>
-                    </div>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% if query_string and not found_entries %}
-            <p>No results found for {{ query_string }}.</p>
-        {% endif %}
-        {% if not query_string %}
-            <p>Try a new search in the bar above.</p>
-        {% endif %}
+
+    {% if found %}
+    <p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
+        <ul>
+            {% for place in found_places %}
+                <a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
+            {% endfor %}
+            {% for trip in found_trips %}
+                <a href="/placeholdr/trip/{{ trip.slug }}">{{ trip.name }}</a><br/>
+            {% endfor %}
+            {% for user in found_users %}
+                <a href="/placeholdr/">{{ user }}</a><br/>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if query_string and not found %}
+        <p>No results found for <b>{{ query_string }}</b>.</p>
+    {% else %}
+        <p>Try a new search in the bar above.</p>
+    {% endif %}
 </div>
 {% endblock %}

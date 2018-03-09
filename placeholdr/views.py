@@ -311,16 +311,19 @@ def handler500(request):
 
 def search(request):
     query_string = ''
-    found_entries = None
     search_fields=('name', 'desc')
+    user_search_fields=('bio', 'user__username')
 
     if ('q' in request.GET) and request.GET['q'].strip():
         query_string = request.GET['q']
 
         entry_query = get_query(query_string, search_fields)
-        found_entries = Place.objects.filter(entry_query).order_by('id')
+        found_places = Place.objects.filter(entry_query).order_by('id')
+        found_trips = Trip.objects.filter(entry_query).order_by('id')
+        found_users = UserProfile.objects.filter(get_query(query_string, user_search_fields)).order_by('user__id')
+        found = found_places.exists() or found_trips.exists() or found_users.exists()
 
-    return render_to_response('placeholdr/search.html', {'query_string': query_string, 'found_entries': found_entries})
+    return render_to_response('placeholdr/search.html', {'query_string': query_string, 'found': found, 'found_places': found_places, 'found_trips': found_trips, 'found_users': found_users})
 
 
 def add_place_review(request):
@@ -347,7 +350,7 @@ def add_place_review(request):
 			if 'picture' in request.FILES:
 				profile.picture = request.FILES['picture']
 
-			# Sve the UserProfile model instance
+			# Save the UserProfile model instance
 			profile.save()
 
 			registered = True
@@ -360,4 +363,3 @@ def add_place_review(request):
 		profile_form = UserProfileForm()
 
 	return render(request, 'placeholdr/register.html',  {'user_form': user_form, 'profile_form':profile_form, 'registered': registered})
-
