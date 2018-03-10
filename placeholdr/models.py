@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
+from django.core.validators import MaxValueValidator
+
 # Create your models here.
 class Place(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
@@ -48,7 +50,8 @@ class PlaceReview(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(User)
 	placeId = models.ForeignKey(Place)
-	stars = models.IntegerField()
+	# Positive Integer < 5
+	stars = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
 	review = models.CharField(max_length=400)
 
 	def __str__(self):
@@ -58,7 +61,8 @@ class TripReview(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(User)
 	tripId = models.ForeignKey(Trip)
-	stars = models.IntegerField()
+	# Positive Integer < 5
+	stars = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
 	review = models.CharField(max_length=400)
 
 	def __str__(self):
