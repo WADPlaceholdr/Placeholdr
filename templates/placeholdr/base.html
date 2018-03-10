@@ -17,8 +17,18 @@
 		<link rel='shortcut icon' type='image/x-icon' href="{% static 'images/favicon.ico' %}" />
 		
 		<!-- Theme Color for Chrome, Firefox OS, Opera, Android etc...-->
-		<meta name="theme-color" content="#4285f4">
-		
+		<meta name="theme-color" content="#5574A3">
+
+		<!-- Control the behavior of search engine crawling and indexing -->
+		<meta name="robots" content="index,follow"><!-- All Search Engines -->
+		<meta name="googlebot" content="index,follow"><!-- Google Specific -->
+
+		<!-- Identify the software used to build the document (i.e. - WordPress, Dreamweaver) -->
+		<meta name="generator" content="django">
+
+		<!-- Add to home screen -->
+		<meta name="mobile-web-app-capable" content="yes">
+
 		{% block css_block %}
 
 		{% endblock %}
