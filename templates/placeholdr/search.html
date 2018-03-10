@@ -32,7 +32,7 @@
                     <a href="/placeholdr/trip/{{ trip.slug }}">{{ trip.name }}</a><br/>
                 {% endfor %}
                 {% for currentUser in found_users %}
-                    <a href="/placeholdr/">{{ currentUser }}</a><br/>
+                    <a href="/placeholdr/user/{{ currentUser }}">{{ currentUser }}</a><br/>
                 {% endfor %}
             </ul>
         {% endif %}
@@ -43,7 +43,7 @@
                 <br>
                 <br>
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-3">
                         <p> Feel free to add {{ query_string }}: </p>
                     </div>
                     <div class="col-2">
