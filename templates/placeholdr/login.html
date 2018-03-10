@@ -12,25 +12,26 @@
 {% block body_block %}
 	<div id="login" class="container-fluid text-center" >
 		<form class="form-signin" method="post" action="{% url 'login' %}">
-			{% csrf_token %} 
-			<!-- <img src="{% static 'images/favicon.ico' %}" width="30" height="30" class="d-inline-block align-top" alt="Logo"> -->
+			{% csrf_token %}
+			<!--Logo-->
 			<img class="mb-4" id= "login-logo" src="{% static 'images/logonobg.png' %}" alt="Logo">
-			<!-- <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> -->
+			<!--username Input-->
 			<label for="inputUsername" class="sr-only">Username</label>
 			<input id="inputUsername" class="form-control" placeholder="Username" required="" name="username" autofocus="" data-cip-id="inputEmail" type="username">
 			<br>
+			<!--Password Input-->
 			<label for="inputPassword" class="sr-only">Password</label>
 			<input id="inputPassword" class="form-control" placeholder="Password" required="" name="password" data-cip-id="inputPassword" type="password">
 			<br>
-			<div class="checkbox mb-3">
-			<label>
-				<input value="remember-me" type="checkbox"> Remember me(not working)
-			</label>
+			<!--Remember me Button-->
+			<input type="checkbox" class="form-check-input" id="remember_me" name="remember_me" value="remember_me">
+			<label class="form-check-label" for="remember_me">Remember me</label>
+			<br>
 			<br>
 			<p>Not yet a user? <a href="{% url 'register' %}">Register here</a></p>
-			</div>
+			<br>
+			<!--Sumbit Button-->
 			<button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Sign in</button>
-			<!-- <p class="mt-5 mb-3 text-muted">© 2017-2018</p> -->
 		</form>
 		
 		{% if error %}

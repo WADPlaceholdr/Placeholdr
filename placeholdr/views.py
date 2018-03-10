@@ -121,6 +121,10 @@ def user_login(request):
 		if user:
 			# Is the account active?
 			if user.is_active:
+				if 'remember_me' in request.POST:
+					request.session.set_expiry(1209600)  # 2 weeks
+				else:
+					request.session.set_expiry(0)  # Browser close
 				# If valid and active, log in
 				login(request, user)
 				return HttpResponseRedirect(reverse('index'))

@@ -38,5 +38,4 @@ def user(request):
 		context_dict["userProfile"]=userProfile
 	visitor_cookie_handler(request)
 	context_dict["visits"]=request.session['visits']
-	print(context_dict)
 	return context_dict
