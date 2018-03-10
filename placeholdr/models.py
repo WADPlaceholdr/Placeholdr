@@ -94,7 +94,7 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 
 	# Additional attributes
-	bio = models.CharField(max_length=400,default='Hello is me')
+	bio = models.CharField(max_length=400,default="Hello it's me!")
 	livesIn = models.CharField(max_length=20, default='Somewhere')
 	rep = models.IntegerField(default=0)
 	picture = models.ImageField(upload_to='profile_images', blank=True)
