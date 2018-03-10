@@ -24,7 +24,6 @@ body {
 	border:0;
 }
 
-
 #logo {
 	max-height: 40px;
 }
@@ -35,32 +34,28 @@ body {
     height:230px;
 }
 
+.nav-link {
+    padding:.3rem;
+}
+
 #navbar-user-picture {
+    display:inline-block;
     width:40px;
     height:40px;
     margin-right: 3px;
 }
-#search {
-    margin-right: 2rem;
-}
-#account-features {
-    width: 200px;
-}
 
-#float-right {
-    float: right;
+#navbarDropdown4::after {
 }
-
-#navbarDropdown4 {
-    /*width: 600px;*/
-    padding:0;
-}
-
 
 #username{
-    /*position:absolute;*/
-    width: 200px; /* the element needs a fixed width (in px, em, %, etc) */
+    display:inline-block;
+
+    width: 120px; /* the element needs a fixed width (in px, em, %, etc) */
     overflow: hidden; /* make sure it hides the content that overflows */
     white-space: nowrap; /* don't break the line */
     text-overflow: ellipsis; /* give the beautiful '...' effect */
+}
+#invisible {
+    display:none;
 }
