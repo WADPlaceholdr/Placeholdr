@@ -40,28 +40,30 @@
             </ul>
         {% endif %}
 
-        {% if query_string and not found %}
-            <p>No results found for <b>{{ query_string }}</b>.</p>
-            {% if user.is_authenticated %}
-                <br>
-                <br>
-                <div class="row">
-                    <div class="col-3">
-                        <p> Feel free to add {{ query_string }}: </p>
+        {% if query_string %}
+            {% if not found %}
+                <p>No results found for <b>{{ query_string }}</b>.</p>
+                {% if user.is_authenticated %}
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-3">
+                            <p> Feel free to add {{ query_string }}: </p>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-outline-secondary" href="">Add a Trip</button>
+                        </div>
+                        <!--<div class="col-2"></div>-->
+                        <div class="col-2">
+                            <button type="button" class="btn btn-outline-secondary" href="">Add a Place</button>
+                        </div>
                     </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-outline-secondary" href="">Add a Trip</button>
-                    </div>
-                    <!--<div class="col-2"></div>-->
-                    <div class="col-2">
-                        <button type="button" class="btn btn-outline-secondary" href="">Add a Place</button>
-                    </div>
-                </div>
-            {% else %}
-                <p> <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to create {{ query_string }}</p>
+                {% else %}
+                    <p> <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to create {{ query_string }}</p>
+                {% endif %}
             {% endif %}
         {% else %}
-            <p>Try a new search in the bar above.</p>
+            <p>Try to search in the bar above.</p>
         {% endif %}
     </div>
 {% endblock %}
