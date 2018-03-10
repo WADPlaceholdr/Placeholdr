@@ -36,12 +36,31 @@ body {
 }
 
 #navbar-user-picture {
-    width:50px;
-    height:50px;
+    width:40px;
+    height:40px;
+    margin-right: 3px;
 }
 #search {
-    margin-right: rem;
+    margin-right: 2rem;
 }
 #account-features {
+    width: 200px;
+}
 
+#float-right {
+    float: right;
+}
+
+#navbarDropdown4 {
+    /*width: 600px;*/
+    padding:0;
+}
+
+
+#username{
+    /*position:absolute;*/
+    width: 200px; /* the element needs a fixed width (in px, em, %, etc) */
+    overflow: hidden; /* make sure it hides the content that overflows */
+    white-space: nowrap; /* don't break the line */
+    text-overflow: ellipsis; /* give the beautiful '...' effect */
 }

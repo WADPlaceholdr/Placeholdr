@@ -179,8 +179,6 @@ def show_trip(request, trip_slug):
 		# Use request.POST.get('<variable>') instead of .get['<v as
 		# it returns None if the value does not exist instead of an error
 
-
-		print(Trip.objects.all()[0].slug)
 		# Check if trip object exists
 		try:
 			trip = Trip.objects.get(slug=trip_slug)
@@ -302,7 +300,6 @@ def delete_user(request):
 	return HttpResponseRedirect(reverse('logout'))
 
 def handler404(request):
-	print("in handler 404")
 	return render(request, 'placeholdr/404.html', status=404)
 
 
@@ -310,20 +307,26 @@ def handler500(request):
 	return render(request, 'placeholdr/500.html', status=500)
 
 def search(request):
-    query_string = ''
-    search_fields=('name', 'desc')
-    user_search_fields=('bio', 'user__username')
+	entry_query = None
+	found_places = None
+	found_trips = None
+	found_users = None
+	found=None
+	query_string = ''
+	search_fields=('name', 'desc')
+	user_search_fields=('bio', 'user__username')
 
-    if ('q' in request.GET) and request.GET['q'].strip():
-        query_string = request.GET['q']
+	if ('q' in request.GET) and request.GET['q'].strip():
+		query_string = request.GET['q']
 
-        entry_query = get_query(query_string, search_fields)
-        found_places = Place.objects.filter(entry_query).order_by('id')
-        found_trips = Trip.objects.filter(entry_query).order_by('id')
-        found_users = UserProfile.objects.filter(get_query(query_string, user_search_fields)).order_by('user__id')
-        found = found_places.exists() or found_trips.exists() or found_users.exists()
+		entry_query = get_query(query_string, search_fields)
+		found_places = Place.objects.filter(entry_query).order_by('id')
+		found_trips = Trip.objects.filter(entry_query).order_by('id')
+		found_users = UserProfile.objects.filter(get_query(query_string, user_search_fields)).order_by('user__id')
+		found = found_places.exists() or found_trips.exists() or found_users.exists()
 
-    return render_to_response('placeholdr/search.html', {'query_string': query_string, 'found': found, 'found_places': found_places, 'found_trips': found_trips, 'found_users': found_users})
+	return render(request,'placeholdr/search.html', {'query_string': query_string, 'found': found, 'found_places': found_places, 'found_trips': found_trips, 'found_users': found_users})
+
 
 
 def add_place_review(request):

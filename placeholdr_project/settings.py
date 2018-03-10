@@ -79,7 +79,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-		'placeholdr.context_processors.user',
+		        'placeholdr.context_processors.user',
             ],
         },
     },
