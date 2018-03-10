@@ -1,3 +1,14 @@
 #registration-container {
 	max-width: 500px;
 }
+
+#register-button {
+    background-color:#5574A3;
+    border-color: #5574A3;
+    transition: 0.5s;
+}
+
+#register-button:hover {
+    transition: 0.25s;
+    filter: brightness(130%);;
+}

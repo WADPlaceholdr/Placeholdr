@@ -38,6 +38,35 @@ body {
     padding:.3rem;
 }
 
+.btn-outline-success {
+    color: #5574A3;
+    border-color: #5574A3;
+    transition: 0.2s;
+}
+.btn-outline-success:hover, .btn-outline-success:active, .btn-outline-success:focus {
+    color:white;
+    background-color: #5574A3 !important;
+    border-color: #5574A3 !important;
+    transition: 0.25s;
+    outline-color: #5574A3 !important;
+}
+.btn-outline-success:focus {
+    box-shadow: 0 0 10px #5574A3 !important;
+}
+
+.navbar-nav > li > .dropdown-menu > a{
+    transition: 0.2s;
+}
+.navbar-nav > li > .dropdown-menu > a:hover{
+    color: white;
+    background-color:#5574A3;
+    transition: 0.2s;
+}
+
+#navbar-search-button{
+    /*background-color: #5574A3;*/
+}
+
 #navbar-user-picture {
     display:inline-block;
     width:40px;

@@ -10,6 +10,16 @@
 	padding-left: 0px;
 	padding-right: 0px;
 }
+#login-button {
+    background-color:#5574A3;
+    border-color: #5574A3;
+    transition: 0.5s;
+}
+
+#login-button:hover {
+    transition: 0.25s;
+    filter: brightness(130%);;
+}
 
 #notification {
 	width: 100%;

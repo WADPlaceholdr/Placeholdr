@@ -15,10 +15,10 @@
 		<h1>Featured Places</h1>
 		<br>
 		{% if places %}
-			<div class="row">
+			<div class="row wow animated slideInRight">
 				{% for place in places %}
 					<div class="col">
-						<div class="card stuffCard">
+						<div class="card stuffCard wow animated slideInRight">
 							{% if trip.picLink %}
 								<img class="card-img-top" src="{{ place.picLink }}" alt="{{ place.name }} picture"></img>
 							{% else %}
@@ -46,7 +46,7 @@
 			<div class="row">
 				{% for trip in trips %}
 					<div class="col">
-						<div class="card stuffCard">
+						<div class="card stuffCard wow animated slideInRight">
 							{% if trip.picLink %}
 								<img class="card-img-top" src="{{ trip.picLink }}" alt="{{ trip.name }} picture"></img>
 							{% else %}
@@ -74,7 +74,7 @@
 			<div class="row">
 				{% for userProfile in userProfiles %}
 					<div class="col">
-						<div class="card stuffCard peopleCard">
+						<div class="card stuffCard peopleCard wow animated slideInRight">
 							{% if userProfile.picture %}
 								<img class="card-img-top user-picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="{{ userProfile.user.username }}'s picture">
 							{% else %}
