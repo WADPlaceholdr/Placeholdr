@@ -14,25 +14,25 @@
 		<div class="jumbotron">
 			<div class="row">
 				<div class="col">
-					<h1 class="display-4">{{ user.username }}</h1>
+					<h1 class="display-4">{{ loggedUser.username }}</h1>
 					<hr class="my-4">
 					<h4>Bio</h4>
-					{% if userProfile.bio %}
-						<p>{{ userProfile.bio }}</p>
+					{% if loggedUserProfile.bio %}
+						<p>{{ loggedUserProfile.bio }}</p>
 					{% else %}
 						<p>no Bio</p>
 					{% endif %}
 					<h4>Reputation</h4>
-					{% if userProfile.rep or userProfile.rep == 0 %}
-						<p id="star_rating">{{ userProfile.rep }}</p>
+					{% if loggedUserProfile.rep or loggedUserProfile.rep == 0 %}
+						<p id="star_rating">{{ loggedUserProfile.rep }}</p>
 					{% else %}
 						<p>No current rep rating</p>
 					{% endif %}
 				</div>
-				{% if userProfile.picture %}
+				{% if loggedUserProfile.picture %}
 					<div class="col-xs">
 						<div class="crop-user-picture">
-							<img class="img-thumbnail user-picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="Card image cap">
+							<img class="img-thumbnail user-picture" src="{{ MEDIA_URL }}{{ loggedUserProfile.picture }}" alt="Card image cap">
 						</div>
 					</div>
 				{% endif %}

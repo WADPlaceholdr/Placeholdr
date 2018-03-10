@@ -32,7 +32,7 @@ def user(request):
 	if request.user.is_authenticated():
 		# get logged in user object
 		user = request.user
-		context_dict["user"]=user
+		context_dict["loggedUser"]=user
 		# get logged in userProfile object
 		userProfile = UserProfile.objects.get(pk=user.id)
 		context_dict["userProfile"]=userProfile

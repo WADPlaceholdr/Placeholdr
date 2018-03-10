@@ -276,7 +276,7 @@ def show_user(request, username):
 		if userProfile:
 			return render(request,
 		  'placeholdr/user.html',
-		  {'user':user,"userProfile":userProfile})
+		  {'shownUser':user,"shownUserProfile":userProfile})
 		else:
 			return HttpResponse("Invalid user slug supplied.")
 	else:

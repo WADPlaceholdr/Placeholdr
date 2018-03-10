@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	{{ user }}
+	{{ shownUser }}
 {% endblock %}
 
 {% block css_block %}
@@ -11,16 +11,16 @@
 
 {% block body_block %}
 	<div class="container">
-		{% if user %}
+		{% if shownUser %}
 			<div class="row">
-				<h1>{{ user.username }}</h1>
+				<h1>{{ shownUser.username }}</h1>
 			</div>
 			<div class="row">
 				<div class="col-xs">
 					<div class="row">
 						<img class="img-thumbnail user-picture" 
-						{% if userProfile.picture %}
-							src="{{ MEDIA_URL }}{{ userProfile.picture }}"
+						{% if shownUserProfile.picture %}
+							src="{{ MEDIA_URL }}{{ shownUserProfile.picture }}"
 						{% else %}
 							src="{% static 'images/eiffel.jpg' %}"
 						{% endif %}
@@ -32,14 +32,14 @@
 							<div class="form-group">
 								<label for="id_rep">Reputation</label>
 								<input type="number" name="rep" value="
-								{% if userProfile.rep or userProfile.rep == 0 %}
-									{{ userProfile.rep }}
+								{% if shownUserProfile.rep or shownUserProfile.rep == 0 %}
+									{{ shownUserProfile.rep }}
 								{% else %}
 									0
 								{% endif %}
 								" class="form-control" placeholder="
-								{% if userProfile.rep or userProfile.rep == 0 %}
-									{{ userProfile.rep }}
+								{% if shownUserProfile.rep or shownUserProfile.rep == 0 %}
+									{{ shownUserProfile.rep }}
 								{% else %}
 									0
 								{% endif %}
@@ -53,14 +53,14 @@
 					<div class="row-10">
 						<h3>Bio</h3>
 						<br>
-							{% if userProfile.bio %}
-								{{ userProfile.bio }}
+							{% if shownUserProfile.bio %}
+								{{ shownUserProfile.bio }}
 							{% else %}
 								no Bio
 							{% endif %}
 					</div>
 					<div class="row">
-						<h5>Lives in {{ userProfile.livesIn }}</h5>
+						<h5>Lives in {{ shownUserProfile.livesIn }}</h5>
 					</div>
 				</div>
 			</div>
