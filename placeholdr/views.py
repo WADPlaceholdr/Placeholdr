@@ -95,7 +95,10 @@ def register(request):
 
 			# Sve the UserProfile model instance
 			profile.save()
-
+			new_user = authenticate(username=user_form.cleaned_data['username'],
+									password=user_form.cleaned_data['password'],
+									)
+			login(request, new_user)
 			registered = True
 
 		else:
