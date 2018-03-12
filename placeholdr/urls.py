@@ -37,4 +37,6 @@ urlpatterns = [
 	url(r'^ajax/$', views.ajax_tasks, name='ajax_tasks'),
 	# Top Places page
 	url(r'^top_places/$', views.top_places, name='top_places'),
+	# New Places page
+	url(r'^new_places/$', views.new_places, name='new_places'),
 ]
