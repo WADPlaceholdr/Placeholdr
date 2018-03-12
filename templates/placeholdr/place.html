@@ -17,9 +17,9 @@
 					<div class="row">
 						<h1>{{ place.name }}</h1>
 					</div>
-					<div class="row">
-						{% if stars %}
-							<h3 id="star_rating">{{ stars }}</h3>
+					<div class="row" id="star_rating">
+						{% if review_inf %}
+							{{ review_inf.stars_string }}
 						{% else %}
 							<h3>No current star rating</h3>
 						{% endif %}
@@ -77,13 +77,43 @@
 				</div>
 			</div>
 			<div class="row spaced">
+                <div class="col">
+                    <div class="row">
+						<h2>Post a Review</h2>
+					</div>
+                    <div class="row">
+                        {% if user.is_authenticated %}
+                            <form id="place_review">
+                                <div class="form-group">
+                                        <label for="r_review">Review</label>
+                                        <textarea class="form-control" type="text" id="r_review" name="r_review" placeholder="Enter your review here" id="exampleFormControlTextarea1" rows="6" {% if not user.is_authenticated %}readonly{% endif %}></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="r_stars">Stars</label>
+                                    <select class="form-control" id="r_stars" name="r_stars" {% if not user.is_authenticated %}readonly{% endif %}>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <input class="btn btn-primary" id="rev_submit" type="button" value="Place Review"/>
+                            </form>
+                        {% else %}
+                            Please login to post a review
+                        {% endif %}
+                    </div>
+                </div>
+			</div>
+			<div class="row spaced">
 				<div class="col">
 					<div class="row">
 						<h2>Reviews</h2>
 					</div>
 					<div class="row">
-						{% if reviews %}
-							<div class="card-columns">
+						<div class="card-columns" id="review_section">
+							{% if reviews %}
 							{% for pl_rev in reviews %}
 								<div class="card wow animated fadeInUp">
 									<div class="card-body">
@@ -103,56 +133,18 @@
 									</div>
 								</div>
 							{% endfor %}
-							</div>
 						{% else %}
 							There are no reviews for this place
 						{% endif %}
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row spaced">
-                <div class="col">
-                    <div class="row">
-						<h2>Post a Review</h2>
-					</div>
-                    <div class="row">
-                        {% if user.is_authenticated %}
-                            <form id="place_review">
-                                <div class="form-group">
-                                        <label for="pr_review">Review</label>
-                                        <textarea class="form-control" type="text" id="pr_review" name="pr_review" placeholder="Enter your review here" id="exampleFormControlTextarea1" rows="6" {% if not user.is_authenticated %}readonly{% endif %}></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pr_stars">Stars</label>
-                                    <select class="form-control" id="pr_stars" name="pr_stars" onKeyUp="fix_stars()" {% if not user.is_authenticated %}readonly{% endif %}>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                                <input class="btn btn-primary" id="rev_submit" type="button" value="Place Review" onclick="add_place_review('{{ place.slug }}')"/>
-                            </form>
-                        {% else %}
-                            Please login to post a review
-                        {% endif %}
-                    </div>
-                </div>
-			</div>
-			<div class="row spaced" id="review_section">
-				</br>
-				{% if reviews %}
-					{% for pl_rev in reviews %}
-						</br>
-						Esteemed user {{ pl_rev.userId }} says " {{ pl_rev.review }} - {{ pl_rev.stars }}/5 "
-					{% endfor %}
-				{% endif %}
 			</div>
 		{% else %}
 			The specified place does not exist!
 		{% endif %}
 		<h3 style="visibility:hidden" id="slug">{{ place.slug }}</h3>
+		<h3 style="visibility:hidden" id="task">add_place_review</h3>
 	</div>
 
 {% endblock %}

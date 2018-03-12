@@ -53,8 +53,9 @@ $(document).ready(function() {
 					newInner += response.reviews[i] + "</br>";
 				}
 				document.getElementById("review_section").innerHTML = newInner;
-				
 				document.getElementById("star_rating").innerHTML = response.stars_string;
+				
+				document.getElementById("r_review").value = ""
 			}
 		});
 	});
