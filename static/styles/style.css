@@ -54,6 +54,23 @@ body {
     box-shadow: 0 0 10px #5574A3 !important;
 }
 
+.btn-primary {
+    background-color: #5574A3;
+    border-color: #5574A3;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    color:white;
+    background-color: #5574A3 !important;
+    border-color: #5574A3 !important;
+    transition: 0.25s;
+    outline-color: #5574A3 !important;
+}
+.btn-primary:focus {
+    /*box-shadow: 0 0 0 3px #9baeca !important;*/
+    box-shadow: 0 0 5px 2px #5574A3 !important;
+}
+
 .navbar-nav > li > .dropdown-menu > a{
     transition: 0.2s;
 }

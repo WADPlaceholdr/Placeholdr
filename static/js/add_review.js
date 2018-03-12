@@ -1,3 +1,4 @@
+/*
 function add_place_review(slug){
 	fix_stars();
 	
@@ -11,8 +12,9 @@ function add_place_review(slug){
 	};
 	xhttp.open("POST", "/placeholdr/ajax", true);
 	xhttp.send(params);
-	*/
+	
 }
+*/
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -39,10 +41,10 @@ $(document).ready(function() {
 			dataType: 'json',
 			data: {
 				'csrfmiddlewaretoken' : getCookie('csrftoken'),
-				'task':'add_place_review',
+				'task': document.getElementById("task").innerHTML,
 				'slug': document.getElementById("slug").innerHTML,
-				'review': document.getElementById("pr_review").value,
-				'stars': document.getElementById("pr_stars").value
+				'review': document.getElementById("r_review").value,
+				'stars': document.getElementById("r_stars").value
 			},
 			success: function(data){
 				response = data;
@@ -51,7 +53,9 @@ $(document).ready(function() {
 					newInner += response.reviews[i] + "</br>";
 				}
 				document.getElementById("review_section").innerHTML = newInner;
-				document.getElementById("star_rating").innerHTML = decodeURIComponent(encodeURIComponent(response.stars_string.replace(/u/g,"\\u")));
+				document.getElementById("star_rating").innerHTML = response.stars_string;
+				
+				document.getElementById("r_review").value = ""
 			}
 		});
 	});
@@ -59,25 +63,23 @@ $(document).ready(function() {
 });
 
 function fix_stars(){
-	
-	if (document.getElementById("pr_stars") == null){
+	if (document.getElementById("r_stars") == null){
 		
 		return;
 		
 	}
 	
-	if (document.getElementById("pr_stars").value.length > 1){
+	if (document.getElementById("r_stars").value.length > 1){
 		
-		document.getElementById('pr_stars').value = document.getElementById('pr_stars').value.substr(0,1);
+		document.getElementById('r_stars').value = document.getElementById('r_stars').value.substr(0,1);
 		alert("Please enter a number from 1-5");
 		
 	}
 	
-	if (document.getElementById('pr_stars').value.search("[1-5]") == -1){
+	if (document.getElementById('r_stars').value.search("[1-5]") == -1){
 		
-		document.getElementById('pr_stars').value = "";
+		document.getElementById('r_stars').value = "";
 		alert("Please enter a number from 1-5");
 		
 	}
-	
 }

@@ -138,7 +138,10 @@ def register(request):
 
 			# Sve the UserProfile model instance
 			profile.save()
-
+			new_user = authenticate(username=user_form.cleaned_data['username'],
+									password=user_form.cleaned_data['password'],
+									)
+			login(request, new_user)
 			registered = True
 
 		else:
@@ -240,10 +243,9 @@ def show_trip(request, trip_slug):
 		if trip:
 			places = []
 			mapsUrl = ""
-			trip_stars = 0
-			trip_stars_string = ""
 			trip_nodes = TripNode.objects.filter(tripId=trip).order_by("-tripPoint")
 			trip_reviews = TripReview.objects.filter(tripId=trip)
+<<<<<<< HEAD
 			if trip_reviews:
 				for trip_r in trip_reviews:
 					trip_stars += trip_r.stars
@@ -255,6 +257,11 @@ def show_trip(request, trip_slug):
 						trip_stars_string += "\u2606 "
 			else:
 				trip_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
+=======
+			
+			review_inf = get_reviews(True, trip_slug)
+			
+>>>>>>> fc610b153ee51441a583f778425f631c1f09d585
 			if trip_nodes:
 				mapsUrl="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + trip_nodes[0].placeId.lat + "%2C" + trip_nodes[0].placeId.long + "&waypoints="
 				for trip_n in trip_nodes:
@@ -262,7 +269,7 @@ def show_trip(request, trip_slug):
 					mapsUrl+= trip_n.placeId.lat + "%2C" + trip_n.placeId.long + "|"
 				mapsUrl=mapsUrl[:-1]
 				mapsUrl+="&destination=" + trip_nodes[len(trip_nodes)-1].placeId.lat + "%2C" + trip_nodes[len(trip_nodes)-1].placeId.long
-			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mUrl':mapsUrl,'stars':trip_stars_string})
+			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mUrl':mapsUrl,'review_inf':review_inf,'reviews':trip_reviews})
 		else:
 			return HttpResponse("Invalid trip slug supplied.")
 	else:
@@ -286,19 +293,10 @@ def show_place(request, place_slug):
 		# If we have a User object, the details are correct
 		if place:
 		
-			warning = ""; # Display when 
-		
-			if request.method == "POST":
-				if request.POST.get('red_text_review')=="Y":
-					warning += "<p style='text-color:red'>Please enter a review less than 400 characters long</p>";
-				if request.POST.get('red_text_stars')=="Y":
-					warning += "<p style='text-color:red'>Please enter a number from 1-5</p>";
-		
-			place_stars = 0
-			place_stars_string = ""
 			place_reviews = PlaceReview.objects.filter(placeId=place)
 			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long + "&waypoints="
 
+<<<<<<< HEAD
 			if place_reviews:
 				for place_r in place_reviews:
 					place_stars += place_r.stars
@@ -310,10 +308,13 @@ def show_place(request, place_slug):
 						place_stars_string += "\u2606 "
 			else:
 				place_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
+=======
+			review_inf = get_reviews(False, place_slug)
+>>>>>>> fc610b153ee51441a583f778425f631c1f09d585
 		
 			return render(request,
 		  'placeholdr/place.html',
-		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews, 'mapsUrl':mapsUrl, 'warning':warning})
+		  {'place':place, 'reviews':place_reviews, 'mapsUrl':mapsUrl, 'review_inf':review_inf})
 		else:
 			return HttpResponse("Invalid place slug supplied.")
 	else:
@@ -388,7 +389,7 @@ def search(request):
 		found = found_places.exists() or found_trips.exists() or found_users.exists()
 
 	return render(request,'placeholdr/search.html', {'query_string': query_string, 'found': found, 'found_places': found_places, 'found_trips': found_trips, 'found_users': found_users})
-
+	
 def ajax_tasks(request):
 	if request.method == 'POST':
 	
@@ -401,6 +402,15 @@ def ajax_tasks(request):
 			PlaceReview.objects.get_or_create(userId=request.user, placeId=Place.objects.get(slug=r_slug),
                                            stars=int(stars), review=review)
 			return HttpResponse(json.dumps(get_reviews(False, r_slug)),content_type='application/json')
+		if request.POST.get("task") == "add_trip_review":
+			review = request.POST.get("review")
+			stars = request.POST.get("stars")
+			r_slug = request.POST.get("slug")
+			if (len(review) == 0 or len(stars) != 1 or len(r_slug) == 0):
+				return "error"
+			TripReview.objects.get_or_create(userId=request.user, tripId=Trip.objects.get(slug=r_slug),
+                                           stars=int(stars), review=review)
+			return HttpResponse(json.dumps(get_reviews(True, r_slug)),content_type='application/json')
 										   
 	else:
 		return "Error"
@@ -419,13 +429,18 @@ def get_reviews(isTrip, r_slug):
 	if reviews:
 		for r in reviews:
 			stars += r.stars
-			reviews_array.append("Esteemed user " + r.userId.username + ' says "' + r.review + '"')
+			image = "src='/static/images/eiffel.jpg'"
+			userProf = UserProfile.objects.filter(user=r.userId)[0]
+			if userProf.picture:
+				image = userProf.picture
+			to_append = '<div class="card wow animated fadeInUp"><div class="card-body"><h5 class="card-title"><img class="img-thumbnail card-user-picture" ' + image + ' alt="Card image cap">' + r.userId.username + '</h5><p>' + str(r.stars) + '/5</p><p class="card-text">' + r.review + '</p><p class="card-text"><small class="text-muted">Last updated ' + str(r.modified_date) + '</small></p></div></div>'
+			reviews_array.append(to_append)
 		stars = round(stars/len(reviews))
 		for i in range(5):
 			if i < stars:
-				stars_string += "u2605 "
+				stars_string += '<img src="/static/images/star.png">'
 			else:
-				stars_string += "u2606 "
+				stars_string += '<img src="/static/images/starempty.png">'
 	return {'reviews':reviews_array, 'stars_string':stars_string}
 
 def add_place_review(request):

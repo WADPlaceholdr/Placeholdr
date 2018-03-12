@@ -18,8 +18,8 @@
 						<h1>{{ trip.name }}</h1>
 					</div>
 					<div class="row">
-						{% if stars %}
-						<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
+						{% if review_inf %}
+						<h3 id="star_rating">{{ review_inf.stars_string }}</h3>
 						{% else %}
 							<h3>No current star rating</h3>
 						{% endif %}
@@ -87,11 +87,26 @@
 						<div class="row">
 							<h2>Reviews</h2>
 						</div>
+						<div class="row spaced">
+							{% if user.is_authenticated %}
+							<form id="trip_review">
+								Review :
+								<input type="text" id="r_review" name="r_review">
+								</br>
+								Stars :
+								<input type="text" id="r_stars" name="r_stars" onKeyUp="fix_stars()">
+								</br>
+								<input id="rev_submit" type="button" value="Place Review"">
+							</form>
+							{% else %}
+								Please login to post a review
+							{% endif %}
+						</div>
 						<div class="row">
+							<div class="card-columns" id="review_section">
 							{% if reviews %}
-								<div class="card-columns">
 								{% for pl_rev in reviews %}
-									<div class="card">
+									<div class="card wow animated fadeInUp">
 										<div class="card-body">
 											<h5 class="card-title">
 												<img class="img-thumbnail card-user-picture"
@@ -109,15 +124,22 @@
 										</div>
 									</div>
 								{% endfor %}
-								</div>
 							{% else %}
-								There are no reviews for this place
+								There are no reviews for this trip.  Why not submit one!
 							{% endif %}
+							</div>
 						</div>
 					</div>
 				</div>
 		{% else %}
 			The specified trip does not exist!
 		{% endif %}
+		<h3 style="visibility:hidden" id="slug">{{ trip.slug }}</h3>
+		<h3 style="visibility:hidden" id="task">add_trip_review</h3>
 	</div>
+{% endblock %}
+
+{% block js_block %}
+	<script src="{% static 'js/add_review.js' %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 {% endblock %}
