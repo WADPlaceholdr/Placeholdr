@@ -52,42 +52,10 @@ def index(request):
 	trip_list_plus = []
 	
 	for place in place_list:
-		
-			place_stars = 0.0
-			place_stars_string = ""
-			place_reviews = PlaceReview.objects.filter(placeId=place)
-
-			if place_reviews:
-				for place_r in place_reviews:
-					place_stars += place_r.stars
-				place_stars = place_stars/len(place_reviews)
-				place_stars_rounded = round(place_stars)
-				for i in range(5):
-					if i < place_stars_rounded:
-						place_stars_string += "\u2605 "
-					else:
-						place_stars_string += "\u2606 "
-			else:
-				place_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
-			place_list_plus.append([place, place_stars, place_stars_string])
+		place_list_plus.append(star_helper(place, "place"))
 			
 	for trip in trip_list:
-			trip_stars = 0
-			trip_stars_string = ""
-			trip_reviews = TripReview.objects.filter(tripId=trip)
-			if trip_reviews:
-				for trip_r in trip_reviews:
-					trip_stars += trip_r.stars
-				trip_stars = trip_stars/len(trip_reviews)
-				trip_stars_rounded = round(trip_stars)
-				for i in range(5):
-					if i < trip_stars:
-						trip_stars_string += "\u2605 "
-					else:
-						trip_stars_string += "\u2606 "
-			else:
-				trip_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
-			trip_list_plus.append([trip, trip_stars, trip_stars_string])
+			trip_list_plus.append(star_helper(trip, "trip"))
 	
 	context_dict = {'places' : place_list_plus, 'userProfiles' : userProfile_list, 'trips': trip_list_plus}
 
@@ -454,10 +422,14 @@ def add_place_review(request):
 	return render(request, 'placeholdr/register.html',  {'user_form': user_form, 'profile_form':profile_form, 'registered': registered})
 	
 
-def star_helper(place):
+def star_helper(place, type):
+	num_reviews = PlaceReview.objects.filter(placeId=place.id).count()
 	place_stars = 0.0
 	place_stars_string = ""
-	place_reviews = PlaceReview.objects.filter(placeId=place)
+	if type == "place":
+		place_reviews = PlaceReview.objects.filter(placeId=place)
+	elif type == "trip":
+		place_reviews = TripReview.objects.filter(tripId=place)
 
 	if place_reviews:
 		for place_r in place_reviews:
@@ -471,7 +443,7 @@ def star_helper(place):
 				place_stars_string += "\u2606 "
 	else:
 		place_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
-	return [place, place_stars, place_stars_string]
+	return [place, place_stars, place_stars_string, num_reviews]
 	
 def top_places(request):
                 
@@ -480,7 +452,7 @@ def top_places(request):
 	if Place.objects.all().count() >= num_of_places:
 		top = []
 		for place in Place.objects.all():
-			star_array = star_helper(place)
+			star_array = star_helper(place, "place")
 			
 			if len(top) < num_of_places:
 				top.append(star_array)
@@ -501,7 +473,26 @@ def new_places(request):
 	if Place.objects.all().count() >= num_of_places:
 		new = Place.objects.order_by('-id')[:num_of_places]
 		for place in new:
-			new_places.append(star_helper(place))
-		return render(request, 'placeholdr/new_places.html',{'top_places': new_places, 'count': num_of_places})
+			new_places.append(star_helper(place, "place"))
+		return render(request, 'placeholdr/new_places.html',{'new_places': new_places, 'count': num_of_places})
+	else:
+		return HttpResponse("Fewer than " + num_of_places + " places exist!")
+		
+def popular_places(request):
+                
+	# If we have a User object, the details are correct
+	num_of_places = 5
+	if Place.objects.all().count() >= num_of_places:
+		pop = []
+		for place in Place.objects.all():
+			star_array = star_helper(place, "place")
+			if len(pop) < num_of_places:
+				pop.append(star_array)
+			else:
+				pop = sorted(pop,key=lambda x: x[3])
+				if star_array[3] > pop[0][3]:
+					pop[0] = star_array
+		pop = sorted(pop,key=lambda x: x[3], reverse=True)
+		return render(request, 'placeholdr/popular_places.html',{'popular_places': pop, 'count': num_of_places})
 	else:
 		return HttpResponse("Fewer than " + num_of_places + " places exist!")

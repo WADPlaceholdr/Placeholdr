@@ -12,13 +12,13 @@
 
 {% block body_block %}
 	<div class="container">
-			<h1>New Places</h1>
+			<h1>Popular Places</h1>
 			<br>
-			{% if new_places %}
+			{% if popular_places %}
 				<div class="row">
 					<div class="card-deck">
-						<!-- place.0 = place, place.1 = average stars, place.2 = stars string, count = number of new places -->
-						{% for place in new_places %}
+						<!-- place.0 = place, place.1 = average stars, place.2 = stars string, count = number of top places -->
+						{% for place in popular_places %}
 								<div class="row">
 									<table width="100%">
 									<tr><td colspan="2">
