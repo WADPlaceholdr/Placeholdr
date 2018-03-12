@@ -51,7 +51,7 @@ $(document).ready(function() {
 					newInner += response.reviews[i] + "</br>";
 				}
 				document.getElementById("review_section").innerHTML = newInner;
-				document.getElementById("star_rating").innerHTML = decodeURIComponent(encodeURIComponent(response.stars_string.replace(/u/g,"\\u")));
+				document.getElementById("star_rating").innerHTML = starsdecodeURIComponent(encodeURIComponent(response.stars_string.replace(/u/g,"\\u")));
 			}
 		});
 	});

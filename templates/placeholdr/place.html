@@ -88,15 +88,21 @@
 					</div>
 				</div>
 			</div>
-			<form id="place_review">
-				Review :
-				<input type="text" id="pr_review" name="pr_review">
-				</br>
-				Stars :
-				<input type="text" id="pr_stars" name="pr_stars" onKeyUp="fix_stars()">
-				</br>
-				<input id="rev_submit" type="button" value="Place Review" onclick="add_place_review('{{ place.slug }}')">
-			</form>
+			<div class="row spaced">
+				{% if user.is_authenticated %}
+				<form id="place_review">
+					Review :
+					<input type="text" id="pr_review" name="pr_review">
+					</br>
+					Stars :
+					<input type="text" id="pr_stars" name="pr_stars" onKeyUp="fix_stars()">
+					</br>
+					<input id="rev_submit" type="button" value="Place Review" onclick="add_place_review('{{ place.slug }}')">
+				</form>
+				{% else %}
+					Please login to post a review
+				{% endif %}
+			</div>
 			<div id="review_section">
 				</br>
 				{% if reviews %}
