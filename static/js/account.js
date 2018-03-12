@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $('#delete-account-button').click(function(){
-        $('#delete-account-confirm').toggle()
+    $('#delete-account').click(function(){
+        $('#confirm-delete-account').toggle()
     })
-    $('#dont-delete-account-button').click(function(){
-        $('#delete-account-confirm').toggle()
+    $('#dont-delete-account').click(function(){
+        $('#confirm-delete-account').toggle()
     }) 
 });

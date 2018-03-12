@@ -1,14 +1,15 @@
-#delete-account-confirm {
-	/* width: 100%; */
-	display: none;
-	margin-top: 4px;
+#delete-account {
+	/*display: none;*/
 }
 
-#delete-account-button {
+#confirm-delete-account {
+    display: none;
 	color:  white;
+	padding:0;
+	margin:0;
 }
 
-#dont-delete-account-button {
+#dont-delete-account {
 	color:  white;
 }
 
@@ -16,4 +17,19 @@
     object-fit: cover;
     width:230px;
     height:230px;
+}
+.col {
+	margin: 1rem;
+}
+
+.row {
+	margin: 1rem;
+}
+.row-10 {
+	margin: 1rem;
+}
+
+.seperator {
+	margin-top:3rem;
+	margin-bottom:3rem;
 }

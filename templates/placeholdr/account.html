@@ -11,59 +11,97 @@
 
 {% block body_block %}
 	<div class="container">
-		<div class="jumbotron">
-			<div class="row">
-				<div class="col">
-					<h1 class="display-4">{{ loggedUser.username }}</h1>
-					<hr class="my-4">
-					<h4>Bio</h4>
-					{% if loggedUserProfile.bio %}
-						<p>{{ loggedUserProfile.bio }}</p>
-					{% else %}
-						<p>no Bio</p>
-					{% endif %}
-					<h4>Reputation</h4>
-					{% if loggedUserProfile.rep or loggedUserProfile.rep == 0 %}
-						<p id="star_rating">{{ loggedUserProfile.rep }}</p>
-					{% else %}
-						<p>No current rep rating</p>
-					{% endif %}
+		<div class="row">
+			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+				<div class="btn-group mr-5" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-primary" href="">Edit profile</button>
+					<button type="button" class="btn btn-primary" href="">Add a Trip</button>
+					<button type="button" class="btn btn-primary" href="">Add a Place</button>
+					<a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logout</a>
 				</div>
-				{% if loggedUserProfile.picture %}
-					<div class="col-xs">
-						<div class="crop-user-picture">
-							<img class="img-thumbnail user-picture" src="{{ MEDIA_URL }}{{ loggedUserProfile.picture }}" alt="Card image cap">
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal">Delete account</button>
+				<!-- Modal -->
+				<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="deleteAccountModalLabel">Are you sure you want to delete account?</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-					</div>
-				{% endif %}
-			</div>
-			<hr class="my-4">
-			<div class="row">
-				<div class="col">
-					<button type="button" class="btn btn-primary btn-block" href="">Edit profile</button><br><br>
-				</div>
-				<div class="col">
-					<button type="button" class="btn btn-primary btn-block" href="">Add a Trip</button><br><br>
-				</div>
-				<div class="col">
-					<button type="button" class="btn btn-primary btn-block" href="">Add a Place</button><br><br>
-				</div>
-				<div class="col">
-					<a class="btn btn-primary btn-block" href="{% url 'logout' %}">Logout</a><br><br><br>
-				</div>
-				<div class="col">
-					<button type="button" class="btn btn-danger btn-block" id="delete-account-button">Delete account</button>
-					<div class="alert alert-danger btn-block" id="delete-account-confirm">
-						<strong>Are you sure?</strong><br>
-						<a href="{% url 'delete_user' %}" class="btn btn-xs btn-danger pull-left">yes</a>
-						<a id="dont-delete-account-button" class="btn btn-xs btn-primary pull-right">no</a>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<a class="btn btn-danger" href="{% url 'delete_user' %}" role="button">Delete Account</a>
+						</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-{% endblock %}
+		<br/>
+		<div class="row">
+			<h1>{{ loggedUser.username }}</h1>
+		</div>
+		<div class="row">
+			<div class="col-xs">
+				<div class="row">
+					<img class="img-thumbnail user-picture"
+					{% if loggedUser.picture %}
+						src="{{ MEDIA_URL }}{{ loggedUser.picture }}"
+					{% else %}
+						src="{% static 'images/eiffel.jpg' %}"
+					{% endif %}
+					alt="Card image cap">
 
-{% block js_block %}
-	<script src="{% static 'js/account.js' %}"></script>
+				</div>
+				<div class="row">
+					<form id="user_form" method="post" action="">
+						<div class="form-group">
+							<label for="id_rep">Reputation</label>
+							<input type="number" name="rep" value="
+							{% if loggedUser.rep or loggedUser.rep == 0 %}
+								{{ loggedUser.rep }}
+							{% else %}
+								0
+							{% endif %}
+							" class="form-control" placeholder="
+							{% if loggedUser.rep or loggedUser.rep == 0 %}
+								{{ loggedUser.rep }}
+							{% else %}
+								0
+							{% endif %}
+							"
+							title="" required="" id="id_rep">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col">
+				<div class="row-10">
+					<h3>Bio</h3>
+					<br>
+						{% if loggedUser.bio %}
+							{{ loggedUser.bio }}
+						{% else %}
+							no Bio
+						{% endif %}
+				</div>
+				<div class="row">
+					<h5>Lives in {{ loggedUser.livesIn }}</h5>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="seperator"></div>
+		<div class="row">
+			<h3>My Favourite Places</h3>
+		</div>
+		<br>
+		<div class="seperator"></div>
+		<div class="row">
+			<h3>My Recommended Trip</h3>
+		</div>
+	</div>
 {% endblock %}
