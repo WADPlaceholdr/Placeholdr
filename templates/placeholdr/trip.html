@@ -5,38 +5,83 @@
 	{{ trip.name }}
 {% endblock %}
 
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/trip.css' %}" />
+{% endblock %}
+
 {% block body_block %}
 	<div class="container">
 		{% if trip %}
-			<h1>{{ trip.name }}</h1>
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<h1>{{ trip.name }}</h1>
+					</div>
+					<div class="row">
+						{% if stars %}
+						<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
+						{% else %}
+							<h3>No current star rating</h3>
+						{% endif %}
+					</div>
 
-			{% if trip.picLink %}
-				<img src="{{ trip.picLink }}"></img>
-			{% endif %}
-			{% if stars %}
-				<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
-			{% else %}
-				<h3>No current star rating</h3>
-			{% endif %}
-			{% if trip.desc %}
-				{{ trip.desc }}
-			{% endif %}
-			{% if places %}
-				Places
-				<ul>
-				{% for place in places %}
-					<li>{{ place }}</li>
-				{% endfor %}
-				</ul>
-			{% else %}
-				<strong>No places currently in trip.</strong>
-			{% endif %}
-			{% if trip_nodes %}
-				<iframe width="600" height="450" frameborder="0" style="border:0"  src="{{ mUrl }}" allowfullscreen>
-				</iframe>
-			{% else %}
-				<strong>No places currently in trip.</strong>
-			{% endif %}
+					<div class="row">
+						{% if trip.desc %}
+							<p>{{ trip.desc }}</p>
+						{% else %}
+							<p>There is no description for this trip</p>
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-sm">
+					{% if trip_nodes %}
+						<iframe class="maps-iframe" width="100%" height="100%" frameborder="0" style="border:0"  src="{{ mUrl }}" allowfullscreen></iframe>
+					{% endif %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<h2>Pictures</h2>
+					</div>
+					<div class="row">
+						{% if trip.picLink %}
+							<img src="{{ trip.picLink }}"></img>
+						{% else %}
+							There are no pictures for this trip
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<h2>Places</h2>
+					</div>
+					<div class="row">
+						{% if places %}
+							{% for place in places %}
+								<div class="col">
+									<div class="card stuffCard wow animated slideInRight">
+										{% if place.picLink %}
+											<img class="card-img-top" src="{{ place.picLink }}" alt="{{ place.name }} picture"></img>
+										{% else %}
+											<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
+										{% endif %}
+										<div class="card-body">
+											<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
+											<p class="card-text">{{ place.desc }}</p>
+											<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						{% else %}
+							There are no places for this trip
+						{% endif %}
+					</div>
+				</div>
+			</div>
 		{% else %}
 			The specified trip does not exist!
 		{% endif %}
