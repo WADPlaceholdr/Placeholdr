@@ -19,3 +19,19 @@
 #place_review {
     width: 100%;
 }
+
+#rev_submit {
+    background-color: #5574A3;
+    border-color: #5574A3;
+}
+
+#rev_submit:hover, #rev_submit:active, #rev_submit:focus {
+    color:white;
+    background-color: #5574A3 !important;
+    border-color: #5574A3 !important;
+    transition: 0.25s;
+    outline-color: #5574A3 !important;
+}
+#rev_submit:focus {
+    box-shadow: 0 0 10px #5574A3 !important;
+}

@@ -6,15 +6,20 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		
-		<!-- Bootstrap Stylesheet -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-		<!--Aniamte.css-->
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+		<!-- Bootstrap Stylesheet -->
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+		<!--Animate.css-->
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
 		
-		<!-- Other Stylesheet -->
+		<!--Main stylesheet-->
 		<link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}" />
+
+		<!-- Other Stylesheet -->
+		{% block css_block %}
+
+		{% endblock %}
 		
 		<!-- Favicon -->
 		<link rel='shortcut icon' type='image/x-icon' href="{% static 'images/favicon.ico' %}" />
@@ -32,9 +37,6 @@
 		<!-- Add to home screen -->
 		<meta name="mobile-web-app-capable" content="yes">
 
-		{% block css_block %}
-
-		{% endblock %}
 		<title>
 			placeholdr - 
 			{% block title_block %}
