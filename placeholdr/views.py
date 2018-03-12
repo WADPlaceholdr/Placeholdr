@@ -242,6 +242,7 @@ def show_place(request, place_slug):
 			place_stars = 0
 			place_stars_string = ""
 			place_reviews = PlaceReview.objects.filter(placeId=place)
+			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long + "&waypoints="
 
 			if place_reviews:
 				for place_r in place_reviews:
@@ -255,7 +256,7 @@ def show_place(request, place_slug):
 		
 				return render(request,
 		  'placeholdr/place.html',
-		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews})
+		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews, 'mapsUrl':mapsUrl})
 		else:
 			return HttpResponse("Invalid place slug supplied.")
 	else:

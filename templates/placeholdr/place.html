@@ -5,28 +5,71 @@
 	{{ place.name }}
 {% endblock %}
 
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/trip.css' %}" />
+{% endblock %}
+
 {% block body_block %}
 	<div class="container">
 		{% if place %}
-			<h1>{{ place.name }}</h1>
-			{% if stars %}
-				<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
-			{% else %}
-				<h3>No current star rating</h3>
-			{% endif %}
-			{% if place.desc %}
-				{{ place.desc }}
-			{% endif %}
-			{%if place.picLink %}
-				<img src="{{ place.picLink }}">
-			{% endif %}
-			</br>
-			{% if reviews %}
-				{% for pl_rev in reviews %}
-					</br>
-					Esteemed user {{ pl_rev.userId }} says " {{ pl_rev.review }} - {{ pl_rev.stars }}/5 "
-				{% endfor %}
-			{% endif %}
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<h1>{{ place.name }}</h1>
+					</div>
+					<div class="row">
+						{% if stars %}
+							<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
+						{% else %}
+							<h3>No current star rating</h3>
+						{% endif %}
+					</div>
+					<div class="row">
+						{% if place.desc %}
+							{{ place.desc }}
+						{% else %}
+							There is no description for this place
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-sm">
+					{% if mUrl %}
+						<iframe class="maps-iframe" width="100%" height="100%" frameborder="0" style="border:0"  src="{{ mUrl }}" allowfullscreen></iframe>
+					{% else %}
+						There are no coordinates for this place cannot display map
+					{% endif %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<h2>Pictures</h2>
+					</div>
+					<div class="row">
+						{% if place.picLink %}
+							<img src="{{ place.picLink }}">
+						{% else %}
+							There are no pictures for this place
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<h2>Reviews</h2>
+					</div>
+					<div class="row">
+						{% if reviews %}
+							{% for pl_rev in reviews %}
+								Esteemed user {{ pl_rev.userId }} says " {{ pl_rev.review }} - {{ pl_rev.stars }}/5 "
+							{% endfor %}
+						{% else %}
+							There are no reviews for this place
+						{% endif %}
+					</div>
+				</div>
+			</div>
 		{% else %}
 			The specified place does not exist!
 		{% endif %}
