@@ -46,11 +46,33 @@
 						<h2>Pictures</h2>
 					</div>
 					<div class="row">
-						{% if place.picLink %}
-							<img src="{{ place.picLink }}">
-						{% else %}
-							There are no pictures for this place
-						{% endif %}
+                        <div id="carouselExampleSlidesOnly" class="carousel slide img-thumbnail" data-ride="carousel">
+                            <div class="carousel-inner">
+						        {% if place.picLink %}
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    </ol>
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="{{ place.picLink }}" alt="Picture of {{ place.name }}">
+                                    </div>
+                                {% else %}
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                    </ol>
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="{% static 'images/no_image.png' %}" alt="placeholder">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -89,21 +111,40 @@
 				</div>
 			</div>
 			<div class="row spaced">
-				{% if user.is_authenticated %}
-				<form id="place_review">
-					Review :
-					<input type="text" id="pr_review" name="pr_review">
-					</br>
-					Stars :
-					<input type="text" id="pr_stars" name="pr_stars" onKeyUp="fix_stars()">
-					</br>
-					<input id="rev_submit" type="button" value="Place Review" onclick="add_place_review('{{ place.slug }}')">
-				</form>
-				{% else %}
-					Please login to post a review
-				{% endif %}
+                <div class="col">
+                    <div class="row">
+						<h2>Post a Review</h2>
+					</div>
+                    <div class="row">
+                        {% if user.is_authenticated %}
+                            <form id="place_review">
+                                <div class="col">
+                                    <div class="form-group">
+                                            <label for="pr_review">Review</label>
+                                            <textarea class="form-control" type="text" id="pr_review" name="pr_review" placeholder="Enter your review here" id="exampleFormControlTextarea1" rows="6" {% if not user.is_authenticated %}readonly{% endif %}></textarea>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="pr_stars">Stars</label>
+                                        <select class="form-control" id="pr_stars" name="pr_stars" onKeyUp="fix_stars()" {% if not user.is_authenticated %}readonly{% endif %}>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    <input class="btn btn-primary" id="rev_submit" type="button" value="Place Review" onclick="add_place_review('{{ place.slug }}')"/>
+                                </div>
+                            </form>
+                        {% else %}
+                            Please login to post a review
+                        {% endif %}
+                    </div>
+                </div>
 			</div>
-			<div id="review_section">
+			<div class="row spaced" id="review_section">
 				</br>
 				{% if reviews %}
 					{% for pl_rev in reviews %}
