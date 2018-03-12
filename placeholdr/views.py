@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 from django.utils.encoding import iri_to_uri
+import json
 
 # Import User
 from django.contrib.auth.models import User
@@ -239,6 +240,15 @@ def show_place(request, place_slug):
                 
 		# If we have a User object, the details are correct
 		if place:
+		
+			warning = ""; # Display when 
+		
+			if request.method == "POST":
+				if request.POST.get('red_text_review')=="Y":
+					warning += "<p style='text-color:red'>Please enter a review less than 400 characters long</p>";
+				if request.POST.get('red_text_stars')=="Y":
+					warning += "<p style='text-color:red'>Please enter a number from 1-5</p>";
+		
 			place_stars = 0
 			place_stars_string = ""
 			place_reviews = PlaceReview.objects.filter(placeId=place)
@@ -255,7 +265,7 @@ def show_place(request, place_slug):
 		
 				return render(request,
 		  'placeholdr/place.html',
-		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews})
+		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews, 'warning':warning})
 		else:
 			return HttpResponse("Invalid place slug supplied.")
 	else:
@@ -331,7 +341,44 @@ def search(request):
 
 	return render(request,'placeholdr/search.html', {'query_string': query_string, 'found': found, 'found_places': found_places, 'found_trips': found_trips, 'found_users': found_users})
 
+def ajax_tasks(request):
+	if request.method == 'POST':
+	
+		if request.POST.get("task") == "add_place_review":
+			review = request.POST.get("review")
+			stars = request.POST.get("stars")
+			r_slug = request.POST.get("slug")
+			if (len(review) == 0 or len(stars) != 1 or len(r_slug) == 0):
+				return "error"
+			PlaceReview.objects.get_or_create(userId=request.user, placeId=Place.objects.get(slug=r_slug),
+                                           stars=int(stars), review=review)
+			return HttpResponse(json.dumps(get_reviews(False, r_slug)),content_type='application/json')
+										   
+	else:
+		return "Error"
 
+def get_reviews(isTrip, r_slug):
+	
+	if not(isTrip):
+		reviews = PlaceReview.objects.filter(placeId=Place.objects.get(slug=r_slug))
+	else:
+		reviews = TripReview.objects.filter(tripId=Trip.objects.get(slug=r_slug))
+
+	stars = 0
+	stars_string = ""
+	reviews_array = []
+
+	if reviews:
+		for r in reviews:
+			stars += r.stars
+			reviews_array.append("Esteemed user " + r.userId.username + ' says "' + r.review + '"')
+		stars = round(stars/len(reviews))
+		for i in range(5):
+			if i < stars:
+				stars_string += "u2605 "
+			else:
+				stars_string += "u2606 "
+	return {'reviews':reviews_array, 'stars_string':stars_string}
 
 def add_place_review(request):
 
