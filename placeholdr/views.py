@@ -42,11 +42,54 @@ from placeholdr.forms import PageForm
 def index(request):
 	# Query the database for a list of ALL places, trips, users currently stored
 	
+	
+	
 	nbrOfTops=4
 	place_list = Place.objects.order_by('?')[:nbrOfTops]
 	trip_list = Trip.objects.order_by('?')[:nbrOfTops]
 	userProfile_list = UserProfile.objects.select_related('user').order_by('-rep')[:nbrOfTops+2]
-	context_dict = {'places' : place_list, 'userProfiles' : userProfile_list, 'trips': trip_list}
+	place_list_plus = []
+	trip_list_plus = []
+	
+	for place in place_list:
+		
+			place_stars = 0.0
+			place_stars_string = ""
+			place_reviews = PlaceReview.objects.filter(placeId=place)
+
+			if place_reviews:
+				for place_r in place_reviews:
+					place_stars += place_r.stars
+				place_stars = place_stars/len(place_reviews)
+				place_stars_rounded = round(place_stars)
+				for i in range(5):
+					if i < place_stars_rounded:
+						place_stars_string += "\u2605 "
+					else:
+						place_stars_string += "\u2606 "
+			else:
+				place_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
+			place_list_plus.append([place, place_stars, place_stars_string])
+			
+	for trip in trip_list:
+			trip_stars = 0
+			trip_stars_string = ""
+			trip_reviews = TripReview.objects.filter(tripId=trip)
+			if trip_reviews:
+				for trip_r in trip_reviews:
+					trip_stars += trip_r.stars
+				trip_stars = trip_stars/len(trip_reviews)
+				trip_stars_rounded = round(trip_stars)
+				for i in range(5):
+					if i < trip_stars:
+						trip_stars_string += "\u2605 "
+					else:
+						trip_stars_string += "\u2606 "
+			else:
+				trip_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
+			trip_list_plus.append([trip, trip_stars, trip_stars_string])
+	
+	context_dict = {'places' : place_list_plus, 'userProfiles' : userProfile_list, 'trips': trip_list_plus}
 
 	# Render the response and send it back!
 	response = render(request, 'placeholdr/index.html', context_dict)
@@ -210,6 +253,8 @@ def show_trip(request, trip_slug):
 						trip_stars_string += "\u2605 "
 					else:
 						trip_stars_string += "\u2606 "
+			else:
+				trip_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
 			if trip_nodes:
 				mapsUrl="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + trip_nodes[0].placeId.lat + "%2C" + trip_nodes[0].placeId.long + "&waypoints="
 				for trip_n in trip_nodes:
@@ -263,8 +308,10 @@ def show_place(request, place_slug):
 						place_stars_string += "\u2605 "
 					else:
 						place_stars_string += "\u2606 "
+			else:
+				place_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
 		
-				return render(request,
+			return render(request,
 		  'placeholdr/place.html',
 		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews, 'mapsUrl':mapsUrl, 'warning':warning})
 		else:
@@ -418,3 +465,39 @@ def add_place_review(request):
 		profile_form = UserProfileForm()
 
 	return render(request, 'placeholdr/register.html',  {'user_form': user_form, 'profile_form':profile_form, 'registered': registered})
+	
+	
+def top_places(request):
+                
+	# If we have a User object, the details are correct
+	num_of_places = 5
+	if Place.objects.all().count() >= num_of_places:
+		top_five = []
+		for place in Place.objects.all():
+		
+			place_stars = 0.0
+			place_stars_string = ""
+			place_reviews = PlaceReview.objects.filter(placeId=place)
+
+			if place_reviews:
+				for place_r in place_reviews:
+					place_stars += place_r.stars
+				place_stars = place_stars/len(place_reviews)
+				place_stars_rounded = round(place_stars)
+				for i in range(5):
+					if i < place_stars_rounded:
+						place_stars_string += "\u2605 "
+					else:
+						place_stars_string += "\u2606 "
+			else:
+				place_stars_string = "\u2606 \u2606 \u2606 \u2606 \u2606"
+			if len(top_five) < num_of_places:
+				top_five.append([place, place_stars, place_stars_string])
+			else:
+				top_five = sorted(top_five,key=lambda x: x[1])
+				if place_stars > top_five[0][1]:
+					top_five[0] = [place, place_stars, place_stars_string]
+		top_five = sorted(top_five,key=lambda x: x[1], reverse=True)
+		return render(request, 'placeholdr/top_places.html',{'top_places': top_five, 'count': num_of_places})
+	else:
+		return HttpResponse("Fewer than " + num_of_places + " places exist!")

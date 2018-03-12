@@ -35,4 +35,6 @@ urlpatterns = [
 	url(r'^search/$', views.search, name='search'),
 	# Ajax page
 	url(r'^ajax/$', views.ajax_tasks, name='ajax_tasks'),
+	# Top Places page
+	url(r'^top_places/$', views.top_places, name='top_places'),
 ]

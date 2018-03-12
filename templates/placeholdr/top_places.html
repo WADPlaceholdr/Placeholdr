@@ -1,0 +1,53 @@
+{% extends 'placeholdr/base.html' %}
+{% load staticfiles %}
+
+
+{% block title_block %}
+	Index
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}" />
+{% endblock %}
+
+{% block body_block %}
+	<div class="container">
+			<h1>Top Places</h1>
+			<br>
+			{% if top_places %}
+				<div class="row">
+					<div class="card-deck">
+						<!-- place.0 = place, place.1 = average stars, place.2 = stars string, count = number of top places -->
+						{% for place in top_places %}
+								<div class="row">
+									<table width="100%">
+									<tr><td colspan="2">
+									<br>
+									</td></tr>
+									<tr><td width="30%">
+									<a href="/placeholdr/place/{{ place.0.slug }}">
+									{% if trip.picLink %}
+										<img class="card-img-top" src="{{ place.0.picLink }}" alt="{{ place.0.name }} picture"></img>
+									{% else %}
+										<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
+									{% endif %}
+									</a>
+									</td><td>
+									<div class="card-body">
+										<h2 class="card-title"><a href="/placeholdr/place/{{ place.0.slug }}">{{ place.0.name }}</a></h2>
+										<h2 class="card-text">{{ place.2 }}</h2>
+										<p class="card-text text-justify">{{ place.0.desc|truncatechars:500 }}</p>
+									</div>
+									</tr>
+									</table>
+									
+								</div>
+							<!--</div>-->
+						{% endfor %}
+					</div>
+				</div>
+			{% else %}
+				<h3>There are fewer than {{ count }} places!</h3>
+			{% endif %}
+	</div>
+{% endblock %}
