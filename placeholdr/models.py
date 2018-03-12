@@ -14,6 +14,8 @@ class Place(models.Model):
 	picLink = models.ImageField(upload_to='place_images', blank=True)
 	slug = models.SlugField(unique=True)
 	name = models.CharField(max_length=128, unique=True)
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
@@ -29,6 +31,8 @@ class Trip(models.Model):
 	picLink = models.ImageField(upload_to='trip_images', blank=True)
 	name = models.CharField(max_length=128, unique=True)
 	slug = models.SlugField(unique=True)
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
@@ -53,6 +57,8 @@ class PlaceReview(models.Model):
 	# Positive Integer < 5
 	stars = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
 	review = models.CharField(max_length=400)
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return self.stars
@@ -64,6 +70,8 @@ class TripReview(models.Model):
 	# Positive Integer < 5
 	stars = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
 	review = models.CharField(max_length=400)
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
 		return self.stars

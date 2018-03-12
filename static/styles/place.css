@@ -3,7 +3,12 @@
     height: 100%;
     min-height: 400px;
 }
-.row {
+.spaced {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+.card-user-picture {
+    width:60px;
+    height:60px;
+    object-fit: cover !important;
 }

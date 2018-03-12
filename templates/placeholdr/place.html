@@ -6,20 +6,20 @@
 {% endblock %}
 
 {% block css_block %}
-	<link rel="stylesheet" type="text/css" href="{% static 'styles/trip.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/place.css' %}" />
 {% endblock %}
 
 {% block body_block %}
 	<div class="container">
 		{% if place %}
-			<div class="row">
+			<div class="row spaced">
 				<div class="col">
 					<div class="row">
 						<h1>{{ place.name }}</h1>
 					</div>
 					<div class="row">
 						{% if stars %}
-							<h3 id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></h3>
+							<h3 id="star_rating">{{ stars }}</h3>
 						{% else %}
 							<h3>No current star rating</h3>
 						{% endif %}
@@ -40,7 +40,7 @@
 					{% endif %}
 				</div>
 			</div>
-			<div class="row">
+			<div class="row spaced">
 				<div class="col">
 					<div class="row">
 						<h2>Pictures</h2>
@@ -54,16 +54,34 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row spaced">
 				<div class="col">
 					<div class="row">
 						<h2>Reviews</h2>
 					</div>
 					<div class="row">
 						{% if reviews %}
+							<div class="card-columns">
 							{% for pl_rev in reviews %}
-								Esteemed user {{ pl_rev.userId }} says " {{ pl_rev.review }} - {{ pl_rev.stars }}/5 "
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">
+											<img class="img-thumbnail card-user-picture"
+											{% if pl_rev.userId.picture %}
+												src="{{ MEDIA_URL }}{{ pl_rev.userId.picture }}"
+											{% else %}
+												src="{% static 'images/eiffel.jpg' %}"
+											{% endif %}
+											alt="Card image cap">
+											{{ pl_rev.userId.username }}
+										</h5>
+										<p>{{ pl_rev.stars }}/5</p>
+										<p class="card-text">{{ pl_rev.review }}</p>
+										<p class="card-text"><small class="text-muted">{{ pl_rev.modified_date }}</small></p>
+									</div>
+								</div>
 							{% endfor %}
+							</div>
 						{% else %}
 							There are no reviews for this place
 						{% endif %}
