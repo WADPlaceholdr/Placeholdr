@@ -11,86 +11,86 @@
 {% endblock %}
 
 {% block body_block %}
-	<div class="container-fluid">
-		<h1>Featured Places</h1>
-		<br>
-		{% if places %}
-			<div class="row wow animated slideInRight">
-				{% for place in places %}
-					<div class="col">
-						<div class="card stuffCard wow animated slideInRight">
-							{% if trip.picLink %}
-								<img class="card-img-top" src="{{ place.picLink }}" alt="{{ place.name }} picture"></img>
-							{% else %}
-								<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
-							{% endif %}
-							<div class="card-body">
-								<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
-								<p class="card-text">{{ place.desc }}</p>
-								<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
-							</div>
-						</div>
+	<div class="container">
+		<div class="row">
+			<h1>Featured Places</h1>
+			<br>
+			{% if places %}
+				<div class="row">
+					<div class="card-deck">
+						{% for place in places %}
+							<!--<div class="col">-->
+								<div class="card stuffCard wow animated slideInRight">
+									{% if trip.picLink %}
+										<img class="card-img-top" src="{{ place.picLink }}" alt="{{ place.name }} picture"></img>
+									{% else %}
+										<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
+									{% endif %}
+									<div class="card-body">
+										<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
+										<p class="card-text text-justify">{{ place.desc|truncatechars:150 }}</p>
+										<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
+									</div>
+								</div>
+							<!--</div>-->
+						{% endfor %}
 					</div>
-				{% endfor %}
-			</div>
-		{% else %}
-			<h3>There are no featured places today.</h3>
-		{% endif %}
-	</div>
-	<br>
-	<br>
-	<div class="container-fluid">
-		<h1>Featured Trips</h1>
-		<br>
-		{% if trips %}
-			<div class="row">
-				{% for trip in trips %}
-					<div class="col">
-						<div class="card stuffCard wow animated slideInRight">
-							{% if trip.picLink %}
-								<img class="card-img-top" src="{{ trip.picLink }}" alt="{{ trip.name }} picture"></img>
-							{% else %}
-								<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
-							{% endif %}
-							<div class="card-body">
-								<h5 class="card-title"><a href="/placeholdr/trip/{{ trip.slug }}">{{ trip.name }}</a></h5>
-								<p class="card-text">{{ trip.desc }}</p>
-								<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
+				</div>
+			{% else %}
+				<h3>There are no featured places today.</h3>
+			{% endif %}
+		</div>
+		<div class="row">
+			<h1>Featured Trips</h1>
+			<br>
+			{% if trips %}
+				<div class="row">
+					<div class="card-deck">
+						{% for trip in trips %}
+							<div class="card stuffCard wow animated slideInRight">
+								{% if trip.picLink %}
+									<img class="card-img-top" src="{{ trip.picLink }}" alt="{{ trip.name }} picture"></img>
+								{% else %}
+									<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
+								{% endif %}
+								<div class="card-body">
+									<h5 class="card-title"><a href="/placeholdr/trip/{{ trip.slug }}">{{ trip.name }}</a></h5>
+									<p class="card-text text-justify">{{ trip.desc|truncatechars:150 }}</p>
+									<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
+								</div>
 							</div>
-						</div>
+						{% endfor %}
 					</div>
-				{% endfor %}
-			</div>
-		{% else %}
-			<h3>There are no featured trips today.</h3>
-		{% endif %}
-	</div>
-	<br>
-	<br>
-	<div class="container-fluid">
-		<h1>Top Users</h1>
-		<br>
-		{% if userProfiles %}
-			<div class="row">
-				{% for userProfile in userProfiles %}
-					<div class="col">
-						<div class="card stuffCard peopleCard wow animated slideInRight">
-							{% if userProfile.picture %}
-								<img class="card-img-top user-picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="{{ userProfile.user.username }}'s picture">
-							{% else %}
-								<img class="card-img-top user-picture" src="{% static 'images/user.jpg' %}" alt="gustav">
-							{% endif %}
-							<div class="card-body">
-								<h5 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h5>
-								<p class="card-text">Lives in {{ userProfile.livesIn }}</p>
-								<p class="card-text">Reputation {{ userProfile.rep }}</p>
+				</div>
+			{% else %}
+				<h3>There are no featured trips today.</h3>
+			{% endif %}
+		</div>
+		<div class="row">
+			<h1>Top Users</h1>
+			<br>
+			{% if userProfiles %}
+				<div class="row">
+					<div class="card-deck">
+						{% for userProfile in userProfiles %}
+							<div class="card stuffCard peopleCard wow animated slideInRight">
+								{% if userProfile.picture %}
+									<img class="card-img-top" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="{{ userProfile.user.username }}'s picture">
+								{% else %}
+									<img class="card-img-top" src="{% static 'images/user.jpg' %}" alt="gustav">
+								{% endif %}
+								<div class="card-body">
+									<h4 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h4>
+									<p class="card-text">Lives in {{ userProfile.livesIn }}</p>
+									<p class="card-text">Reputation {{ userProfile.rep }}</p>
+								</div>
 							</div>
-						</div>
+						{% endfor %}
 					</div>
-				{% endfor %}
-			</div>
-		{% else %}
-			<h3>There are no top users today.</h3>
-		{% endif %}
+				</div>
+			{% else %}
+				<h3>There are no top users today.</h3>
+			{% endif %}
+		</div>
 	</div>
 {% endblock %}

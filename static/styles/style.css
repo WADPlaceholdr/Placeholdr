@@ -79,7 +79,6 @@ body {
 
 #username{
     display:inline-block;
-
     width: 120px; /* the element needs a fixed width (in px, em, %, etc) */
     overflow: hidden; /* make sure it hides the content that overflows */
     white-space: nowrap; /* don't break the line */
