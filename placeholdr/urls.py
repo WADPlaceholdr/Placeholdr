@@ -33,4 +33,6 @@ urlpatterns = [
 	url(r'^logout/$', views.user_logout, name='logout'),
 	# search results page
 	url(r'^search/$', views.search, name='search'),
+	# Ajax page
+	url(r'^ajax/$', views.ajax_tasks, name='ajax_tasks'),
 ]

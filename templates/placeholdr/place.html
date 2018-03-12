@@ -12,6 +12,7 @@
 {% block body_block %}
 	<div class="container">
 		{% if place %}
+<<<<<<< HEAD
 			<div class="row spaced">
 				<div class="col">
 					<div class="row">
@@ -87,9 +88,49 @@
 						{% endif %}
 					</div>
 				</div>
+=======
+			<h1>{{ place.name }}</h1>
+			
+			{% if stars %}
+				<p id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></p>
+			{% else %}
+				<h3>No current star rating</h3>
+			{% endif %}
+			{% if place.desc %}
+				{{ place.desc }}
+			{% endif %}
+			{%if place.picLink %}
+				<img src="{{ place.picLink }}">
+			{% endif %}
+			</br>
+			<form id="place_review">
+				Review : 
+				<input type="text" id="pr_review" name="pr_review">
+				</br>
+				Stars : 
+				<input type="text" id="pr_stars" name="pr_stars" onKeyUp="fix_stars()">
+				</br>
+				<input id="rev_submit" type="button" value="Place Review" onclick="add_place_review('{{ place.slug }}')">
+			</form>
+			<div id="review_section">
+				</br>
+				{% if reviews %}
+					{% for pl_rev in reviews %}
+						</br>
+						Esteemed user {{ pl_rev.userId }} says " {{ pl_rev.review }} - {{ pl_rev.stars }}/5 "
+					{% endfor %}
+				{% endif %}
+>>>>>>> Reviews
 			</div>
 		{% else %}
 			The specified place does not exist!
 		{% endif %}
+		<h3 style="visibility:hidden" id="slug">{{ place.slug }}</h3>
 	</div>
+
+{% endblock %}
+
+{% block js_block %}
+	<script src="{% static 'js/add_review.js' %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 {% endblock %}
