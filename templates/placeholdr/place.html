@@ -12,7 +12,6 @@
 {% block body_block %}
 	<div class="container">
 		{% if place %}
-<<<<<<< HEAD
 			<div class="row spaced">
 				<div class="col">
 					<div class="row">
@@ -88,26 +87,12 @@
 						{% endif %}
 					</div>
 				</div>
-=======
-			<h1>{{ place.name }}</h1>
-			
-			{% if stars %}
-				<p id="star_rating">Rating :<script>document.getElementById("star_rating").innerHTML = decodeURI("{{ stars }}")</script></p>
-			{% else %}
-				<h3>No current star rating</h3>
-			{% endif %}
-			{% if place.desc %}
-				{{ place.desc }}
-			{% endif %}
-			{%if place.picLink %}
-				<img src="{{ place.picLink }}">
-			{% endif %}
-			</br>
+			</div>
 			<form id="place_review">
-				Review : 
+				Review :
 				<input type="text" id="pr_review" name="pr_review">
 				</br>
-				Stars : 
+				Stars :
 				<input type="text" id="pr_stars" name="pr_stars" onKeyUp="fix_stars()">
 				</br>
 				<input id="rev_submit" type="button" value="Place Review" onclick="add_place_review('{{ place.slug }}')">
@@ -120,7 +105,6 @@
 						Esteemed user {{ pl_rev.userId }} says " {{ pl_rev.review }} - {{ pl_rev.stars }}/5 "
 					{% endfor %}
 				{% endif %}
->>>>>>> Reviews
 			</div>
 		{% else %}
 			The specified place does not exist!

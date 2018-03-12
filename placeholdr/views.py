@@ -266,11 +266,7 @@ def show_place(request, place_slug):
 		
 				return render(request,
 		  'placeholdr/place.html',
-<<<<<<< HEAD
-		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews, 'mapsUrl':mapsUrl})
-=======
-		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews, 'warning':warning})
->>>>>>> Reviews
+		  {'place':place, 'stars':place_stars_string, 'reviews':place_reviews, 'mapsUrl':mapsUrl, 'warning':warning})
 		else:
 			return HttpResponse("Invalid place slug supplied.")
 	else:
