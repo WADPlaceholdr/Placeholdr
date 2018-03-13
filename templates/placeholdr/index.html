@@ -20,7 +20,9 @@
 					<div class="card-deck">
 					<!-- place.0 = place, place.1 = average stars, place.2 = stars string -->
 						{% for place in places %}
-							<!--<div class="col">-->
+
+							<div class="col">
+								<!--{% include "placeholdr/place_card.html" %}-->
 								<div class="card stuffCard wow animated slideInRight">
 									<a href="/placeholdr/place/{{ place.0.slug }}">
 									{% if trip.picLink %}
@@ -35,7 +37,7 @@
 										<p style:vertical-align: text-bottom; class="card-text">{{ place.2 }}</p>
 									</div>
 								</div>
-							<!--</div>-->
+							</div>
 						{% endfor %}
 					</div>
 				</div>

@@ -49,18 +49,7 @@
 						{% if places %}
 							{% for place in places %}
 								<div class="col">
-									<div class="card stuffCard wow animated slideInRight">
-										{% if place.picLink %}
-											<img class="card-img-top" src="{{ place.picLink }}" alt="{{ place.name }} picture"></img>
-										{% else %}
-											<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
-										{% endif %}
-										<div class="card-body">
-											<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
-											<p class="card-text">{{ place.desc }}</p>
-											<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
-										</div>
-									</div>
+									{% include "placeholdr/place_card.html" %}
 								</div>
 							{% endfor %}
 						{% else %}
@@ -144,25 +133,7 @@
 						<div class="card-columns" id="review_section">
 							{% if reviews %}
 								{% for review in reviews %}
-									<div class="card wow animated fadeInUp">
-										<div class="card-body">
-											<h5 class="card-title">
-												<a class="dont-underline" href="/placeholdr/user/{{ review.userId.username }}">
-													<img class="img-thumbnail card-user-picture"
-													{% if review.userId.picture %}
-														src="{{ MEDIA_URL }}{{ review.userId.picture }}"
-													{% else %}
-														src="{% static 'images/eiffel.jpg' %}"
-													{% endif %}
-													alt="Card image cap">
-													{{ review.userId.username }}
-												</a>
-											</h5>
-											<p>{{ review.stars }}/5</p>
-											<p class="card-text">{{ review.review }}</p>
-											<p class="card-text"><small class="text-muted">Last updated {{ review.modified_date }}</small></p>
-										</div>
-									</div>
+									{% include "placeholdr/review_card.html" %}
 								{% endfor %}
 							{% else %}
 								There are no reviews for this trip

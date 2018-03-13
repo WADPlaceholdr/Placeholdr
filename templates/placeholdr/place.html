@@ -115,30 +115,12 @@
 					<div class="row">
 						<div class="card-columns" id="review_section">
 							{% if reviews %}
-							{% for pl_rev in reviews %}
-								<div class="card wow animated fadeInUp">
-									<div class="card-body">
-                                        <h5 class="card-title">
-                                            <a class="dont-underline" href="/placeholdr/user/{{ pl_rev.userId.username }}">
-                                                <img class="img-thumbnail card-user-picture"
-                                                {% if pl_rev.userId.picture %}
-                                                    src="{{ MEDIA_URL }}{{ pl_rev.userId.picture }}"
-                                                {% else %}
-                                                    src="{% static 'images/eiffel.jpg' %}"
-                                                {% endif %}
-                                                alt="Card image cap">
-                                                {{ pl_rev.userId.username }}
-                                            </a>
-                                        </h5>
-										<p>{{ pl_rev.stars }}/5</p>
-										<p class="card-text">{{ pl_rev.review }}</p>
-										<p class="card-text"><small class="text-muted">Last updated {{ pl_rev.modified_date }}</small></p>
-									</div>
-								</div>
-							{% endfor %}
-						{% else %}
-							There are no reviews for this place
-						{% endif %}
+								{% for review in reviews %}
+									{% include "placeholdr/review_card.html" %}
+								{% endfor %}
+							{% else %}
+								There are no reviews for this place
+							{% endif %}
 						</div>
 					</div>
 				</div>

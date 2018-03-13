@@ -1,0 +1,20 @@
+{% load staticfiles %}
+<div class="card wow animated fadeInUp">
+	<div class="card-body">
+		<h5 class="card-title">
+			<a class="dont-underline" href="/placeholdr/user/{{ review.userId.username }}">
+				<img class="img-thumbnail card-user-picture"
+				{% if review.userId.picture %}
+					src="{{ MEDIA_URL }}{{ review.userId.picture }}"
+				{% else %}
+					src="{% static 'images/eiffel.jpg' %}"
+				{% endif %}
+				alt="Card image cap">
+				{{ review.userId.username }}
+			</a>
+		</h5>
+		<p>{{ review.stars }}/5</p>
+		<p class="card-text">{{ review.review }}</p>
+		<p class="card-text"><small class="text-muted">Last updated {{ review.modified_date }}</small></p>
+	</div>
+</div>
