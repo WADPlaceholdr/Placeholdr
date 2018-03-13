@@ -248,8 +248,9 @@ def show_place(request, place_slug):
 		if place:
 		
 			place_reviews = PlaceReview.objects.filter(placeId=place)
-			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long + "&waypoints="
-
+			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long
+			mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
+			print(mapsUrl)
 			review_inf = get_reviews(False, place_slug)
 		
 			return render(request,
