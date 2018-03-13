@@ -223,7 +223,8 @@ def show_trip(request, trip_slug):
 					mapsUrl+= trip_n.placeId.lat + "%2C" + trip_n.placeId.long + "|"
 				mapsUrl=mapsUrl[:-1]
 				mapsUrl+="&destination=" + trip_nodes[len(trip_nodes)-1].placeId.lat + "%2C" + trip_nodes[len(trip_nodes)-1].placeId.long
-			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mUrl':mapsUrl,'review_inf':review_inf,'reviews':trip_reviews})
+			print(mapsUrl)
+			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mapsUrl':mapsUrl,'review_inf':review_inf,'reviews':trip_reviews})
 		else:
 			return HttpResponse("Invalid trip slug supplied.")
 	else:
@@ -250,7 +251,6 @@ def show_place(request, place_slug):
 			place_reviews = PlaceReview.objects.filter(placeId=place)
 			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long
 			mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
-			print(mapsUrl)
 			review_inf = get_reviews(False, place_slug)
 		
 			return render(request,
