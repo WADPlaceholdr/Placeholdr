@@ -448,9 +448,11 @@ def star_helper(place, type):
 	return [place, place_stars, place_stars_string, num_reviews]
 	
 def top_places(request):
-                
-	# If we have a User object, the details are correct
 	num_of_places = 5
+	slice = request.POST.get('value')
+	if slice:
+		pass
+	
 	if Place.objects.all().count() >= num_of_places:
 		top = []
 		for place in Place.objects.all():
@@ -468,8 +470,6 @@ def top_places(request):
 		return HttpResponse("Fewer than " + num_of_places + " places exist!")
 		
 def new_places(request):
-                
-	# If we have a User object, the details are correct
 	num_of_places = 5
 	new_places = []
 	if Place.objects.all().count() >= num_of_places:
@@ -481,8 +481,6 @@ def new_places(request):
 		return HttpResponse("Fewer than " + num_of_places + " places exist!")
 		
 def popular_places(request):
-                
-	# If we have a User object, the details are correct
 	num_of_places = 5
 	if Place.objects.all().count() >= num_of_places:
 		pop = []
