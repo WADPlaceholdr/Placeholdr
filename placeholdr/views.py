@@ -40,10 +40,6 @@ from placeholdr.forms import PageForm
 
 
 def index(request):
-	# Query the database for a list of ALL places, trips, users currently stored
-	
-	
-	
 	nbrOfTops=4
 	place_list = Place.objects.order_by('?')[:nbrOfTops]
 	trip_list = Trip.objects.order_by('?')[:nbrOfTops]
@@ -481,7 +477,6 @@ def new_places(request):
 		return HttpResponse("Fewer than " + num_of_places + " places exist!")
 		
 def popular_places(request):
-                
 	# If we have a User object, the details are correct
 	num_of_places = 5
 	if Place.objects.all().count() >= num_of_places:
