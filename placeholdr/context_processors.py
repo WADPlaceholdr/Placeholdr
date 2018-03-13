@@ -28,14 +28,18 @@ def visitor_cookie_handler(request):
 	request.session['visits'] = visits
 
 def user(request):
-	context_dict={}
-	if request.user.is_authenticated():
-		# get logged in user object
-		user = request.user
-		context_dict["loggedUser"]=user
-		# get logged in userProfile object
-		userProfile = UserProfile.objects.get(pk=user.id)
-		context_dict["userProfile"]=userProfile
-	visitor_cookie_handler(request)
-	context_dict["visits"]=request.session['visits']
-	return context_dict
+	# for admin pages, disable context processor
+	if 'admin' in request.META['PATH_INFO']:
+		return {}
+	else:
+		context_dict={}
+		if request.user.is_authenticated():
+			# get logged in user object
+			user = request.user
+			context_dict["loggedUser"]=user
+			# get logged in userProfile object
+			userProfile = UserProfile.objects.get(pk=user.id)
+			context_dict["userProfile"]=userProfile
+		visitor_cookie_handler(request)
+		context_dict["visits"]=request.session['visits']
+		return context_dict
