@@ -358,23 +358,23 @@ def ajax_tasks(request):
 
 def get_reviews(isTrip, r_slug):
 	
-	if not(isTrip):
-		reviews = PlaceReview.objects.filter(placeId=Place.objects.get(slug=r_slug))
-	else:
+	if isTrip:
 		reviews = TripReview.objects.filter(tripId=Trip.objects.get(slug=r_slug))
+	else:
+		reviews = PlaceReview.objects.filter(placeId=Place.objects.get(slug=r_slug))
 
 	stars = 0
 	stars_string = ""
 	reviews_array = []
 
 	if reviews:
-		for r in reviews:
-			stars += r.stars
+		for review in reviews:
+			stars += review.stars
 			image = "src='/static/images/eiffel.jpg'"
-			userProf = UserProfile.objects.filter(user=r.userId)[0]
+			userProf = UserProfile.objects.filter(user=review.userId)[0]
 			if userProf.picture:
 				image = userProf.picture
-			to_append = '<div class="card wow animated fadeInUp"><div class="card-body"><h5 class="card-title"><img class="img-thumbnail card-user-picture" ' + image + ' alt="Card image cap">' + r.userId.username + '</h5><p>' + str(r.stars) + '/5</p><p class="card-text">' + r.review + '</p><p class="card-text"><small class="text-muted">Last updated ' + str(r.modified_date) + '</small></p></div></div>'
+			to_append = '<div class="card wow animated fadeInUp"><div class="card-body"><h5 class="card-title"><img class="img-thumbnail card-user-picture" ' + image + ' alt="Card image cap">' + review.userId.username + '</h5><p>' + str(review.stars) + '/5</p><p class="card-text">' + review.review + '</p><p class="card-text"><small class="text-muted">Last updated ' + str(review.modified_date) + '</small></p></div></div>'
 			reviews_array.append(to_append)
 		stars = round(stars/len(reviews))
 		for i in range(5):

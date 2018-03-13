@@ -12,69 +12,7 @@
 {% block body_block %}
 	<div class="container">
 		{% if shownUser %}
-			<div class="row">
-				<h1>{{ shownUser.username }}</h1>
-			</div>
-			<div class="row">
-				<div class="col-xs">
-					<div class="row">
-						<img class="img-thumbnail user-picture" 
-						{% if shownUserProfile.picture %}
-							src="{{ MEDIA_URL }}{{ shownUserProfile.picture }}"
-						{% else %}
-							src="{% static 'images/eiffel.jpg' %}"
-						{% endif %}
-						alt="Card image cap">
-						
-					</div>
-					<div class="row">
-						<form id="user_form" method="post" action="">
-							<div class="form-group">
-								<label for="id_rep">Reputation</label>
-								<input type="number" name="rep" value="
-								{% if shownUserProfile.rep or shownUserProfile.rep == 0 %}
-									{{ shownUserProfile.rep }}
-								{% else %}
-									0
-								{% endif %}
-								" class="form-control" placeholder="
-								{% if shownUserProfile.rep or shownUserProfile.rep == 0 %}
-									{{ shownUserProfile.rep }}
-								{% else %}
-									0
-								{% endif %}
-								" 
-								title="" required="" id="id_rep">
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="col">
-					<div class="row-10">
-						<h3>Bio</h3>
-						<br>
-							{% if shownUserProfile.bio %}
-								{{ shownUserProfile.bio }}
-							{% else %}
-								no Bio
-							{% endif %}
-					</div>
-					<div class="row">
-						<h5>Lives in {{ shownUserProfile.livesIn }}</h5>
-					</div>
-				</div>
-			</div>
-			<br>
-			<div class="seperator"></div>
-			<div class="row">
-				<h3>My Favourite Places</h3>
-			</div>
-			<br>
-			<div class="seperator"></div>
-			<div class="row">
-				<h3>My Recommended Trip</h3>
-			</div>
-		
+			{% include "placeholdr/user_profile.html" with shownUserProfile="userProfile" %}
 		{% else %}
 			The specified user does not exist!
 		{% endif %}
