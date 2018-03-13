@@ -101,6 +101,10 @@ body {
     white-space: nowrap; /* don't break the line */
     text-overflow: ellipsis; /* give the beautiful '...' effect */
 }
+
+.dont-underline {
+    text-decoration: none !important;
+}
 #invisible {
     display:none;
 }
