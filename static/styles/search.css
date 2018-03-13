@@ -1,3 +1,6 @@
+#body-search-form {
+    width: 100%;
+}
 #body-search-bar {
     width: 100%;
 }
@@ -11,4 +14,10 @@
 .result {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.result-picture {
+    width:90px;
+    height:90px;
+    object-fit: cover !important;
 }
