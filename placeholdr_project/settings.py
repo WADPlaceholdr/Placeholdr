@@ -63,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ## Need to configure CSP before enabling
+    # 'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'placeholdr_project.urls'
