@@ -217,7 +217,10 @@ def show_trip(request, trip_slug):
 			review_dict = {}
 			for star in range(1,6):
 				xStarNbrReview=len(TripReview.objects.filter(tripId=trip, stars=star))
-				review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
+				if nbr_reviews==0:
+					review_dict[star] = [xStarNbrReview, 0]
+				else:
+					review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
 			review_inf = get_reviews(True, trip_slug)
 			
 			if trip_nodes:
@@ -256,7 +259,10 @@ def show_place(request, place_slug):
 			review_dict = {}
 			for star in range(1,6):
 				xStarNbrReview=len(PlaceReview.objects.filter(placeId=place, stars=star))
-				review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
+				if nbr_reviews==0:
+					review_dict[star] = [xStarNbrReview, 0]
+				else:
+					review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
 
 			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long
 			mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
