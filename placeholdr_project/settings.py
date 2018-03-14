@@ -152,15 +152,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [STATIC_DIR, ]
-
-
-# get project directory
-location=os.path.join(BASE_DIR,'placeholdr_project')
-# get variables path
-deployment_variables_path = os.path.join(location, 'deployment_variables.py')
-spec = importlib.util.spec_from_file_location("deployment_variables",deployment_variables_path)
-if spec is None:
-    print("can't find deployment variables running in unsecure devlopment mode")
-else:
-    from deployment_variables_path import *
-    print("found deployment variables running safe deployment mode")
