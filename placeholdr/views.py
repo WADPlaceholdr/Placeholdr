@@ -264,7 +264,6 @@ def show_place(request, place_slug):
 				else:
 					review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
 
-			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long
 			mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
 			review_inf = get_reviews(False, place_slug)
 		
