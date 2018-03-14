@@ -500,10 +500,7 @@ def new_places(request):
 		return HttpResponse("Fewer than " + num_of_places + " places exist!")
 		
 def popular_places(request):
-<<<<<<< HEAD
-=======
 	# If we have a User object, the details are correct
->>>>>>> 641177dfe3aca3dcd65e3e8f9902f922ea81c52f
 	num_of_places = 5
 	if Place.objects.all().count() >= num_of_places:
 		pop = []
