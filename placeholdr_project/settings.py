@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import importlib
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -152,8 +153,13 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [STATIC_DIR, ]
 
-deployment_variables = importlib.util.find_spec("spam")
-# If deployment variables are present
-if deployment_variables is not None:
-    # import them
-    from deployment_variables.py import *
+
+# get project directory
+location=os.path.join(BASE_DIR,'placeholdr_project')
+# get variables path
+deployment_variables_path = os.path.join(location, 'deployment_variables.py')
+spec = importlib.util.spec_from_file_location("deployment_variables",deployment_variables_path)
+if spec is None:
+    print("can't find deployment variables running in unsecure devlopment mode")
+else:
+    print("found deployment variables running safe deployment mode")
