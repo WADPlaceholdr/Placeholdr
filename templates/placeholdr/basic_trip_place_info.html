@@ -1,4 +1,6 @@
 {% load placeholdr_filters %}
+{% load mathfilters %}
+
 <div class="col">
     <div class="row">
         <h1>{{ object.name }}</h1>
@@ -31,11 +33,16 @@
                 {% for i in stars|times %}
                     &#9733
                 {% endfor %}
+                {% with empty_stars=5|sub:stars %}
+                    {% for i in empty_stars|times %}
+                        &#9734
+                    {% endfor %}
+                {% endwith %}
                 </p>
             </div>
             <div class="row text-center">
                 <p>
-                {{ nbr_reviews }} total
+                    {{ nbr_reviews }} total
                 </p>
             </div>
         </div>

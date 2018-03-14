@@ -39,6 +39,9 @@ SECRET_KEY = 'hq8b3e&wcuo8@n956b6iiy00ad8sjk2n3#n@=gcg)(e)hdz@bg'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+REFERRER_POLICY = "no-referrer-when-downgrade"
+CSP_REPORT_ONLY = True
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -52,7 +55,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
-    'placeholdr'
+    'mathfilters',
+    'placeholdr',
 ]
 
 MIDDLEWARE = [
@@ -63,8 +67,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    ## Need to configure CSP before enabling
-    # 'csp.middleware.CSPMiddleware',
+    'django_referrer_policy.middleware.ReferrerPolicyMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'placeholdr_project.urls'
