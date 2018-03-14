@@ -38,7 +38,6 @@
 		<meta name="mobile-web-app-capable" content="yes">
 
 		<!--Fallback.js-->
-		<!--<script src="js/fallback.min.js"></script>-->
 
 		<title>
 			placeholdr - 
@@ -168,58 +167,6 @@
 
 		<!--Main stylesheet-->
 		<link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}" />
-
-		<!--Script block to execute Fallback JS-->
-		<script>
-			// Here we actually invoke Fallback JS to retrieve the following libraries for the page.
-			fallback.load({
-				// Include your stylesheets, this can be an array of stylesheets or a string!
-				page_css: '',
-				global_css: ['public.css', 'members.css'],
-
-				// JavaScript library. THE KEY MUST BE THE LIBRARIES WINDOW VARIABLE!
-				JSON: '//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.min.js',
-
-				// Here goes a failover example. The first will fail, therefore Fallback JS will load the second!
-				jQuery: [
-					'//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.FAIL_ON_PURPOSE.min.js',
-					'//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js',
-					'//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js'
-				],
-			}, {
-				// Shim jQuery UI so that it will only load after jQuery has completed!
-				shim: {
-					'jQuery.ui': ['jQuery']
-				},
-
-				callback: function(success, failed) {
-					// success - object containing all libraries that loaded successfully.
-					// failed - object containing all libraries that failed to load.
-
-					// All of my libraries have finished loading!
-
-					// Execute my code that applies to all of my libraries here!
-				}
-			});
-
-			fallback.ready(['jQuery'], function() {
-				// jQuery Finished Loading
-
-				// Execute my jQuery dependent code here!
-			});
-
-			fallback.ready(['jQuery', 'JSON'], function() {
-				// jQuery and JSON Finished Loading
-
-				// Execute my jQuery + JSON dependent code here!
-			});
-
-			fallback.ready(function() {
-				// All of my libraries have finished loading!
-
-				// Execute my code that applies to all of my libraries here!
-			});
-		</script>
 
 		<!-- jQuery -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>

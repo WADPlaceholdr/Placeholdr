@@ -224,7 +224,7 @@ def show_trip(request, trip_slug):
 				mapsUrl=mapsUrl[:-1]
 				mapsUrl+="&destination=" + trip_nodes[len(trip_nodes)-1].placeId.lat + "%2C" + trip_nodes[len(trip_nodes)-1].placeId.long
 			print(mapsUrl)
-			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mapsUrl':mapsUrl,'review_inf':review_inf,'reviews':trip_reviews})
+			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mapsUrl':mapsUrl,'review_inf':review_inf,'reviews':trip_reviews, 'stars':trip.get_stars()})
 		else:
 			return HttpResponse("Invalid trip slug supplied.")
 	else:
@@ -247,7 +247,6 @@ def show_place(request, place_slug):
                 
 		# If we have a User object, the details are correct
 		if place:
-			print(place.get_stars())
 			place_reviews = PlaceReview.objects.filter(placeId=place)
 			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long
 			mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
@@ -255,7 +254,7 @@ def show_place(request, place_slug):
 		
 			return render(request,
 		  'placeholdr/place.html',
-		  {'place':place, 'reviews':place_reviews, 'mapsUrl':mapsUrl, 'review_inf':review_inf})
+		  {'place':place, 'reviews':place_reviews, 'mapsUrl':mapsUrl, 'review_inf':review_inf, 'stars':place.get_stars()})
 		else:
 			return HttpResponse("Invalid place slug supplied.")
 	else:
