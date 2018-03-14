@@ -247,7 +247,7 @@ def show_place(request, place_slug):
                 
 		# If we have a User object, the details are correct
 		if place:
-		
+			print(place.get_stars())
 			place_reviews = PlaceReview.objects.filter(placeId=place)
 			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long
 			mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
