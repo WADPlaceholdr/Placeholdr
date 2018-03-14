@@ -162,5 +162,5 @@ spec = importlib.util.spec_from_file_location("deployment_variables",deployment_
 if spec is None:
     print("can't find deployment variables running in unsecure devlopment mode")
 else:
-    from deployment_variables.py import *
+    from deployment_variables_path import *
     print("found deployment variables running safe deployment mode")
