@@ -213,7 +213,11 @@ def show_trip(request, trip_slug):
 			mapsUrl = ""
 			trip_nodes = TripNode.objects.filter(tripId=trip).order_by("-tripPoint")
 			trip_reviews = TripReview.objects.filter(tripId=trip)
-			
+			nbr_reviews = len(trip_reviews)
+			review_dict = {}
+			for star in range(1,6):
+				xStarNbrReview=len(TripReview.objects.filter(tripId=trip, stars=star))
+				review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
 			review_inf = get_reviews(True, trip_slug)
 			
 			if trip_nodes:
@@ -224,7 +228,7 @@ def show_trip(request, trip_slug):
 				mapsUrl=mapsUrl[:-1]
 				mapsUrl+="&destination=" + trip_nodes[len(trip_nodes)-1].placeId.lat + "%2C" + trip_nodes[len(trip_nodes)-1].placeId.long
 			print(mapsUrl)
-			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mapsUrl':mapsUrl,'review_inf':review_inf,'reviews':trip_reviews, 'stars':trip.get_stars()})
+			return render(request, 'placeholdr/trip.html', {'trip': trip, 'places':places, 'trip_nodes':trip_nodes, 'mapsUrl':mapsUrl,'review_inf':review_inf,'reviews':trip_reviews, 'stars':trip.get_stars(),"review_dict":review_dict,"nbr_reviews":nbr_reviews})
 		else:
 			return HttpResponse("Invalid trip slug supplied.")
 	else:
@@ -248,13 +252,19 @@ def show_place(request, place_slug):
 		# If we have a User object, the details are correct
 		if place:
 			place_reviews = PlaceReview.objects.filter(placeId=place)
+			nbr_reviews = len(place_reviews)
+			review_dict = {}
+			for star in range(1,6):
+				xStarNbrReview=len(PlaceReview.objects.filter(placeId=place, stars=star))
+				review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
+
 			mapsUrl = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + place.lat + "%2C" + place.long
 			mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
 			review_inf = get_reviews(False, place_slug)
 		
 			return render(request,
 		  'placeholdr/place.html',
-		  {'place':place, 'reviews':place_reviews, 'mapsUrl':mapsUrl, 'review_inf':review_inf, 'stars':place.get_stars()})
+		  {'place':place, 'reviews':place_reviews, 'mapsUrl':mapsUrl, 'review_inf':review_inf, 'stars':place.get_stars(), 'review_dict':review_dict,"nbr_reviews":nbr_reviews})
 		else:
 			return HttpResponse("Invalid place slug supplied.")
 	else:
@@ -500,10 +510,7 @@ def new_places(request):
 		return HttpResponse("Fewer than " + num_of_places + " places exist!")
 		
 def popular_places(request):
-<<<<<<< HEAD
-=======
 	# If we have a User object, the details are correct
->>>>>>> 641177dfe3aca3dcd65e3e8f9902f922ea81c52f
 	num_of_places = 5
 	if Place.objects.all().count() >= num_of_places:
 		pop = []
