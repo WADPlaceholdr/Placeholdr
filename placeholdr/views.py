@@ -342,7 +342,7 @@ def ajax_tasks(request):
 			if (len(review) == 0 or len(stars) != 1 or len(r_slug) == 0):
 				return "error"
 			link = Place.objects.get(slug=r_slug)
-			PlaceReview.objects.get_or_create(userId=request.user, placeId=Place.objects.get(slug=r_slug),
+			PlaceReview.objects.get_or_create(userId=request.user, placeId=link,
                                            stars=int(stars), review=review)
 			
 		if request.POST.get("task") == "add_trip_review":
@@ -352,7 +352,7 @@ def ajax_tasks(request):
 			if (len(review) == 0 or len(stars) != 1 or len(r_slug) == 0):
 				return "error"
 			link = Trip.objects.get(slug=r_slug)
-			TripReview.objects.get_or_create(userId=request.user, tripId=trip,
+			TripReview.objects.get_or_create(userId=request.user, tripId=link,
                                            stars=int(stars), review=review)
 			is_trip = True
 			
@@ -371,10 +371,9 @@ def get_reviews(isTrip, r_slug):
 	
 	if isTrip:
 		reviews = TripReview.objects.filter(tripId=Trip.objects.get(slug=r_slug))
-		tags = TripTag.objects.filter(tripId=Trip.objects.get(slug=r_slug)).annotate(tagNum = Count('tagText', distinct=True))
+		tags = TripTag.objects.filter(tripId=Trip.objects.get(slug=r_slug)).values('tagText').distinct().annotate(tagNum = Count('tagText')).order_by('-tagNum')
 	else:
 		reviews = PlaceReview.objects.filter(placeId=Place.objects.get(slug=r_slug))
-		#tags = PlaceTag.objects.filter(placeId=Place.objects.get(slug=r_slug)).annotate(tagNum = Count('tagText', distinct=True))
 		tags = PlaceTag.objects.filter(placeId=Place.objects.get(slug=r_slug)).values('tagText').distinct().annotate(tagNum = Count('tagText')).order_by('-tagNum')
 		
 	stars = 0
