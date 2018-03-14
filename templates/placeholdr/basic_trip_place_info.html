@@ -1,0 +1,26 @@
+<div class="col">
+    <div class="row">
+        <h1>{{ object.name }}</h1>
+    </div>
+    <div class="row" id="star_rating">
+        {% if stars %}
+            {{ stars }}
+        {% else %}
+            <h3>There is no star rating</h3>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if object.desc %}
+            <p>{{ object.desc|striptags }}</p>
+        {% else %}
+            There is no description
+        {% endif %}
+    </div>
+    <div class="row" id="tag_section">
+        {% if review_inf %}
+            {{ review_inf.tags_string }}
+        {% else %}
+            <h3>No current tags</h3>
+        {% endif %}
+    </div>
+</div>

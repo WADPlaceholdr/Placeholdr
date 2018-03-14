@@ -33,19 +33,19 @@
                     {% for place in found_places %}
                         <div class="row-2">
                             <a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
-                            <p>{{ place.desc }}</p>
+                            <p><pre>{{ place.desc }}</pre>s</p>
                         </div>
                     {% endfor %}
                     {% for trip in found_trips %}
                         <div class="row-2">
                             <a href="/placeholdr/trip/{{ trip.slug }}">{{ trip.name }}</a><br/>
-                            <p>{{ trip.desc }}</p>
+                            <p><pre>{{ trip.desc }}</pre></p>
                         </div>
                     {% endfor %}
                     {% for currentUser in found_users %}
                         <div class="row-2">
                             <a href="/placeholdr/user/{{ currentUser }}">{{ currentUser }}</a><br/>
-                            <p>{{ currentUser.bio }}</p>
+                            <p><pre>{{ currentUser.bio }}</pre></p>
                         </div>
                     {% endfor %}
                 </div>
