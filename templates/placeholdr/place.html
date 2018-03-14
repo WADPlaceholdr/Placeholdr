@@ -31,6 +31,13 @@
 							There is no description for this place
 						{% endif %}
 					</div>
+					<div class="row" id="tag_section">
+						{% if review_inf %}
+							{{ review_inf.tags_string }}
+						{% else %}
+							<h3>No current tags</h3>
+						{% endif %}
+					</div>
 				</div>
 				<div class="col-sm">
 					{% if mapsUrl %}

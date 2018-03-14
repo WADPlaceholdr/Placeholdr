@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 from django.utils.encoding import iri_to_uri
-import json
+from django.db.models import Count
+import json, re
 
 # Import User
 from django.contrib.auth.models import User
@@ -34,6 +35,9 @@ from placeholdr.models import Page
 
 from placeholdr.models import UserProfile
 
+# Import the Tag models
+from placeholdr.models import PlaceTag
+from placeholdr.models import TripTag
 
 # Import the PageForm
 from placeholdr.forms import PageForm
@@ -330,25 +334,36 @@ def search(request):
 def ajax_tasks(request):
 	if request.method == 'POST':
 	
+		is_trip = False
 		if request.POST.get("task") == "add_place_review":
 			review = request.POST.get("review")
 			stars = request.POST.get("stars")
 			r_slug = request.POST.get("slug")
 			if (len(review) == 0 or len(stars) != 1 or len(r_slug) == 0):
 				return "error"
+			link = Place.objects.get(slug=r_slug)
 			PlaceReview.objects.get_or_create(userId=request.user, placeId=Place.objects.get(slug=r_slug),
                                            stars=int(stars), review=review)
-			return HttpResponse(json.dumps(get_reviews(False, r_slug)),content_type='application/json')
+			
 		if request.POST.get("task") == "add_trip_review":
 			review = request.POST.get("review")
 			stars = request.POST.get("stars")
 			r_slug = request.POST.get("slug")
 			if (len(review) == 0 or len(stars) != 1 or len(r_slug) == 0):
 				return "error"
-			TripReview.objects.get_or_create(userId=request.user, tripId=Trip.objects.get(slug=r_slug),
+			link = Trip.objects.get(slug=r_slug)
+			TripReview.objects.get_or_create(userId=request.user, tripId=trip,
                                            stars=int(stars), review=review)
-			return HttpResponse(json.dumps(get_reviews(True, r_slug)),content_type='application/json')
-										   
+			is_trip = True
+			
+		if request.POST.get("task") == "add_place_review" or request.POST.get("task") == "add_trip_review":
+			tags = re.findall('#(\S*)',review)
+			for tag in tags:
+				if is_trip:
+					TripTag.objects.get_or_create(userId=request.user, tripId=link, tagText=tag)
+				else:
+					PlaceTag.objects.get_or_create(userId=request.user, placeId=link, tagText=tag)
+			return HttpResponse(json.dumps(get_reviews(is_trip, r_slug)),content_type='application/json')
 	else:
 		return "Error"
 
@@ -356,13 +371,23 @@ def get_reviews(isTrip, r_slug):
 	
 	if isTrip:
 		reviews = TripReview.objects.filter(tripId=Trip.objects.get(slug=r_slug))
+		tags = TripTag.objects.filter(tripId=Trip.objects.get(slug=r_slug)).annotate(tagNum = Count('tagText', distinct=True))
 	else:
 		reviews = PlaceReview.objects.filter(placeId=Place.objects.get(slug=r_slug))
-
+		#tags = PlaceTag.objects.filter(placeId=Place.objects.get(slug=r_slug)).annotate(tagNum = Count('tagText', distinct=True))
+		tags = PlaceTag.objects.filter(placeId=Place.objects.get(slug=r_slug)).values('tagText').distinct().annotate(tagNum = Count('tagText')).order_by('-tagNum')
+		
 	stars = 0
 	stars_string = ""
 	reviews_array = []
-
+	tags_string = "Currently no tags"
+	
+	if tags:
+		tags_string = "<ul>"
+		for tag in tags:
+			tags_string += "<li>" + tag['tagText'] + "(" + str(tag['tagNum']) + ")" + "</li>"
+		tags_string += "</ul>"
+	
 	if reviews:
 		for review in reviews:
 			stars += review.stars
@@ -378,7 +403,7 @@ def get_reviews(isTrip, r_slug):
 				stars_string += '<img src="/static/images/star.png">'
 			else:
 				stars_string += '<img src="/static/images/starempty.png">'
-	return {'reviews':reviews_array, 'stars_string':stars_string}
+	return {'reviews':reviews_array, 'stars_string':stars_string,'tags_string':tags_string}
 
 def add_place_review(request):
 

@@ -63,6 +63,28 @@ class PlaceReview(models.Model):
 	def __str__(self):
 		return self.stars
 		
+class PlaceTag(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	userId = models.ForeignKey(User)
+	placeId = models.ForeignKey(Place)
+	tagText = models.CharField(max_length=400)
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return tagText
+		
+class TripTag(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	userId = models.ForeignKey(User)
+	tripId = models.ForeignKey(Trip)
+	tagText = models.CharField(max_length=400)
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return tagText
+		
 class TripReview(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(User)
