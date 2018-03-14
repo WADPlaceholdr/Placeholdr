@@ -22,6 +22,8 @@ class Place(models.Model):
 		# Get PlaceReview Objects related to this place
 		reviews = list(PlaceReview.objects.filter(placeId=self.id))
 		reviews_sum = 0
+		if not reviews:
+			return 0.0
 		for review in reviews:
 			reviews_sum += review.stars
 		# return float of average of reviews
@@ -49,6 +51,8 @@ class Trip(models.Model):
 		# Get PlaceReview Objects related to this place
 		reviews = list(TripReview.objects.filter(tripId=self.id))
 		reviews_sum = 0
+		if not reviews:
+			return 0.0
 		for review in reviews:
 			reviews_sum += review.stars
 		# return float of average of reviews
