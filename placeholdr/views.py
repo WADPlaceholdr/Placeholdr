@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
-from placeholdr.forms import UserForm, UserProfileForm
+from placeholdr.forms import UserForm, PasswordForm, UserProfileForm
 from placeholdr.search import normalize_query, get_query
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -86,15 +86,16 @@ def register(request):
 	if request.method == 'POST':
 		# Attempt to get information from the form
 		user_form = UserForm(data=request.POST)
+		password_form = PasswordForm(data=request.POST)
 		profile_form = UserProfileForm(data=request.POST)
 
 		# If the two forms are valid
-		if user_form.is_valid() and profile_form.is_valid():
+		if user_form.is_valid() and password_form.is_valid() and profile_form.is_valid():
 			# Save the user's form data to the database
 			user = user_form.save()
 
 			# Hash the password then update the user object
-			user.set_password(user.password)
+			user.set_password(password_form.cleaned_data['password'])
 			user.save()
 
 			profile = profile_form.save(commit=False)
@@ -107,7 +108,7 @@ def register(request):
 			# Sve the UserProfile model instance
 			profile.save()
 			new_user = authenticate(username=user_form.cleaned_data['username'],
-									password=user_form.cleaned_data['password'],
+									password=password_form.cleaned_data['password'],
 									)
 			login(request, new_user)
 			registered = True
@@ -117,9 +118,10 @@ def register(request):
 			print(user_form.errors, profile_form.errors)
 	else:
 		user_form = UserForm()
+		password_form = PasswordForm()
 		profile_form = UserProfileForm()
 
-	return render(request, 'placeholdr/register.html',  {'user_form': user_form, 'profile_form':profile_form, 'registered': registered})
+	return render(request, 'placeholdr/register.html',  {'user_form': user_form,'password_form':password_form, 'profile_form':profile_form, 'registered': registered})
 
 def user_login(request):
 	# If the request is HTTP POST, try to get the relevant information
@@ -492,6 +494,7 @@ def add_place_review(request):
 			print(user_form.errors, profile_form.errors)
 	else:
 		user_form = UserForm()
+		password_form = PasswordForm()
 		profile_form = UserProfileForm()
 
 	return render(request, 'placeholdr/register.html',  {'user_form': user_form, 'profile_form':profile_form, 'registered': registered})
