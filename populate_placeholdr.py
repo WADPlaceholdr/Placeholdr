@@ -340,7 +340,6 @@ def add_trip(tuserId, tdesc, tname):
 def add_trip_node(tnTripId, tnPlaceId, tnTripPoint):
     tn = TripNode.objects.get_or_create(tripId=Trip.objects.get(pk=tnTripId), placeId=Place.objects.get(pk=tnPlaceId),
                                         tripPoint=tnTripPoint)[0]
-    tn.save()
     return tn
 
 

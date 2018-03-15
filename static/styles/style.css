@@ -8,7 +8,7 @@ body {
 	padding-top: 100px;
 	padding-bottom: 100px;
 	min-height: 100%;
-	background: linear-gradient(rgba(87,116,160,1), rgba(87,116,160,0)) fixed;
+	background: linear-gradient(rgba(97,126,170,1), rgba(97,126,170,0.3), rgba(97,126,170,0.2), rgba(97,126,170,0)) fixed;
 }
 
 .footer {
@@ -16,7 +16,7 @@ body {
 	bottom: 0;
 	width: 100%;
 	line-height: 60px;
-	background-color: #f5f5fc;
+	background-color: #f9f9fc;
 	
 }
 
