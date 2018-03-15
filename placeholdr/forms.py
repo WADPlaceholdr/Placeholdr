@@ -53,6 +53,12 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email')
 
+class ChangeUserForm(forms.ModelForm):
+    username = forms.CharField(required=False)
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
 class PasswordForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     class Meta:
