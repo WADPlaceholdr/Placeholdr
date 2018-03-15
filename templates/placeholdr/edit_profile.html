@@ -1,0 +1,31 @@
+{% extends 'placeholdr/base.html' %}
+
+{% load staticfiles %}
+{% load bootstrap4 %}
+
+{% block title_block %}
+	Edit Profile
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/register.css' %}" />
+{% endblock %}
+
+{% block body_block %}
+	<div class="container" id="registration-container">
+        <h1>Edit Profile</h1>
+        <br>
+        <form id="user_form" method="post" action="{% url 'register' %}"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Display each form bootstrapped -->
+            {% bootstrap_form user_form %}
+            {% bootstrap_form profile_form %}
+
+            <br>
+            <!-- Provide a button to click to submit the form -->
+            <button type="submit" class="btn btn-primary" id="register-button" name="submit" value="Register">Register</button>
+        </form>
+	</div>
+{% endblock %}
