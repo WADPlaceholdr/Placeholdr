@@ -12,7 +12,7 @@
 {% block body_block %}
 	<div class="container">
 		{% if shownUser %}
-			{% include "placeholdr/user_profile.html" with shownUserProfile="userProfile" %}
+			{% include "placeholdr/user_profile.html" with userProfile=shownUserProfile %}
 		{% else %}
 			The specified user does not exist!
 		{% endif %}
