@@ -85,7 +85,7 @@
 								{% if userProfile.picture %}
 									<img class="card-img-top" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="{{ userProfile.user.username }}'s picture">
 								{% else %}
-									<img class="card-img-top" src="{% static 'images/user.jpg' %}" alt="gustav">
+									<img class="card-img-top" src="{% static 'images/defaultuser.png' %}" alt="default">
 								{% endif %}
 								</a>
 								<div class="card-body">
