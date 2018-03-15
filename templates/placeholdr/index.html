@@ -1,6 +1,6 @@
 {% extends 'placeholdr/base.html' %}
 {% load staticfiles %}
-
+{% load placeholdr_filters %}
 
 {% block title_block %}
 	Index
@@ -23,8 +23,8 @@
 							<!--{% include "placeholdr/place_card.html" %}-->
 							<div class="card stuffCard wow animated slideInRight">
 								<a href="/placeholdr/place/{{ place.0.slug }}">
-								{% if trip.picLink %}
-									<img class="card-img-top" src="{{ place.0.picLink }}" alt="{{ place.0.name }} picture"></img>
+								{% if place.0.picLink %}
+									<img class="card-img-top" src="{{MEDIA_URL}}{{ place.0.picLink.url|staticmedia }}" alt="{{ place.0.name }} picture"></img>
 								{% else %}
 									<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
 								{% endif %}
@@ -51,8 +51,8 @@
 						{% for trip in trips %}
 							<div class="card stuffCard wow animated slideInRight">
 								<a href="/placeholdr/trip/{{ trip.0.slug }}">
-								{% if trip.picLink %}
-									<img class="card-img-top" src="{{ trip.0.picLink }}" alt="{{ trip.0.name }} picture"></img>
+								{% if trip.0.picLink %}
+									<img class="card-img-top" src="{{MEDIA_URL}}{{ trip.0.picLink.url|staticmedia }}" alt="{{ trip.0.name }} picture"></img>
 								{% else %}
 									<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
 								{% endif %}
@@ -80,7 +80,7 @@
 							<div class="card stuffCard peopleCard wow animated slideInRight">
 								<a href="/placeholdr/user/{{ userProfile.user.username }}">
 								{% if userProfile.picture %}
-									<img class="card-img-top" src="{{ userProfile.picture }}" alt="{{ userProfile.user.username }}'s picture">
+									<img class="card-img-top" src="{{MEDIA_URL}}{{ userProfile.picture.url|staticmedia }}" alt="{{ userProfile.user.username }}'s picture">
 								{% else %}
 									<img class="card-img-top" src="{% static 'images/defaultuser.png' %}" alt="default">
 								{% endif %}

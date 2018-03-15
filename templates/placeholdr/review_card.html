@@ -1,11 +1,12 @@
 {% load staticfiles %}
+{% load placeholdr_filters %}
 <div class="card wow animated fadeInUp">
 	<div class="card-body">
 		<h5 class="card-title">
 			<a class="dont-underline" href="/placeholdr/user/{{ review.userId.username }}">
 				<img class="img-thumbnail card-user-picture"
 				{% if review.userId.picture %}
-					src="{{ MEDIA_URL }}{{ review.userId.picture }}"
+					src="{{ review.userId.picture.url|staticmedia }}"
 				{% else %}
 					src="{% static 'images/eiffel.jpg' %}"
 				{% endif %}

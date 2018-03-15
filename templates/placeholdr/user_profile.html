@@ -1,13 +1,14 @@
 {% load staticfiles %}
+{% load placeholdr_filters %}
 <div class="row">
-	<h1>{{ userProfile.username }}</h1>
+	<h1>{{ shownUser.username }}</h1>
 </div>
 <div class="row">
 	<div class="col-xs">
 		<div class="row">
 			<img class="img-thumbnail user-picture"
 			{% if userProfile.picture %}
-				src="{{ userProfile.picture }}"
+				src="{{MEDIA_URL}}{{ userProfile.picture.url|staticmedia }}"
 			{% else %}
 				src="{% static 'images/defaultuser.png' %}"
 			{% endif %}
@@ -18,19 +19,8 @@
 			<form id="user_form" method="post" action="">
 				<div class="form-group">
 					<label for="id_rep">Reputation</label>
-					<input type="number" name="rep" value="
-					{% if userProfile.rep or userProfile.rep == 0 %}
-						{{ userProfile.rep }}
-					{% else %}
-						0
-					{% endif %}
-					" class="form-control" placeholder="
-					{% if userProfile.rep or userProfile.rep == 0 %}
-						{{ userProfile.rep }}
-					{% else %}
-						0
-					{% endif %}
-					"
+					<input type="number" name="rep" value="{% if userProfile.rep or userProfile.rep == 0 %}{{ userProfile.rep }}{% else %}0{% endif %}" 
+					class="form-control" placeholder="{% if userProfile.rep or userProfile.rep == 0 %}{{ userProfile.rep }}{% else %}0{% endif %}"
 					title="" required="" id="id_rep">
 				</div>
 			</form>

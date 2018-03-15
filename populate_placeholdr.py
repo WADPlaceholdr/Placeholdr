@@ -42,7 +42,7 @@ def populate():
         {"username": "_amy_", "password": "pass1357",
          "bio": "I'm a Geography student with a passion for maps, travelling, and coffee",
          "livesIn": "Glasgow", "rep": 5,
-         "picture": "{% static 'images/defaultuser.png' %}"
+         "picture": ""
          },
 
         # 4

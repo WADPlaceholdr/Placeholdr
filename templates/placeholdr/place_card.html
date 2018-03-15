@@ -4,7 +4,7 @@
 
 <div class="card stuffCard wow animated slideInRight">
 	{% if place.picLink %}
-		<img class="card-img-top" src="{{ place.picLink }}" alt="{{ place.name }} picture"></img>
+		<img class="card-img-top" src="{{MEDIA_URL}}{{ place.picLink.url|staticmedia }}" alt="{{ place.name }} picture"></img>
 	{% else %}
 		<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
 	{% endif %}

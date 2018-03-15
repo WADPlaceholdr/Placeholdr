@@ -1,6 +1,6 @@
 {% extends 'placeholdr/base.html' %}
 {% load staticfiles %}
-
+{% load placeholdr_filters %}
 
 {% block title_block %}
 	Index
@@ -26,8 +26,8 @@
 									</td></tr>
 									<tr><td width="30%">
 									<a href="/placeholdr/place/{{ place.0.slug }}">
-									{% if trip.picLink %}
-										<img class="card-img-top" src="{{ place.0.picLink }}" alt="{{ place.0.name }} picture"></img>
+									{% if place.0.picLink %}
+										<img class="card-img-top" src="{{MEDIA_URL}}{{ place.0.picLink.url|staticmedia }}" alt="{{ place.0.name }} picture"></img>
 									{% else %}
 										<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
 									{% endif %}

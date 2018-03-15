@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from django.utils.encoding import uri_to_iri
 
 from django.core.validators import MaxValueValidator
 
@@ -155,7 +156,7 @@ class UserProfile(models.Model):
 	bio = models.CharField(max_length=400,default="Hello it's me!")
 	livesIn = models.CharField(max_length=20, default='Somewhere')
 	rep = models.IntegerField(default=0)
-	picture = models.ImageField(upload_to='profile_images', blank=True)
+	picture = models.ImageField(upload_to='profile_images/', blank=True)
 	
 	# Override this to make it return something useful
 	def __str__(self):

@@ -153,7 +153,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [STATIC_DIR, ]
 
-
 try:
     from .deployment_variables import *
     print("found deployment variables running in secure deployment mode")
