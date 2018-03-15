@@ -17,6 +17,18 @@ class Place(models.Model):
 	created_date = models.DateTimeField(auto_now_add=True)
 	modified_date = models.DateTimeField(auto_now=True)
 
+	# returns average stars from reviews
+	def get_stars(self):
+		# Get PlaceReview Objects related to this place
+		reviews = list(PlaceReview.objects.filter(placeId=self.id))
+		reviews_sum = 0
+		if not reviews:
+			return 0.0
+		for review in reviews:
+			reviews_sum += review.stars
+		# return float of average of reviews
+		return float(reviews_sum)/len(reviews)
+
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
 		super(Place, self).save(*args, **kwargs)
@@ -33,6 +45,18 @@ class Trip(models.Model):
 	slug = models.SlugField(unique=True)
 	created_date = models.DateTimeField(auto_now_add=True)
 	modified_date = models.DateTimeField(auto_now=True)
+
+	# returns average stars from reviews
+	def get_stars(self):
+		# Get PlaceReview Objects related to this place
+		reviews = list(TripReview.objects.filter(tripId=self.id))
+		reviews_sum = 0
+		if not reviews:
+			return 0.0
+		for review in reviews:
+			reviews_sum += review.stars
+		# return float of average of reviews
+		return float(reviews_sum)/len(reviews)
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
@@ -54,14 +78,36 @@ class PlaceReview(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(User)
 	placeId = models.ForeignKey(Place)
-	# Positive Integer < 5
+	# Positive Integer <= 5
 	stars = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
 	review = models.CharField(max_length=400)
 	created_date = models.DateTimeField(auto_now_add=True)
 	modified_date = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return self.stars
+		return str(self.stars)
+		
+class PlaceTag(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	userId = models.ForeignKey(User)
+	placeId = models.ForeignKey(Place)
+	tagText = models.CharField(max_length=400)
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.tagText
+		
+class TripTag(models.Model):
+	id = models.IntegerField(unique=True, primary_key=True)
+	userId = models.ForeignKey(User)
+	tripId = models.ForeignKey(Trip)
+	tagText = models.CharField(max_length=400)
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.tagText
 		
 class TripReview(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)

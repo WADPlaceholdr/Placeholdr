@@ -38,6 +38,45 @@ body {
     padding:.3rem;
 }
 
+.dont-underline {
+    text-decoration: none !important;
+}
+#invisible {
+    display:none;
+}
+
+.stuffCard {
+	/* width: 15rem;*/
+	min-width: 250px;
+	max-width: 650px;
+	margin: 1.5rem !important;
+}
+
+.peopleCard {
+	width: 12rem;
+	min-width: 150px;
+	margin: 0 auto;
+}
+.peopleCard img{
+	object-fit: cover;
+	height:150px;
+	width:100%;
+}
+
+.reviewCard {
+    min-width: 250px;
+}
+.spaced {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.card-user-picture {
+    width:60px;
+    height:60px;
+    object-fit: cover !important;
+}
+
+/* Button CSS */
 .btn-outline-success {
     color: #5574A3;
     border-color: #5574A3;
@@ -71,6 +110,7 @@ body {
     box-shadow: 0 0 5px 2px #5574A3 !important;
 }
 
+/* Navbar CSS */
 .navbar-nav > li > .dropdown-menu > a{
     transition: 0.2s;
 }
@@ -78,10 +118,6 @@ body {
     color: white;
     background-color:#5574A3;
     transition: 0.2s;
-}
-
-#navbar-search-button{
-    /*background-color: #5574A3;*/
 }
 
 #navbar-user-picture {
@@ -100,13 +136,6 @@ body {
     overflow: hidden; /* make sure it hides the content that overflows */
     white-space: nowrap; /* don't break the line */
     text-overflow: ellipsis; /* give the beautiful '...' effect */
-}
-
-.dont-underline {
-    text-decoration: none !important;
-}
-#invisible {
-    display:none;
 }
 
 /* special animations */

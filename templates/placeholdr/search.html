@@ -11,33 +11,45 @@
 
 {% block body_block %}
     <div class="container">
-        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
-            <div class="row search">
-                    <div class="col">
-                        <input id="body-search-bar" class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
-                    </div>
-                    <div class="col-xs">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </div>
-            </div>
-        </form>
+        <div class="row">
+            <form class="form-inline my-2 my-lg-0" id="body-search-form" action="{% url 'search' %}" method="GET">
+                <div class="row search">
+                        <div class="col">
+                            <input id="body-search-bar" class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                        </div>
+                        <div class="col-xs">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </div>
+                </div>
+            </form>
+        </div>
 
         {% if found %}
-            <p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
-            <ul>
-                {% for place in found_places %}
-                    <a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
-                    <p>{{ place.desc }}</p>
-                {% endfor %}
-                {% for trip in found_trips %}
-                    <a href="/placeholdr/trip/{{ trip.slug }}">{{ trip.name }}</a><br/>
-                    <p>{{ trip.desc }}</p>
-                {% endfor %}
-                {% for currentUser in found_users %}
-                    <a href="/placeholdr/user/{{ currentUser }}">{{ currentUser }}</a><br/>
-                    <p>{{ userProfile.bio }}</p>
-                {% endfor %}
-            </ul>
+            <div class="row">
+                <p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% for place in found_places %}
+                        <div class="row-2">
+                            <a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
+                            <p><pre>{{ place.desc }}</pre>s</p>
+                        </div>
+                    {% endfor %}
+                    {% for trip in found_trips %}
+                        <div class="row-2">
+                            <a href="/placeholdr/trip/{{ trip.slug }}">{{ trip.name }}</a><br/>
+                            <p><pre>{{ trip.desc }}</pre></p>
+                        </div>
+                    {% endfor %}
+                    {% for currentUser in found_users %}
+                        <div class="row-2">
+                            <a href="/placeholdr/user/{{ currentUser }}">{{ currentUser }}</a><br/>
+                            <p><pre>{{ currentUser.bio }}</pre></p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         {% endif %}
 
         {% if query_string %}
@@ -53,7 +65,6 @@
                         <div class="col-2">
                             <button type="button" class="btn btn-outline-secondary" href="">Add a Trip</button>
                         </div>
-                        <!--<div class="col-2"></div>-->
                         <div class="col-2">
                             <button type="button" class="btn btn-outline-secondary" href="">Add a Place</button>
                         </div>

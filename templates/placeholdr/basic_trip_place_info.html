@@ -1,0 +1,68 @@
+{% load mathfilters %}
+{% load placeholdr_filters %}
+
+<div class="col">
+    <div class="row">
+        <h1>{{ object.name }}</h1>
+    </div>
+    <div class="row">
+        {% if object.desc %}
+            <p>{{ object.desc|striptags }}</p>
+        {% else %}
+            There is no description
+        {% endif %}
+    </div>
+    <div class="row" id="tag_section">
+        {% if review_inf %}
+            {{ review_inf.tags_string }}
+        {% else %}
+            <h3>No current tags</h3>
+        {% endif %}
+    </div>
+    <div class="row align-items-center" >
+        <div class="col-4 align-self-center">
+            <div class="row text-center id="star_rating"">
+                {% if stars %}
+                    <h2>{{ stars }}</h2>
+                {% else %}
+                    <h2>0</h2>
+                {% endif %}
+            </div>
+            <div class="row text-center">
+                <p>
+                {% for i in stars|times %}
+                    &#9733
+                {% endfor %}
+                {% with empty_stars=5|sub:stars %}
+                    {% for i in empty_stars|times %}
+                        &#9734
+                    {% endfor %}
+                {% endwith %}
+                </p>
+            </div>
+            <div class="row text-center">
+                <p>
+                    {{ nbr_reviews }} total
+                </p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row align-items-center">
+                <div class="col-xs">
+                    {% for star, value in review_dict.items %}
+                        <div class="row margined">&#9733 {{ star }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col">
+                    {% for star, value in review_dict.items %}
+                        <div class="row-4">
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{ value.1 }}%" aria-valuenow="{{ value.1 }}" aria-valuemin="0" aria-valuemax="100">{{ value.0 }}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

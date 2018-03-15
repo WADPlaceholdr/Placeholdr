@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/trip_place.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/place.css' %}" />
 {% endblock %}
 
@@ -13,25 +14,7 @@
 	<div class="container">
 		{% if place %}
 			<div class="row spaced">
-				<div class="col">
-					<div class="row">
-						<h1>{{ place.name }}</h1>
-					</div>
-					<div class="row" id="star_rating">
-						{% if review_inf %}
-							{{ review_inf.stars_string }}
-						{% else %}
-							<h3>No current star rating</h3>
-						{% endif %}
-					</div>
-					<div class="row">
-						{% if place.desc %}
-							{{ place.desc }}
-						{% else %}
-							There is no description for this place
-						{% endif %}
-					</div>
-				</div>
+				{% include "placeholdr/basic_trip_place_info.html" with object=place %}
 				<div class="col-sm">
 					{% if mapsUrl %}
 						<iframe class="maps-iframe" width="100%" height="100%" frameborder="0" style="border:0"  src="{{ mapsUrl }}" allowfullscreen></iframe>
@@ -84,23 +67,7 @@
 					</div>
                     <div class="row">
                         {% if user.is_authenticated %}
-                            <form id="place_review">
-                                <div class="form-group">
-                                        <label for="r_review">Review</label>
-                                        <textarea class="form-control" type="text" id="r_review" name="r_review" placeholder="Enter your review here" id="exampleFormControlTextarea1" rows="6" {% if not user.is_authenticated %}readonly{% endif %}></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="r_stars">Stars</label>
-                                    <select class="form-control" id="r_stars" name="r_stars" {% if not user.is_authenticated %}readonly{% endif %}>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div>
-                                <input class="btn btn-primary" id="rev_submit" type="button" value="Place Review"/>
-                            </form>
+                            {% include "placeholdr/review_form.html" %}
                         {% else %}
                             Please login to post a review
                         {% endif %}
@@ -129,8 +96,8 @@
 		{% else %}
 			The specified place does not exist!
 		{% endif %}
-		<h3 style="visibility:hidden" id="slug">{{ place.slug }}</h3>
-		<h3 style="visibility:hidden" id="task">add_place_review</h3>
+{#		<h3 style='visibility:hidden' id="slug">{{ place.slug }}</h3>#}
+{#		<h3 style='visibility:hidden' id="task">add_place_review</h3>#}
 	</div>
 
 {% endblock %}

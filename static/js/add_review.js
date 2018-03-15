@@ -54,6 +54,7 @@ $(document).ready(function() {
 				}
 				document.getElementById("review_section").innerHTML = newInner;
 				document.getElementById("star_rating").innerHTML = response.stars_string;
+				document.getElementById("tag_section").innerHTML = response.tags_string;
 				
 				document.getElementById("r_review").value = ""
 			}
