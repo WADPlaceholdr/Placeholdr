@@ -8,10 +8,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 
 django.setup()
-
 from placeholdr.models import User, UserProfile, Place, Trip, TripNode, TripReview, PlaceReview
 from django.template.defaultfilters import slugify
-import urllib.request
 
 
 def populate():
@@ -21,13 +19,13 @@ def populate():
         {"username": "michael", "password": "pass1357",
          "bio": "Just a dad looking for some places suggested by some like-minded people!",
          "livesIn": "London", "rep": 2360,
-         "picture": urllib.request.urlretrieve("https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg", 'media/profile_images/michael.jpg')[0]
+         "picture": "https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg"
          },
 
         # 1
         {"username": "itsnaomi", "password": "pass1357",
          "bio": "Just passing through!", "livesIn": "Brussels", "rep": 0,
-         "picture": urllib.request.urlretrieve("https://s3-eu-west-1.amazonaws.com/pcs01.photocase.com/c/cllutcux/5g8xfj15/photocase5g8xfj153.jpg", 'media/profile_images/naomi.jpg')[0]
+         "picture": "https://s3-eu-west-1.amazonaws.com/pcs01.photocase.com/c/cllutcux/5g8xfj15/photocase5g8xfj153.jpg"
          },
 
         # 2
@@ -35,21 +33,20 @@ def populate():
          "bio": "I'm a photographer and travel around a lot for my work, taking pictures for travel guides. "
                 "My favourite kind of places are the ones with scenic views.",
          "livesIn": "Arizona", "rep": 1240,
-         "picture": urllib.request.urlretrieve("https://thumb9.shutterstock.com/display_pic_with_logo/3471602/355236068/stock-photo-close-up-of-young-handsome-indian-photographer-taking-a-photograph-asian-man-holding-camera-355236068.jpg", 'media/profile_images/sam.jpg')[0]
+         "picture": "https://thumb9.shutterstock.com/display_pic_with_logo/3471602/355236068/stock-photo-close-up-of-young-handsome-indian-photographer-taking-a-photograph-asian-man-holding-camera-355236068.jpg",
          },
 
         # 3
         {"username": "_amy_", "password": "pass1357",
          "bio": "I'm a Geography student with a passion for maps, travelling, and coffee",
-         "livesIn": "Glasgow", "rep": 5,
-         "picture": "{% static 'images/defaultuser.png' %}"
+         "livesIn": "Glasgow", "rep": 5, "picture": "{% static 'images/defaultuser.png' %}"
          },
 
         # 4
         {"username": "baracko", "password": "pass1357",
          "bio": "I'm a busy man, but I like to take trips in my free time. Distance is never a problem",
          "livesIn": "Chicago", "rep": 80,
-         "picture": urllib.request.urlretrieve("https://pbs.twimg.com/media/CtUtSbAW8AE9NvM.jpg", 'media/profile_images/barack.jpg')[0]
+         "picture": "http://fossbytes.com/wp-content/uploads/2016/10/President-Obama-chatbot.jpg"
          },
 
         # 5
@@ -58,58 +55,57 @@ def populate():
                 "in the College of Science and Engineering at"
                 " the University of Glasgow. ",
          "livesIn": "Edinburgh", "rep": 100,
-         "picture": urllib.request.urlretrieve("https://www.gla.ac.uk/media/media_209689_en.jpg", 'media/profile_images/david.jpg')[0]
-         }
+         "picture": "https://www.gla.ac.uk/media/media_209689_en.jpg"}
     ]
 
     places = [
 
         # 0
-        {"userId": 2, "lat": "50.890163106", "long": "4.337998648",
+        {"userId": 1, "lat": "50.890163106", "long": "4.337998648",
          "desc": "The Atomium was erected in 1958 as part of the World Fair exhibition. "
                  "Modelled on an iron atom that has been magnified 165 billion times, it"
                  " consists of 9 metal spheres. The structure weighs 2400 tons and is 102m high. "
                  "The top sphere has a restaurant and provides panoramic views. The other spheres contain "
                  "exhibition spaces.",
          "name": "Atomium",
-         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Atomium_320_by_240_CCBY20_flickr_Mike_Cattell.jpg/1200px-Atomium_320_by_240_CCBY20_flickr_Mike_Cattell.jpg", 'media/place_images/atomium.jpg')[0]
+         "picLink": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Atomium_320_by_240_CCBY20_flickr_Mike_Cattell.jpg/1200px-Atomium_320_by_240_CCBY20_flickr_Mike_Cattell.jpg"
          },
 
         # 1
-        {"userId": 6, "lat": "55.876623", "long": "-4.285432",
+        {"userId": 5, "lat": "55.876623", "long": "-4.285432",
          "desc": "Speciality Coffee & OG Brunch based in Glasgow, Scotland. "
                  "A speciality coffee roaster and cafe, putting avocado on toast since 2012.",
          "name": "Papercup Glasgow",
-         "picLink": urllib.request.urlretrieve("https://media.timeout.com/images/102920974/image.jpg", 'media/place_images/papercup.jpg')[0]
+         "picLink": "https://media.timeout.com/images/102920974/image.jpg"
          },
 
         # 2
-        {"userId": 4, "lat": "55.87226070000001", "long": "-4.282248600000003",
+        {"userId": 3, "lat": "55.87226070000001", "long": "-4.282248600000003",
          "desc": "Located in one of the West End's most vibrant & community spirited streets, "
                  "you'll find the Glaswegian hub of Artisan Roast.",
          "name": "Artisan Roast",
-         "picLink": urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
+         "picLink": "https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg"
          },
 
         # 3
-        {"userId": 3, "lat": "36.056595", "long": "-112.125092",
+        {"userId": 2, "lat": "36.056595", "long": "-112.125092",
          "desc": "The Grand Canyon is one of the seven natural wonders of the world, "
                  "and one of the largest canyons on Earth. It stretches for 450km. "
                  "Parts of the canyon are more than 30km wide and one kilometer deep."
                  "Many writers have tried to describe the wonder of the Grand Canyon, but it "
                  "is beyond words.",
          "name": "Grand Canyon",
-         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/a/aa/Dawn_on_the_S_rim_of_the_Grand_Canyon_%288645178272%29.jpg", 'media/place_images/canyon.jpg')[0]
+         "picLink": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Dawn_on_the_S_rim_of_the_Grand_Canyon_%288645178272%29.jpg"
          },
 
         # 4
-        {"userId": 6, "lat": "55.8721211", "long": "-4.2882005",
+        {"userId": 5, "lat": "55.8721211", "long": "-4.2882005",
          "desc": "Founded in 1451, the University of Glasgow is the fourth oldest university "
                  "in the English-speaking world. The University moved from High Street to Gilmorehill"
                  " in 1870. The campus was originally centred around the buildings erected on the "
                  "top of the hill, designed by George Gilbert Scott.",
          "name": "University of Glasgow",
-         "picLink": urllib.request.urlretrieve("http://universitynews.edu.pl/wp-content/uploads/2017/10/news_5874.jpg", 'media/place_images/glasgow.jpg')[0]
+         "picLink": "http://universitynews.edu.pl/wp-content/uploads/2017/10/news_5874.jpg"
          },
 
         # 5
@@ -118,42 +114,40 @@ def populate():
                  "where a luxurious health spa has been developed in the rugged lava landscape. "
                  "The lagoon's geothermal seawater is known for its positive effects on the skin.",
          "name": "Blue Lagoon",
-         "picLink": urllib.request.urlretrieve("https://guidetoiceland.imgix.net/322401/x/0/surrounded-by-mountains-and-rising-steam-clouds-the-blue-lagoon-spa-is-sure-to-provide-the-most-memorable-bathing-experience-in-your-lifetime-3.jpg", 'media/place_images/lagoon.jpg')[0]
+         "picLink": "https://guidetoiceland.imgix.net/322401/x/0/surrounded-by-mountains-and-rising-steam-clouds-the-blue-lagoon-spa-is-sure-to-provide-the-most-memorable-bathing-experience-in-your-lifetime-3.jpg"
          },
 
         # 6
-        {"userId": 6, "lat": "57.322858", "long": "-4.424382",
+        {"userId": 5, "lat": "57.322858", "long": "-4.424382",
          "desc": "Loch Ness is Scotland's most famous loch."
                  "Over 300 million years ago a collision of tectonic plates forced the land to bend and buckle, "
                  "forming high mountains and deep gorges. The depths of these gorges were gradually filled with"
                  " water and a string of lochs were formed; Loch Oich, Loch Lochy and Loch Ness.",
          "name": "Loch Ness",
-         "picLink": urllib.request.urlretrieve("http://www.visitscotland.com/cms-images/destinations/loch-ness/urquhart-castle?view=Standard", 'media/place_images/lochness.jpg')[0]
+         "picLink": "http://www.visitscotland.com/cms-images/destinations/loch-ness/urquhart-castle?view=Standard"
          },
 
         # 7
-        {"userId": 5, "lat": "55.9417628996", "long": "-3.1856492574",
+        {"userId": 4, "lat": "55.9417628996", "long": "-3.1856492574",
          "desc": "The University of Edinburgh, founded in 1582, is the sixth-oldest university in the English-speaking world"
                  " and one of Scotland's ancient universities.",
          "name": "University of Edinburgh",
-         "picLink": urllib.request.urlretrieve("http://www.law.ed.ac.uk/__data/assets/image/0003/114744/412x385xeu_quad_023a.jpg.pagespeed.ic.txq1nRqj90.jpg", 'media/place_images/edinburgh.jpg')[0]
+         "picLink": "http://www.law.ed.ac.uk/__data/assets/image/0003/114744/412x385xeu_quad_023a.jpg.pagespeed.ic.txq1nRqj90.jpg",
          },
 
         # 8
-        {"userId": 6, "lat": "56.3380603144", "long": "-2.78913684344",
+        {"userId": 5, "lat": "56.3380603144", "long": "-2.78913684344",
         "desc": "Founded in the 15th century, St Andrews is Scotland's"
                 " first university and the third oldest in the English speaking world.",
         "name": "University of St Andrews",
-        "picLink": urllib.request.urlretrieve("https://www.st-andrews.ac.uk/media/residential-and-business-services/studentaccommodationservices/residences/universityhall/University_Hall_01.jpg", 'media/place_images/saints.jpg')[0]
-         },
+        "picLink": "https://www.st-andrews.ac.uk/media/residential-and-business-services/studentaccommodationservices/residences/universityhall/University_Hall_01.jpg"},
 
         # 9
-        {"userId": 3, "lat": "50.8484703", "long": "4.353890500000034",
+        {"userId": 2, "lat": "50.8484703", "long": "4.353890500000034",
          "desc": "Delirium Café is a bar which holds the Guinness World Record for the most beers offered with 2004. "
                  "Today they are getting close to 2500.",
          "name": "Delirium Café",
-         "picLink": urllib.request.urlretrieve("https://c1.staticflickr.com/5/4759/39435290145_5f17874af4_b.jpg", 'media/place_images/delirium.jpg')[0]
-         },
+         "picLink": "https://c1.staticflickr.com/5/4759/39435290145_5f17874af4_b.jpg"},
 
         # 10
         {"userId": 1, "lat": "64.6699154", "long": "-17.181654900000012",
@@ -161,140 +155,137 @@ def populate():
                  "The unique qualities of Vatnajökull National Park are primarily its great variety of landscape features,"
                  " created by the combined forces of rivers, glacial ice, and volcanic and geothermal activity.",
          "name": "Vatnajökull National Park",
-         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/8/84/Skaftafell_National_Park%2C_Svartifoss_%286817603945%29.jpg", 'media/place_images/vatnajokull.jpg')[0]
-         },
+         "picLink": "https://upload.wikimedia.org/wikipedia/commons/8/84/Skaftafell_National_Park%2C_Svartifoss_%286817603945%29.jpg"},
 
         # 11
-        {"userId": 5, "lat": "37.81194099999999", "long": "-107.6645057",
+        {"userId": 4, "lat": "37.81194099999999", "long": "-107.6645057",
          "desc": "The historic mining town of Silverton, Colorado will offer you nice mountain views during any roadtrip or visit.",
          "name": "Silverton",
-         "picLink": urllib.request.urlretrieve("https://c1.staticflickr.com/3/2825/9910259186_dfbd578808_b.jpg", 'media/place_images/silverton.jpg')[0]
-         },
+         "picLink": "https://c1.staticflickr.com/3/2825/9910259186_dfbd578808_b.jpg"},
 
         # 12
-        {"userId": 4, "lat": "56.9625746", "long": "-4.917060600000013",
+        {"userId": 3, "lat": "56.9625746", "long": "-4.917060600000013",
          "desc": "Loch Lochy (Scottish Gaelic, Loch Lòchaidh) is a large freshwater loch."
                  " With a mean depth of 70 m (230 ft), it is the third-deepest loch of Scotland.",
          "name": "Loch Lochy",
-         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/e/eb/Loch_Lochy.jpg", 'media/place_images/lochy.jpg')[0]
-         },
+         "picLink": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Loch_Lochy.jpg"},
     ]
 
     trips = [
         # 0
-        {"userId": 6,
+        {"userId": 5,
          "desc": "Head to Loch Ness from Glasgow before coming back for a coffee in town and see the university's buildings",
          "name": "A Scottish Daytrip"},
         # 1
-        {"userId": 3, "desc": "Ride along some scenic routes and stop at very scenic places",
+        {"userId": 2, "desc": "Ride along some scenic routes and stop at very scenic places",
          "name": "Nature in the US"},
         # 2
         {"userId": 1, "desc": "Trek in cold cold Iceland before getting warm in a lagoon", "name": "Hot and Cold"},
         # 3
-        {"userId": 3, "desc": "Have some drinks in Belgium and see some sights", "name": "Beer Trip"},
+        {"userId": 2, "desc": "Have some drinks in Belgium and see some sights", "name": "Beer Trip"},
         # 4
-        {"userId": 5, "desc": "Have a look at some universities and how pretty they are", "name": "Academic Roadtrip"},
+        {"userId": 4, "desc": "Have a look at some universities and how pretty they are", "name": "Academic Roadtrip"},
         # 5
-        {"userId": 4,
+        {"userId": 3,
          "desc": "This trip is for coffee fanatics who aren't scared of dying of a coffee overdose by visiting a lot of coffee places",
          "name": "Hyperactive Coffee"},
     ]
 
     tripNodes = [
         # A Scottish Daytrip
-        {"placeId": 7, "tripId": 1, "tripPoint": 0},
-        {"placeId": 13, "tripId": 1, "tripPoint": 1},
-        {"placeId": 3, "tripId": 1, "tripPoint": 2},
+        {"placeId": 6, "tripId": 6, "tripPoint": 0},
+        {"placeId": 12, "tripId": 6, "tripPoint": 1},
+        {"placeId": 2, "tripId": 6, "tripPoint": 2},
 
         # Nature in the US
-        {"placeId": 12, "tripId": 2, "tripPoint": 0},
-        {"placeId": 4, "tripId": 2, "tripPoint": 1},
+        {"placeId": 11, "tripId": 1, "tripPoint": 0},
+        {"placeId": 3, "tripId": 1, "tripPoint": 1},
 
         # Iceland
-        {"placeId": 11, "tripId": 3, "tripPoint": 0},
-        {"placeId": 6, "tripId": 3, "tripPoint": 1},
+        {"placeId": 10, "tripId": 2, "tripPoint": 0},
+        {"placeId": 5, "tripId": 2, "tripPoint": 1},
 
         # Brussels
-        {"placeId": 1, "tripId": 4, "tripPoint": 0},
-        {"placeId": 10, "tripId": 4, "tripPoint": 1},
+        {"placeId": 3, "tripId": 3, "tripPoint": 0},
+        {"placeId": 9, "tripId": 3, "tripPoint": 1},
 
         # Academic Roadtrip
-        {"placeId": 9, "tripId": 5, "tripPoint": 0},
-        {"placeId": 5, "tripId": 5, "tripPoint": 1},
-        {"placeId": 8, "tripId": 5, "tripPoint": 2},
+        {"placeId": 8, "tripId": 4, "tripPoint": 0},
+        {"placeId": 4, "tripId": 4, "tripPoint": 1},
+        {"placeId": 7, "tripId": 4, "tripPoint": 2},
 
         # Coffee
-        {"placeId": 2, "tripId": 6, "tripPoint": 0},
-        {"placeId": 3, "tripId": 6, "tripPoint": 1}
+        {"placeId": 1, "tripId": 5, "tripPoint": 0},
+        {"placeId": 2, "tripId": 5, "tripPoint": 1}
     ]
 
     placeReviews = [
         # Blue Lagoon
-        {"userId": 1, "placeId": 6, "stars": 2,
+        {"userId": 1, "placeId": 5, "stars": 2,
          "review": "It was nice and warm in the water but way too cold outside. Risky"},
-        {"userId": 5, "placeId": 6, "stars": 5, "review": "The right amount of hot and cold"},
+        {"userId": 4, "placeId": 5, "stars": 5, "review": "The right amount of hot and cold"},
 
         # Grand Canyon
-        {"userId": 5, "placeId": 4, "stars": 5,
+        {"userId": 4, "placeId": 3, "stars": 5,
          "review": "Very pretty and very warm. Good place for some philosophical thinking. "},
 
         # UofG
-        {"userId": 6, "placeId": 6, "stars": 4, "review": "In spite of the rain, the buildings were very pretty. "},
-        {"userId": 4, "placeId": 6, "stars": 3,
+        {"userId": 5, "placeId": 4, "stars": 4, "review": "In spite of the rain, the buildings were very pretty. "},
+        {"userId": 3, "placeId": 5, "stars": 3,
          "review": "Very pretty but I wish you could visit the main building tower as well"},
 
         # Atomium
-        {"userId": 3, "placeId": 1, "stars": 3,
+        {"userId": 2, "placeId": 2, "stars": 3,
          "review": "Very scenic views. Very crowded though"},
 
         # Artisan Roast
-        {"userId": 4, "placeId": 3, "stars": 5,
+        {"userId": 3, "placeId": 2, "stars": 5,
          "review": "Some good coffee to get you ready to write essays."},
-        {"userId": 6, "placeId": 3, "stars": 2, "review": "Papercup makes better coffee"},
+        {"userId": 5, "placeId": 2, "stars": 2, "review": "Papercup makes better coffee"},
 
         # Loch Ness
-        {"userId": 1, "placeId": 7, "stars": 2, "review": "Disappointed by the lack of monster"},
+        {"userId": 1, "placeId": 6, "stars": 2, "review": "Disappointed by the lack of monster"},
 
         # Delirium
-        {"userId": 3, "placeId": 10, "stars": 4, "review": "I liked it"},
+        {"userId": 2, "placeId": 9, "stars": 4, "review": "I liked it"},
 
         # Iceland national park
-        {"userId": 1, "placeId": 11, "stars": 4, "review": "Very pretty, very cold, some nice trekking"},
+        {"userId": 1, "placeId": 10, "stars": 4, "review": "Very pretty, very cold, some nice trekking"},
 
         # Silverton
-        {"userId": 5, "placeId": 12, "stars": 2, "review": "I mean it looked nice from afar but is there really anything to do there"},
+        {"userId": 4, "placeId": 11, "stars": 2, "review": "I mean it looked nice from afar but is there really anything to do there"},
 
         # Loch Lochy
-        {"userId": 4, "placeId": 13, "stars": 4, "review": "I can't believe there's a place called Loch Lochy"},
+        {"userId": 3, "placeId": 12, "stars": 4, "review": "I can't believe there's a place called Loch Lochy"},
     ]
 
     tripReviews = [
         # Scottish daytrip
-        {"userId": 6, "tripId": 1, "stars": 4,
+        {"userId": 5, "tripId": 6, "stars": 4,
          "review": "Some very nice scenery. I didn't see the Loch Ness monster but the good coffee afterwards made up for it"},
-        {"userId": 4, "tripId": 1, "stars": 5, "review": "Deserves 5 stars just for Loch Lochy"},
+        {"userId": 3, "tripId": 6, "stars": 5, "review": "Deserves 5 stars just for Loch Lochy"},
 
         # US nature
-        {"userId": 3, "tripId": 2, "stars": 5, "review": "Very dry landscapes but still very pretty"},
-        {"userId": 5, "tripId": 2, "stars": 5, "review": "Good trip for some escape overall"},
+        {"userId": 2, "tripId": 1, "stars": 5, "review": "Very dry landscapes but still very pretty"},
+        {"userId": 4, "tripId": 1, "stars": 5, "review": "Good trip for some escape overall"},
 
         # Iceland
-        {"userId": 1, "tripId": 3, "stars": 3, "review": "Could be way warmer"},
-        {"userId": 3, "tripId": 3, "stars": 5, "review": "Iceland is insanely pretty"},
+        {"userId": 1, "tripId": 2, "stars": 3, "review": "Could be way warmer"},
+        {"userId": 2, "tripId": 2, "stars": 5, "review": "Iceland is insanely pretty"},
 
 
         # Beers
-        {"userId": 2, "tripId": 4, "stars": 4, "review": "A lot of hangovers but definitely worth it"},
-        {"userId": 3, "tripId": 4, "stars": 3, "review": "Not enough beers"},
+        {"userId": 1, "tripId": 3, "stars": 4, "review": "A lot of hangovers but definitely worth it"},
+        {"userId": 2, "tripId": 3, "stars": 3, "review": "Not enough beers"},
 
         # Academia
-        {"userId": 4, "tripId": 5, "stars": 3,
+        {"userId": 3, "tripId": 4, "stars": 3,
          "review": "It was nice but it reminded me of the work I'm supposed to be doing"},
-        {"userId": 6, "tripId": 5, "stars": 4,
+        {"userId": 5, "tripId": 4, "stars": 4,
          "review": "Glasgow is definitely the prettiest out of the three"},
 
         # Coffee
-        {"userId": 4, "tripId": 5, "stars": 4, "review": "Could be better"},
+        {"userId": 3, "tripId": 5, "stars": 4, "review": "Could be better"},
     ]
 
     for user in users:
@@ -346,13 +337,13 @@ def add_trip_node(tnTripId, tnPlaceId, tnTripPoint):
 
 def add_place_review(prUId, prPId, prS, prR):
     pr = PlaceReview.objects.get_or_create(userId=User.objects.get(pk=prUId), placeId=Place.objects.get(pk=prPId),
-                                           stars=prS, review=prR)[0]
+                                           stars=prS, review=prR)
     return pr
 
 
 def add_trip_review(trUId, trTId, trS, trR):
     tr = TripReview.objects.get_or_create(userId=User.objects.get(pk=trUId), tripId=Trip.objects.get(pk=trTId),
-                                          stars=trS, review=trR)[0]
+                                          stars=trS, review=trR)
     return tr
 
 

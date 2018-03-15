@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/trip_place.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'styles/trip.css' %}" />
 {% endblock %}
 
@@ -111,8 +112,8 @@
 		{% else %}
 			The specified trip does not exist!
 		{% endif %}
-		<h3 style="visibility:hidden" id="slug">{{ trip.slug }}</h3>
-		<h3 style="visibility:hidden" id="task">add_trip_review</h3>
+{#		<h3 style="visibility:hidden" id="slug">{{ trip.slug }}</h3>#}
+{#		<h3 style="visibility:hidden" id="task">add_trip_review</h3>#}
 	</div>
 {% endblock %}
 

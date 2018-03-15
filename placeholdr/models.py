@@ -121,7 +121,7 @@ class TripReview(models.Model):
 
 	def __str__(self):
 		return self.stars
-		
+
 class Category(models.Model):
 	name = models.CharField(max_length=128, unique=True)
 	views = models.IntegerField(default=0)

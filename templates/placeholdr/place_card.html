@@ -1,4 +1,7 @@
 {% load staticfiles %}
+{% load mathfilters %}
+{% load placeholdr_filters %}
+
 <div class="card stuffCard wow animated slideInRight">
 	{% if place.picLink %}
 		<img class="card-img-top" src="{{ place.picLink }}" alt="{{ place.name }} picture"></img>
@@ -8,6 +11,17 @@
 	<div class="card-body">
 		<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
 		<p class="card-text">{{ place.desc }}</p>
-		<p class="card-text">&#9733; &#9733; &#9734; &#9734; &#9734;</p>
+		<p class="card-text">
+            {% with stars=place.get_stars %}
+                {% for i in stars|times %}
+                        &#9733
+                {% endfor %}
+                {% with empty_stars=5|sub:stars %}
+                    {% for i in empty_stars|times %}
+                        &#9734
+                    {% endfor %}
+                {% endwith %}
+            {% endwith %}
+        </p>
 	</div>
 </div>
