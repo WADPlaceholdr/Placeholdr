@@ -48,7 +48,7 @@
 	</head>
 	<body class="{% block body_class %}{% endblock %}">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-			<a class="navbar-brand" href="/">
+			<a class="navbar-brand animated rubberBand" href="/">
 				<!-- Logo commented out until higher rez available -->
 				<img class="d-inline-block align-top" id="logo" src="{% static 'images/logonobg_cropped.png' %}" alt="Logo">
 				<!-- <img src="{% static 'images/favicon.ico' %}" width="30" height="30" class="d-inline-block align-top" alt="Logo"> -->
@@ -65,7 +65,7 @@
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Places
 						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+						<div class="dropdown-menu animated fadeInDown" aria-labelledby="navbarDropdown1">
 							<a class="dropdown-item" href="{% url 'top_places' %}">Top Places</a>
 							<a class="dropdown-item" href="{% url 'new_places' %}">New Places</a>
 							<a class="dropdown-item" href="{% url 'popular_places' %}">Popular Places</a>
@@ -81,7 +81,7 @@
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Trips
 						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+						<div class="dropdown-menu animated fadeInDown" aria-labelledby="navbarDropdown2">
 							<a class="dropdown-item" href="#">Top Trips</a>
 							<a class="dropdown-item" href="#">New Trips</a>
 							<a class="dropdown-item" href="#">Popular Trips</a>
@@ -97,7 +97,7 @@
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Users
 						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+						<div class="dropdown-menu animated fadeInDown" aria-labelledby="navbarDropdown3">
 							<a class="dropdown-item" href="#">Top Users</a>
 							<a class="dropdown-item" href="#">New Users</a>
 							<a class="dropdown-item" href="#">Popular Users</a>
@@ -131,7 +131,7 @@
 								{% endif %}
 							</div>
 						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+						<div class="dropdown-menu animated fadeInDown" aria-labelledby="navbarDropdown4">
 							{% if user.is_authenticated %}
 								<a class="dropdown-item" href="{% url 'account' %}">Account</a>
 								<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>

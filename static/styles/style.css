@@ -11,13 +11,16 @@ body {
 	background: linear-gradient(rgba(97,126,170,1), rgba(97,126,170,0.3), rgba(97,126,170,0.2), rgba(97,126,170,0)) fixed;
 }
 
+}
+.navbar {
+    /*box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.47);*/
+}
 .footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	line-height: 60px;
 	background-color: #f9f9fc;
-	
 }
 
 #footer-row {
@@ -114,6 +117,10 @@ body {
 }
 
 /* Navbar CSS */
+.dropdown-menu {
+    box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.47);
+    animation-duration: 0.2s;
+}
 .navbar-nav > li > .dropdown-menu > a{
     transition: 0.2s;
 }
