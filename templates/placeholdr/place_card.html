@@ -12,13 +12,15 @@
 		<h5 class="card-title"><a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a></h5>
 		<p class="card-text">{{ place.desc }}</p>
 		<p class="card-text">
-            {% for i in place.get_stars|times %}
-                    &#9733
-            {% endfor %}
-            {% with empty_stars=5|sub:place.get_stars %}
-                {% for i in empty_stars|times %}
-                    &#9734
+            {% with stars=place.get_stars %}
+                {% for i in stars|times %}
+                        &#9733
                 {% endfor %}
+                {% with empty_stars=5|sub:stars %}
+                    {% for i in empty_stars|times %}
+                        &#9734
+                    {% endfor %}
+                {% endwith %}
             {% endwith %}
         </p>
 	</div>
