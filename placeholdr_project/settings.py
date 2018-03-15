@@ -157,6 +157,6 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 try:
     from .deployment_variables import *
     print("found deployment variables running in secure deployment mode")
-except ModuleNotFoundError as err:
+except ImportError as err:
     # Error handling
     print("can't find deployment variables running in unsecure development mode")
