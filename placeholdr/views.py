@@ -440,7 +440,7 @@ def get_reviews(isTrip, r_slug):
 		for review in reviews:
 			userProf = review.userId
 			stars += review.stars
-			image = "src='/static/images/eiffel.jpg'"
+			image = "src='/static/images/defaultuser.png'"
 			if userProf.picture:
 				image = userProf.picture.url
 			to_append = '<div class="card wow animated fadeInUp"><div class="card-body"><h5 class="card-title"><img class="img-thumbnail card-user-picture" ' + image + ' alt="Card image cap">' + userProf.user.username + '</h5><p>' + str(review.stars) + '/5</p><p class="card-text">' + review.review + '</p><p class="card-text"><small class="text-muted">Last updated ' + str(review.modified_date) + '</small></p></div></div>'

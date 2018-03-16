@@ -8,7 +8,7 @@
 				{% if review.userId.picture %}
 					src="{{MEDIA_URL}}{{ review.userId.picture.url|staticmedia }}"
 				{% else %}
-					src="{% static 'images/eiffel.jpg' %}"
+					src="{% static 'images/defaultuser.png' %}"
 				{% endif %}
 				alt="Card image cap">
 				{{ review.userId.username }}
