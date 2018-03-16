@@ -2,3 +2,6 @@
 *.sqlite3
 *.save
 .idea/
+media/profile_images/*
+media/place_images/*
+media/trip_images/*
