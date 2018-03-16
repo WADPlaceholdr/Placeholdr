@@ -6,9 +6,24 @@ from django.utils.encoding import uri_to_iri
 from django.core.validators import MaxValueValidator
 
 # Create your models here.
+
+class UserProfile(models.Model):
+	# Links UserProfile to a User model instance
+	user = models.OneToOneField(User)
+
+	# Additional attributes
+	bio = models.CharField(max_length=400,default="Hello it's me!")
+	livesIn = models.CharField(max_length=20, default='Somewhere')
+	rep = models.IntegerField(default=0)
+	picture = models.ImageField(upload_to='profile_images/', blank=True)
+	
+	# Override this to make it return something useful
+	def __str__(self):
+		return self.user.username
+
 class Place(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
-	userId = models.ForeignKey(User)
+	userId = models.ForeignKey(UserProfile)
 	lat = models.CharField(max_length=20)
 	long = models.CharField(max_length=20)
 	desc = models.CharField(max_length=400)
@@ -39,7 +54,7 @@ class Place(models.Model):
 
 class Trip(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
-	userId = models.ForeignKey(User)
+	userId = models.ForeignKey(UserProfile)
 	desc = models.CharField(max_length=400)
 	picLink = models.ImageField(upload_to='trip_images', blank=True)
 	name = models.CharField(max_length=128, unique=True)
@@ -77,7 +92,7 @@ class TripNode(models.Model):
 		
 class PlaceReview(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
-	userId = models.ForeignKey(User)
+	userId = models.ForeignKey(UserProfile)
 	placeId = models.ForeignKey(Place)
 	# Positive Integer <= 5
 	stars = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
@@ -90,7 +105,7 @@ class PlaceReview(models.Model):
 		
 class PlaceTag(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
-	userId = models.ForeignKey(User)
+	userId = models.ForeignKey(UserProfile)
 	placeId = models.ForeignKey(Place)
 	tagText = models.CharField(max_length=400)
 	created_date = models.DateTimeField(auto_now_add=True)
@@ -101,7 +116,7 @@ class PlaceTag(models.Model):
 		
 class TripTag(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
-	userId = models.ForeignKey(User)
+	userId = models.ForeignKey(UserProfile)
 	tripId = models.ForeignKey(Trip)
 	tagText = models.CharField(max_length=400)
 	created_date = models.DateTimeField(auto_now_add=True)
@@ -112,7 +127,7 @@ class TripTag(models.Model):
 		
 class TripReview(models.Model):
 	id = models.IntegerField(unique=True, primary_key=True)
-	userId = models.ForeignKey(User)
+	userId = models.ForeignKey(UserProfile)
 	tripId = models.ForeignKey(Trip)
 	# Positive Integer < 5
 	stars = models.PositiveIntegerField(validators=[MaxValueValidator(5)])
@@ -148,16 +163,4 @@ class Page(models.Model):
 	def __str__(self):
 		return self.title
 
-class UserProfile(models.Model):
-	# Links UserProfile to a User model instance
-	user = models.OneToOneField(User)
 
-	# Additional attributes
-	bio = models.CharField(max_length=400,default="Hello it's me!")
-	livesIn = models.CharField(max_length=20, default='Somewhere')
-	rep = models.IntegerField(default=0)
-	picture = models.ImageField(upload_to='profile_images/', blank=True)
-	
-	# Override this to make it return something useful
-	def __str__(self):
-		return self.user.username

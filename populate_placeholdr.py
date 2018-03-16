@@ -323,14 +323,14 @@ def add_user(name, pword, bio, livesIn, rep, picture):
 
 
 def add_place(puserId, plat, plong, pdesc, pname, ppic):
-    p = Place.objects.get_or_create(name=pname, userId=User.objects.get(pk=puserId), lat=plat, long=plong, desc=pdesc,
+    p = Place.objects.get_or_create(name=pname, userId=UserProfile.objects.get(pk=puserId), lat=plat, long=plong, desc=pdesc,
                                     picLink=ppic,
                                     slug=slugify(pname))[0]
     return p
 
 
 def add_trip(tuserId, tdesc, tname):
-    t = Trip.objects.get_or_create(name=tname, userId=User.objects.get(pk=tuserId), desc=tdesc,
+    t = Trip.objects.get_or_create(name=tname, userId=UserProfile.objects.get(pk=tuserId), desc=tdesc,
                                    slug=slugify(tname))[0]
     return t
 
@@ -342,13 +342,13 @@ def add_trip_node(tnTripId, tnPlaceId, tnTripPoint):
 
 
 def add_place_review(prUId, prPId, prS, prR):
-    pr = PlaceReview.objects.get_or_create(userId=User.objects.get(pk=prUId), placeId=Place.objects.get(pk=prPId),
+    pr = PlaceReview.objects.get_or_create(userId=UserProfile.objects.get(pk=prUId), placeId=Place.objects.get(pk=prPId),
                                            stars=prS, review=prR)[0]
     return pr
 
 
 def add_trip_review(trUId, trTId, trS, trR):
-    tr = TripReview.objects.get_or_create(userId=User.objects.get(pk=trUId), tripId=Trip.objects.get(pk=trTId),
+    tr = TripReview.objects.get_or_create(userId=UserProfile.objects.get(pk=trUId), tripId=Trip.objects.get(pk=trTId),
                                           stars=trS, review=trR)[0]
     return tr
 

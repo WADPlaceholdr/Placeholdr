@@ -6,7 +6,7 @@
 			<a class="dont-underline" href="/placeholdr/user/{{ review.userId.username }}">
 				<img class="img-thumbnail card-user-picture"
 				{% if review.userId.picture %}
-					src="{{ review.userId.picture.url|staticmedia }}"
+					src="{{MEDIA_URL}}{{ review.userId.picture.url|staticmedia }}"
 				{% else %}
 					src="{% static 'images/eiffel.jpg' %}"
 				{% endif %}
