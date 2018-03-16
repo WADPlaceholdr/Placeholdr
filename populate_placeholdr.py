@@ -110,7 +110,7 @@ def populate():
                  " in 1870. The campus was originally centred around the buildings erected on the "
                  "top of the hill, designed by George Gilbert Scott.",
          "name": "University of Glasgow",
-         "picLink": ""#urllib.request.urlretrieve("http://universitynews.edu.pl/wp-content/uploads/2017/10/news_5874.jpg", 'media/place_images/glasgow.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/a/aa/University_of_Glasgow%2C_East_Quadrangle_-_landscape.jpg", 'media/place_images/glasgow.jpg')[0]
          },
 
         # 5
@@ -119,7 +119,7 @@ def populate():
                  "where a luxurious health spa has been developed in the rugged lava landscape. "
                  "The lagoon's geothermal seawater is known for its positive effects on the skin.",
          "name": "Blue Lagoon",
-         "picLink": ""#urllib.request.urlretrieve("https://guidetoiceland.imgix.net/322401/x/0/surrounded-by-mountains-and-rising-steam-clouds-the-blue-lagoon-spa-is-sure-to-provide-the-most-memorable-bathing-experience-in-your-lifetime-3.jpg", 'media/place_images/lagoon.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Blue_Lagoon_Main_Building.JPG/800px-Blue_Lagoon_Main_Building.JPG", 'media/place_images/lagoon.jpg')[0]
          },
 
         # 6
@@ -129,7 +129,7 @@ def populate():
                  "forming high mountains and deep gorges. The depths of these gorges were gradually filled with"
                  " water and a string of lochs were formed; Loch Oich, Loch Lochy and Loch Ness.",
          "name": "Loch Ness",
-         "picLink": ""#urllib.request.urlretrieve("http://www.visitscotland.com/cms-images/destinations/loch-ness/urquhart-castle?view=Standard", 'media/place_images/lochness.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/d/de/Loch_Ness_Panorama.png")[0]
          },
 
         # 7
