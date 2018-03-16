@@ -322,6 +322,7 @@ def populate():
 def add_user(name, pword, bio, livesIn, rep, picture):
     u = User.objects.get_or_create(username=name, password=pword)[0]
     up = UserProfile.objects.get_or_create(user=u, bio=bio, livesIn=livesIn, rep=rep, picture=picture)[0]
+    up.save()
     return up
 
 
@@ -329,30 +330,35 @@ def add_place(puserId, plat, plong, pdesc, pname, ppic):
     p = Place.objects.get_or_create(name=pname, userId=UserProfile.objects.get(pk=puserId), lat=plat, long=plong, desc=pdesc,
                                     picLink=ppic,
                                     slug=slugify(pname))[0]
+    p.save()
     return p
 
 
 def add_trip(tuserId, tdesc, tname):
     t = Trip.objects.get_or_create(name=tname, userId=UserProfile.objects.get(pk=tuserId), desc=tdesc,
                                    slug=slugify(tname))[0]
+    t.save()
     return t
 
 
 def add_trip_node(tnTripId, tnPlaceId, tnTripPoint):
     tn = TripNode.objects.get_or_create(tripId=Trip.objects.get(pk=tnTripId), placeId=Place.objects.get(pk=tnPlaceId),
                                         tripPoint=tnTripPoint)[0]
+    tn.save()
     return tn
 
 
 def add_place_review(prUId, prPId, prS, prR):
     pr = PlaceReview.objects.get_or_create(userId=UserProfile.objects.get(pk=prUId), placeId=Place.objects.get(pk=prPId),
                                            stars=prS, review=prR)[0]
+    pr.save()
     return pr
 
 
 def add_trip_review(trUId, trTId, trS, trR):
     tr = TripReview.objects.get_or_create(userId=UserProfile.objects.get(pk=trUId), tripId=Trip.objects.get(pk=trTId),
                                           stars=trS, review=trR)[0]
+    tr.save()
     return tr
 
 
