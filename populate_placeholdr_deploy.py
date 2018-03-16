@@ -89,7 +89,7 @@ def populate():
          "desc": "Located in one of the West End's most vibrant & community spirited streets, "
                  "you'll find the Glaswegian hub of Artisan Roast.",
          "name": "Artisan Roast",
-         "picLink": urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
+         "picLink": ""#urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
          },
 
         # 3
@@ -110,7 +110,7 @@ def populate():
                  " in 1870. The campus was originally centred around the buildings erected on the "
                  "top of the hill, designed by George Gilbert Scott.",
          "name": "University of Glasgow",
-         "picLink": urllib.request.urlretrieve("http://universitynews.edu.pl/wp-content/uploads/2017/10/news_5874.jpg", 'media/place_images/glasgow.jpg')[0]
+         "picLink": ""#urllib.request.urlretrieve("http://universitynews.edu.pl/wp-content/uploads/2017/10/news_5874.jpg", 'media/place_images/glasgow.jpg')[0]
          },
 
         # 5
