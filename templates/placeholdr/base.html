@@ -119,7 +119,7 @@
 								{% if userProfile.picture %}
 									<img class="img-thumbnail user-picture" id="navbar-user-picture" src="{{ MEDIA_URL }}{{ userProfile.picture }}" alt="Card image cap">
 								{% else %}
-									<img class="img-thumbnail user-picture" id="navbar-user-picture" src="{% static 'svg/person.svg' %}"></img>
+									<img class="img-thumbnail user-picture" id="navbar-user-picture" src="{% static 'images/defaultuser.png' %}"></img>
 								{% endif %}
 							{% else %}
 								<img class="img-thumbnail user-picture invisible" id="navbar-user-picture" src="{% static 'images/blank.png' %}"></img>

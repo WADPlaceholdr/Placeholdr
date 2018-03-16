@@ -8,9 +8,6 @@ body {
 	padding-top: 100px;
 	padding-bottom: 100px;
 	min-height: 100%;
-	background: linear-gradient(rgba(97,126,170,1), rgba(97,126,170,0.3), rgba(97,126,170,0.2), rgba(97,126,170,0)) fixed;
-}
-
 }
 .navbar {
     /*box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.47);*/
@@ -20,7 +17,7 @@ body {
 	bottom: 0;
 	width: 100%;
 	line-height: 60px;
-	background-color: #f9f9fc;
+	background-color: #f5f5fc;
 }
 
 #footer-row {
@@ -55,7 +52,12 @@ body {
 	min-width: 250px;
 	max-width: 650px;
 	margin: 1.5rem !important;
-	background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,1) , rgba(255,255,255,1), rgba(67,96,140,1)) fixed;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.stuffCard:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .peopleCard {
@@ -71,7 +73,13 @@ body {
 
 .reviewCard {
     min-width: 250px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
+.reviewCard:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
 .spaced {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -118,7 +126,7 @@ body {
 
 /* Navbar CSS */
 .dropdown-menu {
-    box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.47);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     animation-duration: 0.2s;
 }
 .navbar-nav > li > .dropdown-menu > a{
