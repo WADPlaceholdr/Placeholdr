@@ -22,7 +22,6 @@ class UserProfile(models.Model):
 		return self.user.username
 
 class Place(models.Model):
-	#id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(UserProfile)
 	lat = models.CharField(max_length=20)
 	long = models.CharField(max_length=20)
@@ -53,7 +52,6 @@ class Place(models.Model):
 		return self.name
 
 class Trip(models.Model):
-	#id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(UserProfile)
 	desc = models.CharField(max_length=400)
 	picLink = models.ImageField(upload_to='trip_images', blank=True)
@@ -82,7 +80,6 @@ class Trip(models.Model):
 		return self.name
 		
 class TripNode(models.Model):
-	#id = models.IntegerField(unique=True, primary_key=True)
 	placeId = models.ForeignKey(Place)
 	tripId = models.ForeignKey(Trip)
 	tripPoint = models.IntegerField()
@@ -91,7 +88,6 @@ class TripNode(models.Model):
 		return self.tripPoint
 		
 class PlaceReview(models.Model):
-	#id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(UserProfile)
 	placeId = models.ForeignKey(Place)
 	# Positive Integer <= 5
@@ -104,7 +100,6 @@ class PlaceReview(models.Model):
 		return str(self.stars)
 		
 class PlaceTag(models.Model):
-	#id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(UserProfile)
 	placeId = models.ForeignKey(Place)
 	tagText = models.CharField(max_length=400)
@@ -115,7 +110,6 @@ class PlaceTag(models.Model):
 		return self.tagText
 		
 class TripTag(models.Model):
-	#id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(UserProfile)
 	tripId = models.ForeignKey(Trip)
 	tagText = models.CharField(max_length=400)
@@ -126,7 +120,6 @@ class TripTag(models.Model):
 		return self.tagText
 		
 class TripReview(models.Model):
-	#id = models.IntegerField(unique=True, primary_key=True)
 	userId = models.ForeignKey(UserProfile)
 	tripId = models.ForeignKey(Trip)
 	# Positive Integer < 5
