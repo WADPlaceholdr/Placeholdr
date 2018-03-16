@@ -58,6 +58,7 @@ def populate():
                 "in the College of Science and Engineering at"
                 " the University of Glasgow. ",
          "livesIn": "Edinburgh", "rep": 100,
+
          "picture": urllib.request.urlretrieve("https://www.gla.ac.uk/media/media_209689_en.jpg", 'media/profile_images/david.jpg')[0]
          }
     ]
@@ -298,10 +299,12 @@ def populate():
     ]
 
     for user in users:
-        us = add_user(user["username"], user["password"], user["bio"], user["livesIn"], user["rep"], user["picture"])
+        corrected_image_url = user["picture"].replace("media/","")
+        us = add_user(user["username"], user["password"], user["bio"], user["livesIn"], user["rep"], corrected_image_url)
 
     for place in places:
-        p = add_place(place["userId"], place["lat"], place["long"], place["desc"], place["name"], place["picLink"])
+        corrected_image_url = place["picLink"].replace("media/","")
+        p = add_place(place["userId"], place["lat"], place["long"], place["desc"], place["name"], corrected_image_url)
 
     for trip in trips:
         t = add_trip(trip["userId"], trip["desc"], trip["name"])

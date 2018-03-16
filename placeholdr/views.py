@@ -477,6 +477,7 @@ def add_place_review(request):
 			# Check if there's a profile picture
 			if 'picture' in request.FILES:
 				profile.picture = request.FILES['picture']
+			profile.picture.url = profile.picture.url.replace("media/","")
 
 			# Save the UserProfile model instance
 			profile.save()
