@@ -1,55 +1,47 @@
 {% load staticfiles %}
 {% load placeholdr_filters %}
-<div class="row">
-	<h1>{{ shownUser.username }}</h1>
-</div>
-<div class="row">
-	<div class="col-xs">
-		<div class="row">
-			<img class="img-thumbnail user-picture"
-			{% if userProfile.picture %}
-				src="{{MEDIA_URL}}{{ userProfile.picture.url|staticmedia }}"
-			{% else %}
-				src="{% static 'images/defaultuser.png' %}"
-			{% endif %}
-			alt="Card image cap">
 
-		</div>
-		<div class="row">
-			<form id="user_form" method="post" action="">
-				<div class="form-group">
-					<label for="id_rep">Reputation</label>
-					<input type="number" name="rep" value="{% if userProfile.rep or userProfile.rep == 0 %}{{ userProfile.rep }}{% else %}0{% endif %}" 
-					class="form-control" placeholder="{% if userProfile.rep or userProfile.rep == 0 %}{{ userProfile.rep }}{% else %}0{% endif %}"
-					title="" required="" id="id_rep">
-				</div>
-			</form>
-		</div>
-	</div>
-	<div class="col">
-		<div class="row-3">
-			<h3>Bio</h3>
-			<br>
-				{% if userProfile.bio %}
-					{{ userProfile.bio|striptags }}
-				{% else %}
-					no Bio
-				{% endif %}
-		</div>
-        <br/>
-        <br/>
-		<div class="row-3">
-			<h5>Lives in {{ userProfile.livesIn }}</h5>
-		</div>
-	</div>
+<div class="row">
+    <h1 class="center">{{ userProfile.user }}</h1>
+</div>
+<div class="row">
+    <img class="img-thumbnail user-picture center"
+    {% if userProfile.picture %}
+        src="{{ userProfile.picture.url|staticmedia }}"
+    {% else %}
+        src="{% static 'images/defaultuser.png' %}"
+    {% endif %}
+    alt="Card image cap">
+</div>
+<div class="row">
+    <form class="center" id="user_form" method="post" action="">
+        <div class="form-group">
+            <label for="id_rep">Reputation</label>
+            <input type="number" name="rep" value="{% if userProfile.rep or userProfile.rep == 0 %}{{ userProfile.rep }}{% else %}0{% endif %}"
+            class="form-control" placeholder="{% if userProfile.rep or userProfile.rep == 0 %}{{ userProfile.rep }}{% else %}0{% endif %}"
+            title="" required="" id="id_rep">
+        </div>
+    </form>
+</div>
+<div class="row">
+    <p class="center text-justify">
+        {% if userProfile.bio %}
+            {{ userProfile.bio|striptags }}
+        {% else %}
+            no Bio
+        {% endif %}
+    </p>
+</div>
+<div class="seperator"></div>
+<div class="row">
+    <h5 class="center">Lives in {{ userProfile.livesIn }}</h5>
+</div>
+<div class="seperator"></div>
+<div class="row">
+	<h3 class="center">Favourite Places</h3>
 </div>
 <br>
 <div class="seperator"></div>
 <div class="row">
-	<h3>My Favourite Places</h3>
-</div>
-<br>
-<div class="seperator"></div>
-<div class="row">
-	<h3>My Recommended Trip</h3>
+	<h3 class="center">Recommended Trip</h3>
 </div>

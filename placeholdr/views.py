@@ -311,8 +311,6 @@ def show_account(request):
 def edit_profile(request):
 	# get logged in user object
 	user = request.user
-	# get logged in userProfile object
-	userProfile = UserProfile.objects.get(user_id=user.id)
 
 	# If it's a HTTP POST, we're interested in processing form data
 	if request.method == 'POST':
@@ -326,7 +324,7 @@ def edit_profile(request):
 			user = user_form.save()
 
 			profile = profile_form.save(commit=False)
-			profile.user = user
+			profile.user = request.user
 
 			# Check if there's a profile picture
 			if 'picture' in request.FILES:

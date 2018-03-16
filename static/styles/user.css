@@ -13,3 +13,7 @@
 	margin-top:3rem;
 	margin-bottom:3rem;
 }
+
+#user_container {
+    max-width: 600px;
+}

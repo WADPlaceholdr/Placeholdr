@@ -15,7 +15,7 @@
 	<div class="container" id="registration-container">
         <h1>Edit Profile</h1>
         <br>
-        <form id="user_form" method="post" action="{% url 'register' %}"
+        <form id="user_form" method="post" action="{% url 'edit_profile' %}"
             enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -25,7 +25,7 @@
 
             <br>
             <!-- Provide a button to click to submit the form -->
-            <button type="submit" class="btn btn-primary" id="register-button" name="submit" value="Register">Register</button>
+            <button type="submit" class="btn btn-primary" id="register-button" name="submit" value="Register">Edit profile</button>
         </form>
 	</div>
 {% endblock %}

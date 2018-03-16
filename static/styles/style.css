@@ -46,7 +46,10 @@ body {
 #invisible {
     display:none;
 }
-
+.center {
+    margin: auto;
+    /*width: 50%;*/
+}
 .stuffCard {
 	/* width: 15rem;*/
 	min-width: 250px;
