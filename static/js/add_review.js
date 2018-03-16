@@ -33,6 +33,9 @@ function getCookie(name) {
 
 $(document).ready(function() {
 	
+	document.getElementById("tag_section").innerHTML=document.getElementById("tag_section").innerHTML.replace(/(#\S*)/gi,'<a style="color:red; text-decoration:none;" href="www.google.com">$1</a>');
+	document.getElementById("review_section").innerHTML=document.getElementById("review_section").innerHTML.replace(/(#\S*)/gi,'<a style="color:red; text-decoration:none;" href="www.google.com">$1</a>');
+
 	$('#rev_submit').click(function(){
 		fix_stars();
 		$.ajax({

@@ -433,17 +433,17 @@ def get_reviews(isTrip, r_slug):
 	if tags:
 		tags_string = "<ul>"
 		for tag in tags:
-			tags_string += "<li>" + tag['tagText'] + "(" + str(tag['tagNum']) + ")" + "</li>"
+			tags_string += "<li>#" + tag['tagText'] + "(" + str(tag['tagNum']) + ")" + "</li>"
 		tags_string += "</ul>"
 	
 	if reviews:
 		for review in reviews:
-			userProf = review.userId
 			stars += review.stars
-			image = "src='/static/images/defaultuser.png'"
+			image = "src='/static/images/eiffel.jpg'"
+			userProf = UserProfile.objects.filter(user=review.userId)[0]
 			if userProf.picture:
 				image = userProf.picture.url
-			to_append = '<div class="card wow animated fadeInUp"><div class="card-body"><h5 class="card-title"><img class="img-thumbnail card-user-picture" ' + image + ' alt="Card image cap">' + userProf.user.username + '</h5><p>' + str(review.stars) + '/5</p><p class="card-text">' + review.review + '</p><p class="card-text"><small class="text-muted">Last updated ' + str(review.modified_date) + '</small></p></div></div>'
+			to_append = '<div class="card wow animated fadeInUp"><div class="card-body"><h5 class="card-title"><img class="img-thumbnail card-user-picture" ' + image + ' alt="Card image cap">' + review.userId.username + '</h5><p>' + str(review.stars) + '/5</p><p class="card-text">' + review.review + '</p><p class="card-text"><small class="text-muted">Last updated ' + str(review.modified_date) + '</small></p></div></div>'
 			reviews_array.append(to_append)
 		stars = round(stars/len(reviews))
 		for i in range(5):
