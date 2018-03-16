@@ -318,9 +318,7 @@ def populate():
 
 def add_user(name, pword, bio, livesIn, rep, picture):
     u = User.objects.get_or_create(username=name, password=pword)[0]
-    u.save()
     up = UserProfile.objects.get_or_create(user=u, bio=bio, livesIn=livesIn, rep=rep, picture=picture)[0]
-    up.save()
     return up
 
 
