@@ -1,7 +1,4 @@
 *.pyc
 *.sqlite3
 *.save
-media/profile_images/*
-media/place_images/*
-media/trip_images/*
 .idea/
