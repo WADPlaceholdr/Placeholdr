@@ -119,7 +119,7 @@ def populate():
                  "where a luxurious health spa has been developed in the rugged lava landscape. "
                  "The lagoon's geothermal seawater is known for its positive effects on the skin.",
          "name": "Blue Lagoon",
-         "picLink": urllib.request.urlretrieve("https://guidetoiceland.imgix.net/322401/x/0/surrounded-by-mountains-and-rising-steam-clouds-the-blue-lagoon-spa-is-sure-to-provide-the-most-memorable-bathing-experience-in-your-lifetime-3.jpg", 'media/place_images/lagoon.jpg')[0]
+         "picLink": ""#urllib.request.urlretrieve("https://guidetoiceland.imgix.net/322401/x/0/surrounded-by-mountains-and-rising-steam-clouds-the-blue-lagoon-spa-is-sure-to-provide-the-most-memorable-bathing-experience-in-your-lifetime-3.jpg", 'media/place_images/lagoon.jpg')[0]
          },
 
         # 6
@@ -129,7 +129,7 @@ def populate():
                  "forming high mountains and deep gorges. The depths of these gorges were gradually filled with"
                  " water and a string of lochs were formed; Loch Oich, Loch Lochy and Loch Ness.",
          "name": "Loch Ness",
-         "picLink": urllib.request.urlretrieve("http://www.visitscotland.com/cms-images/destinations/loch-ness/urquhart-castle?view=Standard", 'media/place_images/lochness.jpg')[0]
+         "picLink": ""#urllib.request.urlretrieve("http://www.visitscotland.com/cms-images/destinations/loch-ness/urquhart-castle?view=Standard", 'media/place_images/lochness.jpg')[0]
          },
 
         # 7
@@ -137,7 +137,7 @@ def populate():
          "desc": "The University of Edinburgh, founded in 1582, is the sixth-oldest university in the English-speaking world"
                  " and one of Scotland's ancient universities.",
          "name": "University of Edinburgh",
-         "picLink": urllib.request.urlretrieve("http://www.law.ed.ac.uk/__data/assets/image/0003/114744/412x385xeu_quad_023a.jpg.pagespeed.ic.txq1nRqj90.jpg", 'media/place_images/edinburgh.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/7/75/Old_College_of_Edinburgh_University.JPG", 'media/place_images/edinburgh.jpg')[0]
          },
 
         # 8
@@ -145,7 +145,7 @@ def populate():
         "desc": "Founded in the 15th century, St Andrews is Scotland's"
                 " first university and the third oldest in the English speaking world.",
         "name": "University of St Andrews",
-        "picLink": urllib.request.urlretrieve("https://www.st-andrews.ac.uk/media/residential-and-business-services/studentaccommodationservices/residences/universityhall/University_Hall_01.jpg", 'media/place_images/saints.jpg')[0]
+        "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/0/0d/St_Salvators_chapel_and_north_street_-St_Andrews.jpg", 'media/place_images/saints.jpg')[0]
          },
 
         # 9
@@ -153,7 +153,7 @@ def populate():
          "desc": "Delirium Café is a bar which holds the Guinness World Record for the most beers offered with 2004. "
                  "Today they are getting close to 2500.",
          "name": "Delirium Café",
-         "picLink": urllib.request.urlretrieve("https://c1.staticflickr.com/5/4759/39435290145_5f17874af4_b.jpg", 'media/place_images/delirium.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/4/44/CafeDelirium.JPG", 'media/place_images/delirium.jpg')[0]
          },
 
         # 10
