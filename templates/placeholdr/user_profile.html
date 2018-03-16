@@ -7,7 +7,7 @@
 <div class="row">
     <img class="img-thumbnail user-picture center"
     {% if userProfile.picture %}
-        src="{{ userProfile.picture.url|staticmedia }}"
+        src="{{MEDIA_URL}}{{ userProfile.picture.url|staticmedia }}"
     {% else %}
         src="{% static 'images/defaultuser.png' %}"
     {% endif %}
