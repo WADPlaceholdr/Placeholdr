@@ -43,6 +43,10 @@ class Place(models.Model):
 			reviews_sum += review.stars
 		# return float of average of reviews
 		return float(reviews_sum)/len(reviews)
+		
+	def get_num_reviews(self):
+		num_reviews = len(list(PlaceReview.objects.filter(placeId=self.id)))
+		return num_reviews
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
@@ -71,6 +75,10 @@ class Trip(models.Model):
 			reviews_sum += review.stars
 		# return float of average of reviews
 		return float(reviews_sum)/len(reviews)
+		
+	def get_num_reviews(self):
+		num_reviews = len(list(TripReview.objects.filter(tripId=self.id)))
+		return num_reviews
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)

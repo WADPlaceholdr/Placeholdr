@@ -35,5 +35,14 @@
                     {% endwith %}
                 {% endwith %}
         </p>
+		{% if object.lat %}
+			<a class="hvr-icon-buzz-out" href="/placeholdr/place/{{ object.slug }}#reviews">
+		{% else %}
+			<a class="hvr-icon-buzz-out" href="/placeholdr/trip/{{ object.slug }}#reviews">
+		{% endif %}
+		<p class="card-text">
+			Reviews: {{object.get_num_reviews}}
+		</p>
+		</a>
 	</div>
 </div>
