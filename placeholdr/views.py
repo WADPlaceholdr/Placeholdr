@@ -384,6 +384,7 @@ def ajax_tasks(request):
 	if request.method == 'POST':
 	
 		is_trip = False
+		userProf = UserProfile.objects.get(user=request.user)
 		if request.POST.get("task") == "add_place_review":
 			review = request.POST.get("review")
 			stars = request.POST.get("stars")
@@ -391,7 +392,7 @@ def ajax_tasks(request):
 			if (len(review) == 0 or len(stars) != 1 or len(r_slug) == 0):
 				return "error"
 			link = Place.objects.get(slug=r_slug)
-			PlaceReview.objects.get_or_create(userId=request.user, placeId=link,
+			PlaceReview.objects.get_or_create(userId=userProf, placeId=link,
                                            stars=int(stars), review=review)
 			
 		if request.POST.get("task") == "add_trip_review":
@@ -401,7 +402,7 @@ def ajax_tasks(request):
 			if (len(review) == 0 or len(stars) != 1 or len(r_slug) == 0):
 				return "error"
 			link = Trip.objects.get(slug=r_slug)
-			TripReview.objects.get_or_create(userId=request.user, tripId=link,
+			TripReview.objects.get_or_create(userId=userProf, tripId=link,
                                            stars=int(stars), review=review)
 			is_trip = True
 			
@@ -409,9 +410,9 @@ def ajax_tasks(request):
 			tags = re.findall('#(\S*)',review)
 			for tag in tags:
 				if is_trip:
-					TripTag.objects.get_or_create(userId=request.user, tripId=link, tagText=tag)
+					TripTag.objects.get_or_create(userId=userProf, tripId=link, tagText=tag)
 				else:
-					PlaceTag.objects.get_or_create(userId=request.user, placeId=link, tagText=tag)
+					PlaceTag.objects.get_or_create(userId=userProf, placeId=link, tagText=tag)
 			return HttpResponse(json.dumps(get_reviews(is_trip, r_slug)),content_type='application/json')
 	else:
 		return "Error"
@@ -433,14 +434,14 @@ def get_reviews(isTrip, r_slug):
 	if tags:
 		tags_string = "<ul>"
 		for tag in tags:
-			tags_string += "<li>" + tag['tagText'] + "(" + str(tag['tagNum']) + ")" + "</li>"
+			tags_string += "<li>#" + tag['tagText'] + " (" + str(tag['tagNum']) + ")" + "</li>"
 		tags_string += "</ul>"
 	
 	if reviews:
 		for review in reviews:
-			userProf = review.userId
 			stars += review.stars
 			image = "src='/static/images/eiffel.jpg'"
+			userProf = review.userId
 			if userProf.picture:
 				image = userProf.picture.url
 			to_append = '<div class="card wow animated fadeInUp"><div class="card-body"><h5 class="card-title"><img class="img-thumbnail card-user-picture" ' + image + ' alt="Card image cap">' + userProf.user.username + '</h5><p>' + str(review.stars) + '/5</p><p class="card-text">' + review.review + '</p><p class="card-text"><small class="text-muted">Last updated ' + str(review.modified_date) + '</small></p></div></div>'
@@ -477,6 +478,7 @@ def add_place_review(request):
 			# Check if there's a profile picture
 			if 'picture' in request.FILES:
 				profile.picture = request.FILES['picture']
+			profile.picture.url = profile.picture.url.replace("media/","")
 
 			# Save the UserProfile model instance
 			profile.save()

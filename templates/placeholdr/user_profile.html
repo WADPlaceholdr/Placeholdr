@@ -8,6 +8,7 @@
     <img class="img-thumbnail user-picture center"
     {% if userProfile.picture %}
         src="{{MEDIA_URL}}{{ userProfile.picture.url|staticmedia }}"
+        src="{{ userProfile.picture.url }}"
     {% else %}
         src="{% static 'images/defaultuser.png' %}"
     {% endif %}

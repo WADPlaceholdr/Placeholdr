@@ -20,21 +20,7 @@
 					<div class="card-deck">
 					<!-- place.0 = place, place.1 = average stars, place.2 = stars string -->
 						{% for place in places %}
-							<!--{% include "placeholdr/place_card.html" %}-->
-							<div class="card stuffCard wow animated slideInRight">
-								<a href="/placeholdr/place/{{ place.0.slug }}">
-								{% if place.0.picLink %}
-									<img height="200px" class="card-img-top" src="{{MEDIA_URL}}{{ place.0.picLink.url|staticmedia }}" alt="{{ place.0.name }} picture"></img>
-								{% else %}
-									<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
-								{% endif %}
-								</a>
-								<div class="card-body">
-									<h5 class="card-title"><a href="/placeholdr/place/{{ place.0.slug }}">{{ place.0.name }}</a></h5>
-									<p class="card-text text-justify">{{ place.0.desc|truncatechars:150 }}</p>
-									<p style:vertical-align: text-bottom; class="card-text">{{ place.2 }}</p>
-								</div>
-							</div>
+							{% include "placeholdr/place_trip_card.html" with object=place.0 %}
 						{% endfor %}
 					</div>
 				</div>
@@ -49,20 +35,7 @@
 				<div class="row">
 					<div class="card-deck">
 						{% for trip in trips %}
-							<div class="card stuffCard wow animated slideInRight">
-								<a href="/placeholdr/trip/{{ trip.0.slug }}">
-								{% if trip.0.picLink %}
-									<img class="card-img-top" src="{{MEDIA_URL}}{{ trip.0.picLink.url|staticmedia }}" alt="{{ trip.0.name }} picture"></img>
-								{% else %}
-									<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
-								{% endif %}
-								</a>
-								<div class="card-body">
-									<h5 class="card-title"><a href="/placeholdr/trip/{{ trip.0.slug }}">{{ trip.0.name }}</a></h5>
-									<p class="card-text text-justify">{{ trip.0.desc|truncatechars:150 }}</p>
-									<p class="card-text">{{ trip.2 }}</p>
-								</div>
-							</div>
+							{% include "placeholdr/place_trip_card.html" with object=trip.0 %}
 						{% endfor %}
 					</div>
 				</div>
@@ -80,7 +53,7 @@
 							<div class="card stuffCard peopleCard wow animated slideInRight">
 								<a href="/placeholdr/user/{{ userProfile.user.username }}">
 								{% if userProfile.picture %}
-									<img class="card-img-top" src="{{MEDIA_URL}}{{ userProfile.picture.url|staticmedia }}" alt="{{ userProfile.user.username }}'s picture">
+									<img class="card-img-top" src="{{ userProfile.picture.url }}" alt="{{ userProfile.user.username }}'s picture">
 								{% else %}
 									<img class="card-img-top" src="{% static 'images/defaultuser.png' %}" alt="default">
 								{% endif %}

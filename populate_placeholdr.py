@@ -21,7 +21,7 @@ def populate():
         {"username": "michael", "password": "pass1357",
          "bio": "Just a dad looking for some places suggested by some like-minded people!",
          "livesIn": "London", "rep": 2360,
-         "picture": urllib.request.urlretrieve("https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg", 'media/profile_images/michael.jpg')[0]
+         "picture": ""#urllib.request.urlretrieve("https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg", 'media/profile_images/michael.jpg')[0]
          },
 
         # 1
@@ -58,7 +58,8 @@ def populate():
                 "in the College of Science and Engineering at"
                 " the University of Glasgow. ",
          "livesIn": "Edinburgh", "rep": 100,
-         "picture": urllib.request.urlretrieve("https://www.gla.ac.uk/media/media_209689_en.jpg", 'media/profile_images/david.jpg')[0]
+
+         "picture": ""#urllib.request.urlretrieve("https://www.gla.ac.uk/media/media_209689_en.jpg", 'media/profile_images/david.jpg')[0]
          }
     ]
 
@@ -80,7 +81,7 @@ def populate():
          "desc": "Speciality Coffee & OG Brunch based in Glasgow, Scotland. "
                  "A speciality coffee roaster and cafe, putting avocado on toast since 2012.",
          "name": "Papercup Glasgow",
-         "picLink": urllib.request.urlretrieve("https://media.timeout.com/images/102920974/image.jpg", 'media/place_images/papercup.jpg')[0]
+         "picLink": ""#urllib.request.urlretrieve("https://media.timeout.com/images/102920974/image.jpg", 'media/place_images/papercup.jpg')[0]
          },
 
         # 2
@@ -88,7 +89,7 @@ def populate():
          "desc": "Located in one of the West End's most vibrant & community spirited streets, "
                  "you'll find the Glaswegian hub of Artisan Roast.",
          "name": "Artisan Roast",
-         "picLink": urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
+         "picLink": ""#urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
          },
 
         # 3
@@ -109,7 +110,7 @@ def populate():
                  " in 1870. The campus was originally centred around the buildings erected on the "
                  "top of the hill, designed by George Gilbert Scott.",
          "name": "University of Glasgow",
-         "picLink": urllib.request.urlretrieve("http://universitynews.edu.pl/wp-content/uploads/2017/10/news_5874.jpg", 'media/place_images/glasgow.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/a/aa/University_of_Glasgow%2C_East_Quadrangle_-_landscape.jpg", 'media/place_images/glasgow.jpg')[0]
          },
 
         # 5
@@ -118,7 +119,7 @@ def populate():
                  "where a luxurious health spa has been developed in the rugged lava landscape. "
                  "The lagoon's geothermal seawater is known for its positive effects on the skin.",
          "name": "Blue Lagoon",
-         "picLink": urllib.request.urlretrieve("https://guidetoiceland.imgix.net/322401/x/0/surrounded-by-mountains-and-rising-steam-clouds-the-blue-lagoon-spa-is-sure-to-provide-the-most-memorable-bathing-experience-in-your-lifetime-3.jpg", 'media/place_images/lagoon.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Blue_Lagoon_Main_Building.JPG/800px-Blue_Lagoon_Main_Building.JPG", 'media/place_images/lagoon.jpg')[0]
          },
 
         # 6
@@ -128,7 +129,7 @@ def populate():
                  "forming high mountains and deep gorges. The depths of these gorges were gradually filled with"
                  " water and a string of lochs were formed; Loch Oich, Loch Lochy and Loch Ness.",
          "name": "Loch Ness",
-         "picLink": urllib.request.urlretrieve("http://www.visitscotland.com/cms-images/destinations/loch-ness/urquhart-castle?view=Standard", 'media/place_images/lochness.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/d/de/Loch_Ness_Panorama.png")[0]
          },
 
         # 7
@@ -136,7 +137,7 @@ def populate():
          "desc": "The University of Edinburgh, founded in 1582, is the sixth-oldest university in the English-speaking world"
                  " and one of Scotland's ancient universities.",
          "name": "University of Edinburgh",
-         "picLink": urllib.request.urlretrieve("http://www.law.ed.ac.uk/__data/assets/image/0003/114744/412x385xeu_quad_023a.jpg.pagespeed.ic.txq1nRqj90.jpg", 'media/place_images/edinburgh.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/7/75/Old_College_of_Edinburgh_University.JPG", 'media/place_images/edinburgh.jpg')[0]
          },
 
         # 8
@@ -144,7 +145,7 @@ def populate():
         "desc": "Founded in the 15th century, St Andrews is Scotland's"
                 " first university and the third oldest in the English speaking world.",
         "name": "University of St Andrews",
-        "picLink": urllib.request.urlretrieve("https://www.st-andrews.ac.uk/media/residential-and-business-services/studentaccommodationservices/residences/universityhall/University_Hall_01.jpg", 'media/place_images/saints.jpg')[0]
+        "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/0/0d/St_Salvators_chapel_and_north_street_-St_Andrews.jpg", 'media/place_images/saints.jpg')[0]
          },
 
         # 9
@@ -152,7 +153,7 @@ def populate():
          "desc": "Delirium Café is a bar which holds the Guinness World Record for the most beers offered with 2004. "
                  "Today they are getting close to 2500.",
          "name": "Delirium Café",
-         "picLink": urllib.request.urlretrieve("https://c1.staticflickr.com/5/4759/39435290145_5f17874af4_b.jpg", 'media/place_images/delirium.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/4/44/CafeDelirium.JPG", 'media/place_images/delirium.jpg')[0]
          },
 
         # 10
@@ -298,10 +299,12 @@ def populate():
     ]
 
     for user in users:
-        us = add_user(user["username"], user["password"], user["bio"], user["livesIn"], user["rep"], user["picture"])
+        corrected_image_url = user["picture"].replace("media/","")
+        us = add_user(user["username"], user["password"], user["bio"], user["livesIn"], user["rep"], corrected_image_url)
 
     for place in places:
-        p = add_place(place["userId"], place["lat"], place["long"], place["desc"], place["name"], place["picLink"])
+        corrected_image_url = place["picLink"].replace("media/","")
+        p = add_place(place["userId"], place["lat"], place["long"], place["desc"], place["name"], corrected_image_url)
 
     for trip in trips:
         t = add_trip(trip["userId"], trip["desc"], trip["name"])
