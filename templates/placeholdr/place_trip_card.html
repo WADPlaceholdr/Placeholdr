@@ -3,7 +3,11 @@
 {% load placeholdr_filters %}
 
 <div class="card stuffCard wow animated slideInRight">
-	<a href="/placeholdr/place/{{ object.slug }}">
+	{% if object.lat %}
+		<a href="/placeholdr/place/{{ object.slug }}">
+	{% else %}
+		<a href="/placeholdr/trip/{{ object.slug }}">
+	{% endif %}
 	{% if object.picLink %}
 		<img class="card-img-top" src="{{ object.picLink.url}}" alt="{{ object.name }} picture"></img>
 	{% else %}
@@ -11,7 +15,11 @@
 	{% endif %}
 	</a>
 	<div class="card-body">
-		<h5 class="card-title"><a href="/placeholdr/place/{{ object.slug }}">{{ object.name }}</a></h5>
+		{% if object.lat %}
+			<h5 class="card-title"><a href="/placeholdr/place/{{ object.slug }}">{{ object.name }}</a></h5>
+		{% else %}
+			<h5 class="card-title"><a href="/placeholdr/trip/{{ object.slug }}">{{ object.name }}</a></h5>
+		{% endif %}
 		<p class="card-text">{{ object.desc }}</p>
 		<p class="card-text">
             {% with stars=object.get_stars %}
