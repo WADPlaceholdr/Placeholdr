@@ -33,7 +33,7 @@
 						{% if places %}
 							{% for place in places %}
 								<div class="col">
-									{% include "placeholdr/place_card.html" %}
+									{% include "placeholdr/place_trip_card.html" with object=place %}
 								</div>
 							{% endfor %}
 						{% else %}
