@@ -3,7 +3,7 @@
 {% load placeholdr_filters %}
 
 {% block title_block %}
-	Index
+	Top Places
 {% endblock %}
 
 {% block css_block %}
@@ -12,22 +12,28 @@
 
 {% block body_block %}
 	<div class="container">
-			<h1>Top Places</h1>
-			<br>
+		<div class="row">
+			<h1>Top Place</h1>
+		</div>
+			<div class="row">
 			{% if top_places %}
+				<div class="card-deck">
+					{% include "placeholdr/place_trip_card_long.html" with object=top_places.0.0 %}
+				</div>
 				<div class="row">
+					<h2>More Top Places</h2>
 					<div class="card-deck">
-						<!-- place.0 = place, place.1 = average stars, place.2 = stars string, count = number of top places -->
+						<!-- place.0 = place -->
 						{% for place in top_places %}
-								<div class="row">
-									{% include "placeholdr/place_trip_card.html" with object=place.0 %}
-								</div>
-							<!--</div>-->
+							{% if place.0 != top_places.0.0 %}
+								{% include "placeholdr/place_trip_card.html" with object=place.0 %}
+							{% endif %}
 						{% endfor %}
 					</div>
 				</div>
 			{% else %}
 				<h3>There are fewer than {{ count }} places!</h3>
 			{% endif %}
+			</div>
 	</div>
 {% endblock %}
