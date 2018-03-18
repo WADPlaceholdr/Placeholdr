@@ -23,15 +23,17 @@
 		<p class="card-text">{{ object.desc }}</p>
 		<p class="card-text">
             {% with stars=object.get_stars %}
-                {% for i in stars|times %}
-                        &#9733
-                {% endfor %}
-                {% with empty_stars=5|sub:stars %}
-                    {% for i in empty_stars|times %}
-                        &#9734
-                    {% endfor %}
+                    {% with int_stars=stars|floatformat:"0" %}
+                        {% for i in int_stars|times %}
+                            &#9733
+                        {% endfor %}
+                        {% with empty_stars=5|sub:int_stars %}
+                            {% for i in empty_stars|times %}
+                                &#9734
+                            {% endfor %}
+                        {% endwith %}
+                    {% endwith %}
                 {% endwith %}
-            {% endwith %}
         </p>
 	</div>
 </div>
