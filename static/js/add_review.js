@@ -31,13 +31,27 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function fix_tags(){
+
+	var tag_pattern = /(#(\S*))/gi;
+	
+	var tag_text = '<a style="color:red; text-decoration:none;" href="/placeholdr/search?=$2">$1</a>';
+
+	
+	document.getElementById("tag_section").innerHTML=document.getElementById("tag_section").innerHTML.replace(tag_pattern,tag_text);
+	document.getElementById("review_section").innerHTML=document.getElementById("review_section").innerHTML.replace(tag_pattern,tag_text);
+	
+	
+}
+
 $(document).ready(function() {
 	
-	document.getElementById("tag_section").innerHTML=document.getElementById("tag_section").innerHTML.replace(/(#\S*)/gi,'<a style="color:red; text-decoration:none;" href="www.google.com">$1</a>');
-	document.getElementById("review_section").innerHTML=document.getElementById("review_section").innerHTML.replace(/(#\S*)/gi,'<a style="color:red; text-decoration:none;" href="www.google.com">$1</a>');
+	fix_tags();
 
 	$('#rev_submit').click(function(){
 		fix_stars();
+		
+		
 		$.ajax({
 			type: "POST",
 			url: "/placeholdr/ajax/",
@@ -46,7 +60,7 @@ $(document).ready(function() {
 				'csrfmiddlewaretoken' : getCookie('csrftoken'),
 				'task': document.getElementById("task").innerHTML,
 				'slug': document.getElementById("slug").innerHTML,
-				'review': document.getElementById("r_review").value,
+				'review': document.getElementById("r_review").value + " ",
 				'stars': document.getElementById("r_stars").value
 			},
 			success: function(data){
@@ -58,13 +72,17 @@ $(document).ready(function() {
 				document.getElementById("review_section").innerHTML = newInner;
 				document.getElementById("star_rating").innerHTML = response.stars_string;
 				document.getElementById("tag_section").innerHTML = response.tags_string;
-				
+
 				document.getElementById("r_review").value = ""
+				
+				fix_tags();
 			}
 		});
 	});
 	
 });
+
+
 
 function fix_stars(){
 	if (document.getElementById("r_stars") == null){
