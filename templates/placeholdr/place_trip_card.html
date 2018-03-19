@@ -20,7 +20,9 @@
 		{% else %}
 			<h5 class="card-title"><a href="/placeholdr/trip/{{ object.slug }}">{{ object.name }}</a></h5>
 		{% endif %}
-		<p class="card-text">{{ object.desc }}</p>
+		<p class="card-text">{{ object.desc|truncatechars:250 }}</p>
+		<div class="row">
+		<div class="col">
 		<p class="card-text">
             {% with stars=object.get_stars %}
                     {% with int_stars=stars|floatformat:"0" %}
@@ -35,6 +37,8 @@
                     {% endwith %}
                 {% endwith %}
         </p>
+		</div>
+		<div class="col">
 		{% if object.lat %}
 			<a class="hvr-icon-buzz-out" href="/placeholdr/place/{{ object.slug }}#reviews">
 		{% else %}
@@ -44,5 +48,7 @@
 			Reviews: {{object.get_num_reviews}}
 		</p>
 		</a>
+		</div>
+		</div>
 	</div>
 </div>

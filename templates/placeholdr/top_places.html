@@ -17,11 +17,13 @@
 		</div>
 			<div class="row">
 			{% if top_places %}
-				<div class="card-deck">
+				<div class="row" style="padding:15px;">
 					{% include "placeholdr/place_trip_card_long.html" with object=top_places.0.0 %}
 				</div>
 				<div class="row">
 					<h2>More Top Places</h2>
+				</div>
+				<div class="row">
 					<div class="card-deck">
 						<!-- place.0 = place -->
 						{% for place in top_places %}

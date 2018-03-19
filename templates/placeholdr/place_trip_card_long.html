@@ -2,7 +2,7 @@
 {% load mathfilters %}
 {% load placeholdr_filters %}
 
-<div class="card stuffCard wow animated slideInRight">
+<div class="card stuffCardLong wow animated slideInRight">
 	{% if object.lat %}
 		<a href="/placeholdr/place/{{ object.slug }}">
 	{% else %}
@@ -15,12 +15,16 @@
 	{% endif %}
 	</a>
 	<div class="card-body">
+		<div style="font-size:36px; font-weight: 700;">
 		{% if object.lat %}
-			<h5 class="card-title"><a href="/placeholdr/place/{{ object.slug }}">{{ object.name }}</a></h5>
+			<p class="card-title"><a href="/placeholdr/place/{{ object.slug }}">{{ object.name }}</a></p>
 		{% else %}
-			<h5 class="card-title"><a href="/placeholdr/trip/{{ object.slug }}">{{ object.name }}</a></h5>
+			<p class="card-title"><a href="/placeholdr/trip/{{ object.slug }}">{{ object.name }}</a></p>
 		{% endif %}
+		</div>
 		<p class="card-text">{{ object.desc }}</p>
+	<div class="row" style="font-size:24px;">
+		<div class="col">
 		<p class="card-text">
             {% with stars=object.get_stars %}
                     {% with int_stars=stars|floatformat:"0" %}
@@ -35,6 +39,8 @@
                     {% endwith %}
                 {% endwith %}
         </p>
+		</div>
+		<div class="col" align="right">
 		{% if object.lat %}
 			<a class="hvr-icon-buzz-out" href="/placeholdr/place/{{ object.slug }}#reviews">
 		{% else %}
@@ -45,4 +51,6 @@
 		</p>
 		</a>
 	</div>
+	</div>
+</div>
 </div>

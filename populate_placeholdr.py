@@ -129,7 +129,7 @@ def populate():
                  "forming high mountains and deep gorges. The depths of these gorges were gradually filled with"
                  " water and a string of lochs were formed; Loch Oich, Loch Lochy and Loch Ness.",
          "name": "Loch Ness",
-         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/d/de/Loch_Ness_Panorama.png")[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/d/de/Loch_Ness_Panorama.png", 'media/place_images/lochness.jpg')[0]
          },
 
         # 7
