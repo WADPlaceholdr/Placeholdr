@@ -1,97 +1,109 @@
 from django.db import models
 from django.test import TestCase
-from placeholdr.models import Place, UserProfile, PlaceReview, Trip, TripReview
+from placeholdr.models import Place, UserProfile, PlaceReview, Trip, TripNode, TripReview
 from django.contrib.auth.models import User
 import populate_placeholdr
 
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.core.urlresolvers import reverse
+import os
 
-test_user_name="user"
-test_user_password="password"
-test_user_bio="I am a test user"
-test_user_livesIn="earth"
-test_user_rep=200
 
-test_place_name="Seed Vault"
-test_place_desc="The Svalbard Global Seed Vault is a secure seed bank on the Norwegian island of Spitsbergen"
-test_place_id=0
-test_place_lat=78.2357
-test_place_long=15.4913
-
-test_review_review="Really cold yet leaks as the permafrost is melting"
-test_review_id=0
-test_review_stars=5
-
+# Utilities
 def create_user():
-    user = User.objects.create_user(username=test_user_name, password=test_user_password, id=0)
-    user_profile = UserProfile.objects.create(user=user, bio=test_user_bio, livesIn=test_user_livesIn, rep=test_user_rep)
+    # Create a user
+    user = User.objects.get_or_create(username="user", password="test1357")[0]
+    user.set_password(user.password)
+    user.save()
+
+    # Link it to a user profile
+    user_profile = UserProfile.objects.get_or_create(user=user, bio="I am just a test user", livesIn="Command Line", rep=200)[0]
+    user_profile.save()
+
     return user_profile
 
 
 def create_place(user):
-    place = Place.objects.create(
-        id=test_place_id,
-        lat=test_place_lat,
-        long=test_place_long,
-        desc=test_place_desc,
-        name=test_place_name,
-        userId=user.user)
+    i = user.user.id
+    place = Place(name="Place " + str(i), lat=i * 78.2357, long=i * 15.4913,
+                      desc="I'm just a place in location " + str(i), userId=user)
+    place.save()
+
     return place
 
+
 def create_place_review(user, place):
-    place_review = PlaceReview.objects.create(
-        id=test_review_id,
-        review=test_review_review,
-        stars=test_review_stars,
-        userId=user.user,
-        placeId=place)
-    return place_review
+    review = PlaceReview(userId=user, placeId=place, stars=4, review="Cool cool cool cool")
+    review.save()
+    return review
+
+
+def create_trip(user, places):
+    trip = Trip(userId=user, name="Trip " + str(user.user.id), desc="Just a trip")
+    trip.save()
+    trip_nodes = []
+    for i in range(0, len(places)):
+        node = TripNode(placeId=places[i].id, tripId=trip.id, userId=user.user.id)
+        node.save()
+        trip_nodes.append(node)
+
+    return trip_nodes
+
+
+class IndexTests(TestCase):
+    def test_index_contains_featured_places_title(self):
+        response = self.client.get(reverse('index'))
+        self.assertIn('Featured Places'.lower(), response.content.decode('ascii').lower())
+
+    def test_index_contains_featured_trips_title(self):
+        response = self.client.get(reverse('index'))
+        self.assertIn('Featured Trips'.lower(), response.content.decode('ascii').lower())
+
+    def test_index_contains_top_users_title(self):
+        response = self.client.get(reverse('index'))
+        self.assertIn('Top Users'.lower(), response.content.decode('ascii').lower())
 
 
 class ModelTests(TestCase):
     def setUp(self):
-        user = create_user()
-        user.save()
-        place = create_place(user)
-        place.save()
-        place_review = create_place_review(user, place)
-        place_review.save()
+        self.user = create_user()
+        self.place = create_place(self.user)
+        self.place_review = create_place_review(self.user, self.place)
 
-    def test_add_user(self):
-        # get user object
-        user = User.objects.get(username=test_user_name)
-        # get userProfile object
-        user = UserProfile.objects.get(user=user)
+    def test_create_a_new_user(self):
 
         # Check that User is in database
         users_in_database = UserProfile.objects.all()
         self.assertEquals(len(users_in_database), 1)
-        self.assertEquals(users_in_database[0], user)
+        self.assertEquals(users_in_database[0], self.user)
 
-    def test_add_place(self):
-        place = Place.objects.get(name=test_place_name)
+    def test_create_a_new_place(self):
+
         # Check that Place is in database
         places_in_database = Place.objects.all()
         self.assertEquals(len(places_in_database), 1)
-        self.assertEquals(places_in_database[0], place)
+        self.assertEquals(places_in_database[0], self.place)
 
-    def test_add_place_review(self):
-        place_review = PlaceReview.objects.get(id=test_review_id)
+    def test_create_new_place_review(self):
+
         # Check that PlaceReview is in database
         place_reviews_in_database = PlaceReview.objects.all()
         self.assertEquals(len(place_reviews_in_database), 1)
-        self.assertEquals(place_reviews_in_database[0], place_review)
+        self.assertEquals(place_reviews_in_database[0], self.place_review)
+
+class PopulateScript(TestCase):
 
     def test_population_script_changes(self):
         # populate
         populate_placeholdr.populate()
 
         # Check for one user
-        #u = UserProfile.objects.get(self="michael")
-        #self.assertEquals(u.rep, 2360)
-        #self.assertEquals(u.livesIn, 'London')
+        # u = UserProfile.objects.get(self="michael")
+        # self.assertEquals(u.rep, 2360)
+        # self.assertEquals(u.livesIn, 'London')
 
         # Check for one place
-        p = Place.objects.get(name='Papercup Glasgpw')
+        p = Place.objects.get(name='Papercup Glasgow')
         self.assertEquals(p.lat, "55.876623")
         self.assertEquals(p.long, "-4.285432")
 
@@ -101,19 +113,19 @@ class ModelTests(TestCase):
 
 
 class UrlTests(TestCase):
-    def test_place_contains_slug_field(self):
-        new_place = Place(name="Mount Everest")
-        new_place.save()
 
+    def test_place_contains_slug_field(self):
+        place = Place(name="Mount Everest", userId=create_user())
+        place.save()
         # Check slug was generated
-        self.assertEquals(new_place.slug, "mount-everest")
+        self.assertEquals(place.slug, "mount-everest")
 
     def test_trip_contains_slug_field(self):
-        new_trip = Trip(name="Roadtripping through Europe")
-        new_trip.save()
-
+        trip = Trip(name="Roadtripping through Europe", userId=create_user())
+        trip.save()
         # Check slug was generated
-        self.assertEquals(new_trip.slug, "roadtripping-through-europe")
+        self.assertEquals(trip.slug, "roadtripping-through-europe")
+
 
 
 class ContentTests(TestCase):
