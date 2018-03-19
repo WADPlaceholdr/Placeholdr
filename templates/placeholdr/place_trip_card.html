@@ -8,8 +8,11 @@
 	{% else %}
 		<a href="/placeholdr/trip/{{ object.slug }}">
 	{% endif %}
-	{% if object.picLink %}
+	{% if object.lat and object.picLink %}
 		<img class="card-img-top" src="{{ object.picLink.url}}" alt="{{ object.name }} picture"></img>
+	{% elif trip.4.picLink and trip.5.picLink%}
+	<img class="card-img-top tripA" src="{{ trip.4.picLink.url}}" alt="{{ object.name }} picture"></img>
+	<img class="card-img-top tripB" src="{{ trip.5.picLink.url}}" alt="{{ object.name }} picture"></img>
 	{% else %}
 		<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel">
 	{% endif %}

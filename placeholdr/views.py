@@ -55,7 +55,11 @@ def index(request):
 		place_list_plus.append(star_helper(place, "place"))
 			
 	for trip in trip_list:
-			trip_list_plus.append(star_helper(trip, "trip"))
+		trip_nodes = TripNode.objects.filter(tripId=trip.id).order_by('?')[:2]
+		trip_pics = star_helper(trip, "trip")
+		for trip_node in trip_nodes:
+			trip_pics.append(Place.objects.filter(id=trip_node.placeId.id)[0])
+		trip_list_plus.append(trip_pics)
 	
 	context_dict = {'places' : place_list_plus, 'userProfiles' : userProfile_list, 'trips': trip_list_plus}
 
