@@ -1,6 +1,8 @@
 from django.db import models
 from django.test import TestCase
 from placeholdr.models import Place, UserProfile, PlaceReview, Trip, TripNode, TripReview
+from placeholdr.forms import UserProfileForm
+from django.contrib import auth
 from django.contrib.auth.models import User
 import populate_placeholdr
 
@@ -39,11 +41,11 @@ def create_place_review(user, place):
     return review
 
 
-def create_trip(trip, user, places):
+def create_trip(trip, places):
     trip_nodes = []
 
     for i in range(0, len(places)):
-        node = TripNode(placeId=places[i].id, tripId=trip.id, userId=user.user.id)
+        node = TripNode(placeId=places[i], tripId=trip, tripPoint=i)
         node.save()
         trip_nodes.append(node)
 
@@ -198,6 +200,7 @@ class UrlTests(TestCase):
         response = self.client.get(reverse('show_user', args=[u.user.username]))
         self.assertIn(u.bio, response.content.decode('ascii'))
 
+    # Command line displays "Place matching query does not exist."
     def test_access_place_that_does_not_exist(self):
         response = self.client.get(reverse('show_place', args=['neverland']))
 
@@ -207,6 +210,7 @@ class UrlTests(TestCase):
         # Check the rendered page is not empty = customised
         self.assertNotEquals(response.content.decode('ascii'), '')
 
+    # Command line displays "Trip matching query does not exist."
     def test_access_trip_that_does_not_exist(self):
         response = self.client.get(reverse('show_trip', args=['perfect-trip']))
 
@@ -226,22 +230,26 @@ class ContentTests(TestCase):
     # Check new trips
     # Check top trips
 
-    def trip_page_displays_places(self):
-        # Create places, user, trip
-        user = create_user()
-        places = create_multiple_places(user)
-        trip = Trip.objects.get_or_create(userId=user, name="Trip " + str(user.user.id), desc="Just a trip")[0]
-        trip_nodes = create_trip(trip, user, places)
+    def setUp(self):
+        self.user = create_user()
+        self.places = create_multiple_places(self.user)
+        self.trip = Trip.objects.get_or_create(userId=self.user, name="Trip " + str(self.user.user.id), desc="Just a trip")[0]
+        self.trip_nodes = create_trip(self.trip, self.places)
 
-        for node in trip_nodes:
-            response = self.client.get(reverse('show_trip', args=[trip.slug]))
-            self.assertIn(Place.object.get(placeId=node.placeId), response.content.decode('ascii'))
+    def test_trip_page_displays_places(self):
+        for node in self.trip_nodes:
+            response = self.client.get(reverse('show_trip', args=[self.trip.slug]))
+            self.assertIn(str(Place.objects.get(name=node.placeId.name)), response.content.decode('ascii'))
+
+    def test_place_page_displays_post_review_when_logged_in(self):
+        None
+
+    def test_trip_page_displays_post_review_when_logged_in(self):
+        None
 
 
 
 class FormTests(TestCase):
-    # TODO
-    # Registration form
     def setUp(self):
         self.user = create_user()
 
@@ -249,7 +257,9 @@ class FormTests(TestCase):
         None
 
     def test_registration_form_is_valid(self):
-        None
+        form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "rep": self.user.rep, "picture": None}
+        form = UserProfileForm(data=form_data)
+        self.assertTrue(form.is_valid())
 
     # TODO
     # Submit place form
@@ -261,6 +271,7 @@ class FormTests(TestCase):
 
 class UserTests(TestCase):
     # TODO
+    # Test log in
     # Test displayed links when logged in/logged out
     # Test user image shows up top right
     None
