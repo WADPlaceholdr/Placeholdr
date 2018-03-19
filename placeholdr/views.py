@@ -55,7 +55,11 @@ def index(request):
 		place_list_plus.append(star_helper(place, "place"))
 			
 	for trip in trip_list:
-		trip_nodes = TripNode.objects.filter(tripId=trip.id).order_by('?')[:2]
+		slice_num = 4
+		num_of_nodes = TripNode.objects.filter(tripId=trip.id).count()
+		if num_of_nodes < 4:
+			slice_num = num_of_nodes
+		trip_nodes = TripNode.objects.filter(tripId=trip.id).order_by('?')[:num_of_nodes]
 		trip_pics = star_helper(trip, "trip")
 		for trip_node in trip_nodes:
 			trip_pics.append(Place.objects.filter(id=trip_node.placeId.id)[0])

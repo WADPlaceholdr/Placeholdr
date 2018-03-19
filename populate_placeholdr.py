@@ -89,7 +89,7 @@ def populate():
          "desc": "Located in one of the West End's most vibrant & community spirited streets, "
                  "you'll find the Glaswegian hub of Artisan Roast.",
          "name": "Artisan Roast",
-         "picLink": ""#urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
          },
 
         # 3
@@ -206,6 +206,7 @@ def populate():
         {"placeId": 7, "tripId": 1, "tripPoint": 0},
         {"placeId": 13, "tripId": 1, "tripPoint": 1},
         {"placeId": 3, "tripId": 1, "tripPoint": 2},
+		{"placeId": 5, "tripId": 1, "tripPoint": 3},
 
         # Nature in the US
         {"placeId": 12, "tripId": 2, "tripPoint": 0},
