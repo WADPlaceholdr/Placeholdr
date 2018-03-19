@@ -96,7 +96,7 @@ def populate():
         {"userId": 3, "lat": "36.056595", "long": "-112.125092",
          "desc": "The Grand Canyon is one of the seven natural wonders of the world, "
                  "and one of the largest canyons on Earth. It stretches for 450km. "
-                 "Parts of the canyon are more than 30km wide and one kilometer deep."
+                 "Parts of the canyon are more than 30km wide and one kilometer deep. "
                  "Many writers have tried to describe the wonder of the Grand Canyon, but it "
                  "is beyond words.",
          "name": "Grand Canyon",
@@ -115,7 +115,7 @@ def populate():
 
         # 5
         {"userId": 1, "lat": "63.881363", "long": "-22.453115",
-         "desc": "Mineral-rich hot water from far beneath the earth forms the spectacular lagoon,"
+         "desc": "Mineral-rich hot water from far beneath the earth forms the spectacular lagoon, "
                  "where a luxurious health spa has been developed in the rugged lava landscape. "
                  "The lagoon's geothermal seawater is known for its positive effects on the skin.",
          "name": "Blue Lagoon",
@@ -240,8 +240,8 @@ def populate():
          "review": "Very pretty and very warm. Good place for some philosophical thinking. "},
 
         # UofG
-        {"userId": 6, "placeId": 6, "stars": 4, "review": "In spite of the rain, the buildings were very pretty. "},
-        {"userId": 4, "placeId": 6, "stars": 3,
+        {"userId": 6, "placeId": 5, "stars": 4, "review": "In spite of the rain, the buildings were very pretty. "},
+        {"userId": 4, "placeId": 5, "stars": 3,
          "review": "Very pretty but I wish you could visit the main building tower as well"},
 
         # Atomium
