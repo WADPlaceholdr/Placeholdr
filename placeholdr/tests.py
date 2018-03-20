@@ -1,10 +1,10 @@
 from django.db import models
 from django.test import TestCase
 from placeholdr.models import Place, UserProfile, PlaceReview, Trip, TripNode, TripReview
-from placeholdr.forms import UserProfileForm
+from placeholdr.forms import RegistrationForm
 from django.contrib import auth
 from django.contrib.auth.models import User
-import populate_placeholdr
+import population_script
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
@@ -19,8 +19,7 @@ def create_user():
     user.save()
 
     # Link it to a user profile
-    user_profile = \
-        UserProfile.objects.get_or_create(user=user, bio="I am just a test user", livesIn="Command Line", rep=200)[0]
+    user_profile = UserProfile.objects.get_or_create(user=user, bio="I am just a test user", livesIn="Command Line", rep=200)[0]
     user_profile.save()
 
     return user_profile
@@ -129,8 +128,8 @@ class IndexTests(TestCase):
         users = create_top_users()
         response = self.client.get(reverse('index'))
 
+        # users are named user1 through user6
         for i in range(10, 5, -1):
-            user = users[i - 1]
             self.assertIn("user" + str(i), response.content.decode('ascii'))
 
 
@@ -160,7 +159,7 @@ class ModelTests(TestCase):
 
     def test_population_script_changes(self):
         # populate
-        populate_placeholdr.populate()
+        population_script.populate()
 
         # Check for one user
         u = User.objects.get(username="michael")
@@ -223,7 +222,8 @@ class UrlTests(TestCase):
 class ContentTests(TestCase):
     # TODO
     # Index contains appropriate ratings
-    # Check places and trips have maps displayed
+    # Test negative rating
+    # Test negative rep
     # Check new places
     # Check top places
     # Check new trips
@@ -257,7 +257,7 @@ class FormTests(TestCase):
 
     def test_registration_form_is_valid(self):
         form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "picture": None}
-        form = UserProfileForm(data=form_data)
+        form = RegistrationForm(data=form_data)
         self.assertTrue(form.is_valid())
 
     # TODO
