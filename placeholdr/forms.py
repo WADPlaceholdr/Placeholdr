@@ -68,7 +68,7 @@ class PasswordForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('bio', 'livesIn', 'rep', 'picture')
+        fields = ('bio', 'livesIn', 'picture')
         widgets = {
             'picture': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
         }

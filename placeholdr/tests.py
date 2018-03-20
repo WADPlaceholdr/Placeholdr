@@ -180,7 +180,6 @@ class ModelTests(TestCase):
 
 class UrlTests(TestCase):
     # Error messages
-    # Test place, trip contains add review when appropriate
 
     def test_place_contains_slug_field(self):
         place = Place(name="Mount Everest", userId=create_user())
@@ -257,7 +256,7 @@ class FormTests(TestCase):
         None
 
     def test_registration_form_is_valid(self):
-        form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "rep": self.user.rep, "picture": None}
+        form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "picture": None}
         form = UserProfileForm(data=form_data)
         self.assertTrue(form.is_valid())
 
