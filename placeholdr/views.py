@@ -231,7 +231,7 @@ def show_trip(request, trip_slug):
 					review_dict[star] = [xStarNbrReview, 0]
 				else:
 					review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
-			review_inf = get_reviews(True, trip_slug)
+			review_inf = get_reviews(request, True, trip_slug)
 			
 			if trip_nodes:
 				mapsUrl="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&origin=" + trip_nodes[0].placeId.lat + "%2C" + trip_nodes[0].placeId.long + "&waypoints="
@@ -275,7 +275,7 @@ def show_place(request, place_slug):
 					review_dict[star] = [xStarNbrReview,xStarNbrReview/nbr_reviews*100]
 
 			mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
-			review_inf = get_reviews(False, place_slug)
+			review_inf = get_reviews(request, False, place_slug)
 		
 			return render(request,
 		  'placeholdr/place.html',
@@ -421,11 +421,11 @@ def ajax_tasks(request):
 					TripTag.objects.get_or_create(userId=userProf, tripId=link, tagText=tag)
 				else:
 					PlaceTag.objects.get_or_create(userId=userProf, placeId=link, tagText=tag)
-			return HttpResponse(json.dumps(get_reviews(is_trip, r_slug)),content_type='application/json')
+			return HttpResponse(json.dumps(get_reviews(request, is_trip, r_slug)),content_type='application/json')
 	else:
 		return "Error"
 
-def get_reviews(isTrip, r_slug):
+def get_reviews(request, isTrip, r_slug):
 	
 	if isTrip:
 		reviews = TripReview.objects.filter(tripId=Trip.objects.get(slug=r_slug))
@@ -448,19 +448,13 @@ def get_reviews(isTrip, r_slug):
 	if reviews:
 		for review in reviews:
 			stars += review.stars
-			image = "src='/static/images/eiffel.jpg'"
-			userProf = review.userId
-			if userProf.picture:
-				image = userProf.picture.url
-			to_append = '<div class="card wow animated fadeInUp"><div class="card-body"><h5 class="card-title"><img class="img-thumbnail card-user-picture" ' + image + ' alt="Card image cap">' + userProf.user.username + '</h5><p>' + str(review.stars) + '/5</p><p class="card-text">' + review.review + '</p><p class="card-text"><small class="text-muted">Last updated ' + str(review.modified_date) + '</small></p></div></div>'
-			reviews_array.append(to_append)
 		stars = round(stars/len(reviews))
 		for i in range(5):
 			if i < stars:
 				stars_string += '<img src="/static/images/star.png">'
 			else:
 				stars_string += '<img src="/static/images/starempty.png">'
-	return {'reviews':reviews_array, 'stars_string':stars_string,'tags_string':tags_string}
+	return {'stars_string':stars_string,'tags_string':tags_string,'rev_sec':str(render(request,'placeholdr/review_section.html',{'reviews':reviews}).getvalue().decode('utf-8'))}
 
 def add_place_review(request):
 
@@ -626,3 +620,13 @@ def popular_trips(request):
 		return render(request, 'placeholdr/popular_trips.html',{'popular_trips': popular_trips, 'count': num_of_places})
 	else:
 		return HttpResponse("Fewer than " + num_of_places + " places exist!")
+		
+def submit_place(request):
+	if (not(request.user.is_authenticated)):
+		return HttpResponseRedirect(reverse('index'))
+	return render(request, 'placeholdr/submit_place.html',{})
+	
+def submit_trip(request):
+	if (not(request.user.is_authenticated)):
+		return HttpResponseRedirect(reverse('index'))
+	return render(request, 'placeholdr/submit_place.html',{})

@@ -75,7 +75,7 @@
                             {% else %}
                                 disabled
                             {% endif %}
-                            " href="#">Submit a Place</a>
+                            " href="{% url 'submit_place' %}">Submit a Place</a>
 						</div>
 					</li>
 					<li class="nav-item dropdown">
@@ -91,7 +91,7 @@
                             {% else %}
                                 disabled
                             {% endif %}
-                            " href="#">Submit a Trip</a>
+                            " href="{% url 'submit_trip' %}">Submit a Trip</a>
 						</div>
 					</li>
 					<li class="nav-item dropdown">

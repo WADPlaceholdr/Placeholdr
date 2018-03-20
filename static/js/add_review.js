@@ -46,8 +46,13 @@ function fix_tags(){
 
 $(document).ready(function() {
 	
-	fix_tags();
+	reset_page();
+	
+});
 
+function reset_page(){
+	
+	fix_tags();
 	$('#rev_submit').click(function(){
 		fix_stars();
 		
@@ -65,22 +70,19 @@ $(document).ready(function() {
 			},
 			success: function(data){
 				response = data;
-				newInner = "";
-				for (var i = 0; i < response.reviews.length; i++){
-					newInner += response.reviews[i] + "</br>";
-				}
-				document.getElementById("review_section").innerHTML = newInner;
+
+				document.getElementById("review_sec").innerHTML = response.rev_sec;
 				document.getElementById("star_rating").innerHTML = response.stars_string;
 				document.getElementById("tag_section").innerHTML = response.tags_string;
 
 				document.getElementById("r_review").value = ""
-				
+				reset_page();
 				fix_tags();
 			}
 		});
 	});
 	
-});
+}
 
 
 

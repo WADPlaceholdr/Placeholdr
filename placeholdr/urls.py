@@ -39,7 +39,7 @@ urlpatterns = [
 	url(r'^ajax/$', views.ajax_tasks, name='ajax_tasks'),
 	# Top Places page
 	url(r'^top_places/$', views.top_places, name='top_places'),
-	# New Places page
+	# New Places page	
 	url(r'^new_places/$', views.new_places, name='new_places'),
 	# Popular Places page
 	url(r'^popular_places/$', views.popular_places, name='popular_places'),
@@ -49,4 +49,8 @@ urlpatterns = [
 	url(r'^new_trips/$', views.new_trips, name='new_trips'),
 	# Popular Trips page
 	url(r'^popular_trips/$', views.popular_trips, name='popular_trips'),
+	# Submit place page
+	url(r'^submit_place/$', views.submit_place, name='submit_place'),
+	# Submit Trip page
+	url(r'^submit_trip/$', views.submit_trip, name='submit_trip'),
 ]
