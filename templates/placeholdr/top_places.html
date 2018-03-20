@@ -18,7 +18,7 @@
 			<div class="row">
 			{% if top_places %}
 				<div class="row" style="padding:15px;">
-					{% include "placeholdr/place_trip_card_long.html" with object=top_places.0.0 %}
+                    {% include "placeholdr/place_trip_card.html" with object=top_places.0.0 long=True %}
 				</div>
 				<div class="row">
 					<h2>More Top Places</h2>

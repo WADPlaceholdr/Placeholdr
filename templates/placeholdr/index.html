@@ -50,7 +50,7 @@
 				<div class="row">
 					<div class="card-deck">
 						{% for userProfile in userProfiles %}
-							<div class="card stuffCard peopleCard wow animated slideInRight">
+							<div class="card peopleCard wow animated slideInRight">
 								<a href="/placeholdr/user/{{ userProfile.user.username }}">
 								{% if userProfile.picture %}
 									<img class="card-img-top" src="{{ userProfile.picture.url }}" alt="{{ userProfile.user.username }}'s picture">
