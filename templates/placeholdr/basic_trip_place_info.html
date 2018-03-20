@@ -23,7 +23,7 @@
         <div class="col-4 align-self-center">
             <div class="row text-center" id="star_rating">
                 {% if stars %}
-                    <h2>{{ stars }}</h2>
+                    <h2>{{ stars|floatformat:2  }}</h2>
                 {% else %}
                     <h2>0</h2>
                 {% endif %}
@@ -32,6 +32,11 @@
                 <p>
                 {% with stars=object.get_stars %}
                     {% with int_stars=stars|floatformat:"0" %}
+                        {% if object.lat %}
+                            <a href="/placeholdr/place/{{ object.slug }}#reviews">
+                        {% else %}
+                            <a href="/placeholdr/trip/{{ object.slug }}#reviews">
+                        {% endif %}
                         {% for i in int_stars|times %}
                             &#9733
                         {% endfor %}
@@ -40,6 +45,7 @@
                                 &#9734
                             {% endfor %}
                         {% endwith %}
+                        </a>
                     {% endwith %}
                 {% endwith %}
                 </p>
@@ -69,4 +75,17 @@
             </div>
         </div>
     </div>
+</div>
+<div class="col-sm">
+    {% if mapsUrl %}
+        {% if trip_nodes %}
+            <iframe class="maps-iframe img-thumbnail" width="100%" height="100%" frameborder="0" style="border:0"  src="{{ mapsUrl }}" allowfullscreen></iframe>
+        {% else %}
+            {% if object.lat %}
+                <iframe class="maps-iframe img-thumbnail" width="100%" height="100%" frameborder="0" style="border:0"  src="{{ mapsUrl }}" allowfullscreen></iframe>
+            {% else %}
+                There are no coordinates, we cannot display a map!
+            {% endif %}
+        {% endif %}
+    {% endif %}
 </div>

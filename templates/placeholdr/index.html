@@ -61,8 +61,10 @@
 								<div class="card-body">
 									<h4 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h4>
 									<p class="card-text">Lives in {{ userProfile.livesIn }}</p>
-									<p class="card-text">Reputation {{ userProfile.rep }}</p>
 								</div>
+                                <div class="card-footer">
+                                    <p class="card-text">Rep {{ userProfile.rep }}</p>
+                                </div>
 							</div>
 						{% endfor %}
 					</div>
