@@ -16,13 +16,6 @@
 		{% if place %}
 			<div class="row spaced">
 				{% include "placeholdr/basic_trip_place_info.html" with object=place %}
-				<div class="col-sm">
-					{% if mapsUrl %}
-						<iframe class="maps-iframe" width="100%" height="100%" frameborder="0" style="border:0"  src="{{ mapsUrl }}" allowfullscreen></iframe>
-					{% else %}
-						There are no coordinates for this place, we cannot display a map!
-					{% endif %}
-				</div>
 			</div>
 			<div class="row spaced">
 				<div class="col">
@@ -61,39 +54,7 @@
 				</div>
 			</div>
 			<a name="reviews"></a> 
-			<div class="row spaced">
-                <div class="col">
-                    <div class="row">
-						<h2>Post a Review</h2>
-					</div>
-                    <div class="row">
-                        {% if user.is_authenticated %}
-                            {% include "placeholdr/review_form.html" %}
-                        {% else %}
-                            Please login to post a review
-                        {% endif %}
-                    </div>
-                </div>
-			</div>
-			<div class="row spaced">
-				<div class="col">
-					<div class="row">
-						<h2>Reviews</h2>
-					</div>
-					<div class="row">
-						<div class="card-columns" id="review_section">
-							{% if reviews %}
-								{% for review in reviews %}
-									{% include "placeholdr/review_card.html" %}
-								{% endfor %}
-							{% else %}
-								There are no reviews for this place
-							{% endif %}
-						</div>
-
-					</div>
-				</div>
-			</div>
+			{% include "placeholdr/review_section.html" %}
 		{% else %}
 			The specified place does not exist!
 		{% endif %}

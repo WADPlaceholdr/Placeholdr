@@ -17,20 +17,20 @@ import urllib.request
 def populate():
     # Much secure
     users = [
-        # 0
+        # 1
         {"username": "michael", "password": "pass1357",
          "bio": "Just a dad looking for some places suggested by some like-minded people!",
          "livesIn": "London", "rep": 2360,
          "picture": ""#urllib.request.urlretrieve("https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg", 'media/profile_images/michael.jpg')[0]
          },
 
-        # 1
+        # 2
         {"username": "itsnaomi", "password": "pass1357",
          "bio": "Just passing through!", "livesIn": "Brussels", "rep": 0,
          "picture": urllib.request.urlretrieve("https://s3-eu-west-1.amazonaws.com/pcs01.photocase.com/c/cllutcux/5g8xfj15/photocase5g8xfj153.jpg", 'media/profile_images/naomi.jpg')[0]
          },
 
-        # 2
+        # 3
         {"username": "samtakespics", "password": "pass1357",
          "bio": "I'm a photographer and travel around a lot for my work, taking pictures for travel guides. "
                 "My favourite kind of places are the ones with scenic views.",
@@ -38,21 +38,21 @@ def populate():
          "picture": urllib.request.urlretrieve("https://thumb9.shutterstock.com/display_pic_with_logo/3471602/355236068/stock-photo-close-up-of-young-handsome-indian-photographer-taking-a-photograph-asian-man-holding-camera-355236068.jpg", 'media/profile_images/sam.jpg')[0]
          },
 
-        # 3
+        # 4
         {"username": "_amy_", "password": "pass1357",
          "bio": "I'm a Geography student with a passion for maps, travelling, and coffee",
          "livesIn": "Glasgow", "rep": 5,
          "picture": ""
          },
 
-        # 4
+        # 5
         {"username": "baracko", "password": "pass1357",
          "bio": "I'm a busy man, but I like to take trips in my free time. Distance is never a problem",
          "livesIn": "Chicago", "rep": 80,
          "picture": urllib.request.urlretrieve("https://pbs.twimg.com/media/CtUtSbAW8AE9NvM.jpg", 'media/profile_images/barack.jpg')[0]
          },
 
-        # 5
+        # 6
         {"username": "davidm", "password": "pass1357",
          "bio": "I am a Senior Lecturer at the School of Computing Science "
                 "in the College of Science and Engineering at"
@@ -65,7 +65,7 @@ def populate():
 
     places = [
 
-        # 0
+        # 1
         {"userId": 2, "lat": "50.890163106", "long": "4.337998648",
          "desc": "The Atomium was erected in 1958 as part of the World Fair exhibition. "
                  "Modelled on an iron atom that has been magnified 165 billion times, it"
@@ -76,7 +76,7 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Atomium_320_by_240_CCBY20_flickr_Mike_Cattell.jpg/1200px-Atomium_320_by_240_CCBY20_flickr_Mike_Cattell.jpg", 'media/place_images/atomium.jpg')[0]
          },
 
-        # 1
+        # 2
         {"userId": 6, "lat": "55.876623", "long": "-4.285432",
          "desc": "Speciality Coffee & OG Brunch based in Glasgow, Scotland. "
                  "A speciality coffee roaster and cafe, putting avocado on toast since 2012.",
@@ -84,7 +84,7 @@ def populate():
          "picLink": ""#urllib.request.urlretrieve("https://media.timeout.com/images/102920974/image.jpg", 'media/place_images/papercup.jpg')[0]
          },
 
-        # 2
+        # 3
         {"userId": 4, "lat": "55.87226070000001", "long": "-4.282248600000003",
          "desc": "Located in one of the West End's most vibrant & community spirited streets, "
                  "you'll find the Glaswegian hub of Artisan Roast.",
@@ -92,7 +92,7 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
          },
 
-        # 3
+        # 4
         {"userId": 3, "lat": "36.056595", "long": "-112.125092",
          "desc": "The Grand Canyon is one of the seven natural wonders of the world, "
                  "and one of the largest canyons on Earth. It stretches for 450km. "
@@ -103,7 +103,7 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/a/aa/Dawn_on_the_S_rim_of_the_Grand_Canyon_%288645178272%29.jpg", 'media/place_images/canyon.jpg')[0]
          },
 
-        # 4
+        # 5
         {"userId": 6, "lat": "55.8721211", "long": "-4.2882005",
          "desc": "Founded in 1451, the University of Glasgow is the fourth oldest university "
                  "in the English-speaking world. The University moved from High Street to Gilmorehill"
@@ -113,7 +113,7 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/a/aa/University_of_Glasgow%2C_East_Quadrangle_-_landscape.jpg", 'media/place_images/glasgow.jpg')[0]
          },
 
-        # 5
+        # 6
         {"userId": 1, "lat": "63.881363", "long": "-22.453115",
          "desc": "Mineral-rich hot water from far beneath the earth forms the spectacular lagoon, "
                  "where a luxurious health spa has been developed in the rugged lava landscape. "
@@ -122,9 +122,9 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Blue_Lagoon_Main_Building.JPG/800px-Blue_Lagoon_Main_Building.JPG", 'media/place_images/lagoon.jpg')[0]
          },
 
-        # 6
+        # 7
         {"userId": 6, "lat": "57.322858", "long": "-4.424382",
-         "desc": "Loch Ness is Scotland's most famous loch."
+         "desc": "Loch Ness is Scotland's most famous loch. "
                  "Over 300 million years ago a collision of tectonic plates forced the land to bend and buckle, "
                  "forming high mountains and deep gorges. The depths of these gorges were gradually filled with"
                  " water and a string of lochs were formed; Loch Oich, Loch Lochy and Loch Ness.",
@@ -132,7 +132,7 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/d/de/Loch_Ness_Panorama.png", 'media/place_images/lochness.jpg')[0]
          },
 
-        # 7
+        # 8
         {"userId": 5, "lat": "55.9417628996", "long": "-3.1856492574",
          "desc": "The University of Edinburgh, founded in 1582, is the sixth-oldest university in the English-speaking world"
                  " and one of Scotland's ancient universities.",
@@ -140,7 +140,7 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/7/75/Old_College_of_Edinburgh_University.JPG", 'media/place_images/edinburgh.jpg')[0]
          },
 
-        # 8
+        # 9
         {"userId": 6, "lat": "56.3380603144", "long": "-2.78913684344",
         "desc": "Founded in the 15th century, St Andrews is Scotland's"
                 " first university and the third oldest in the English speaking world.",
@@ -148,7 +148,7 @@ def populate():
         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/0/0d/St_Salvators_chapel_and_north_street_-St_Andrews.jpg", 'media/place_images/saints.jpg')[0]
          },
 
-        # 9
+        # 10
         {"userId": 3, "lat": "50.8484703", "long": "4.353890500000034",
          "desc": "Delirium Café is a bar which holds the Guinness World Record for the most beers offered with 2004. "
                  "Today they are getting close to 2500.",
@@ -156,7 +156,7 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/4/44/CafeDelirium.JPG", 'media/place_images/delirium.jpg')[0]
          },
 
-        # 10
+        # 11
         {"userId": 1, "lat": "64.6699154", "long": "-17.181654900000012",
          "desc": "Vatnajökull National Park is one of three national parks in Iceland. "
                  "The unique qualities of Vatnajökull National Park are primarily its great variety of landscape features,"
@@ -165,14 +165,14 @@ def populate():
          "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/8/84/Skaftafell_National_Park%2C_Svartifoss_%286817603945%29.jpg", 'media/place_images/vatnajokull.jpg')[0]
          },
 
-        # 11
+        # 12
         {"userId": 5, "lat": "37.81194099999999", "long": "-107.6645057",
          "desc": "The historic mining town of Silverton, Colorado will offer you nice mountain views during any roadtrip or visit.",
          "name": "Silverton",
          "picLink": urllib.request.urlretrieve("https://c1.staticflickr.com/3/2825/9910259186_dfbd578808_b.jpg", 'media/place_images/silverton.jpg')[0]
          },
 
-        # 12
+        # 13
         {"userId": 4, "lat": "56.9625746", "long": "-4.917060600000013",
          "desc": "Loch Lochy (Scottish Gaelic, Loch Lòchaidh) is a large freshwater loch."
                  " With a mean depth of 70 m (230 ft), it is the third-deepest loch of Scotland.",
@@ -182,20 +182,21 @@ def populate():
     ]
 
     trips = [
-        # 0
+        # 1
         {"userId": 6,
          "desc": "Head to Loch Ness from Glasgow before coming back for a coffee in town and see the university's buildings",
-         "name": "A Scottish Daytrip"},
-        # 1
+         "name": "A Scottish Daytrip",
+         },
+        # 2
         {"userId": 3, "desc": "Ride along some scenic routes and stop at very scenic places",
          "name": "Nature in the US"},
-        # 2
-        {"userId": 1, "desc": "Trek in cold cold Iceland before getting warm in a lagoon", "name": "Hot and Cold"},
         # 3
-        {"userId": 3, "desc": "Have some drinks in Belgium and see some sights", "name": "Beer Trip"},
+        {"userId": 1, "desc": "Trek in cold cold Iceland before getting warm in a lagoon", "name": "Hot and Cold"},
         # 4
-        {"userId": 5, "desc": "Have a look at some universities and how pretty they are", "name": "Academic Roadtrip"},
+        {"userId": 3, "desc": "Have some drinks in Belgium and see some sights", "name": "Beer Trip"},
         # 5
+        {"userId": 5, "desc": "Have a look at some universities and how pretty they are", "name": "Academic Roadtrip"},
+        # 6
         {"userId": 4,
          "desc": "This trip is for coffee fanatics who aren't scared of dying of a coffee overdose by visiting a lot of coffee places",
          "name": "Hyperactive Coffee"},
@@ -296,7 +297,7 @@ def populate():
          "review": "Glasgow is definitely the prettiest out of the three"},
 
         # Coffee
-        {"userId": 4, "tripId": 5, "stars": 4, "review": "Could be better"},
+        {"userId": 4, "tripId": 6, "stars": 4, "review": "Could be better"},
     ]
 
     for user in users:
