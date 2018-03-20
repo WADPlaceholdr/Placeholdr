@@ -3,7 +3,7 @@
 <div class="card reviewCard wow animated fadeInUp">
 	<div class="card-body">
 		<h5 class="card-title">
-			<a class="dont-underline" href="/placeholdr/user/{{ review.userId.username }}">
+			<a class="dont-underline" href="/placeholdr/user/{{ review.userId }}">
 				<img class="img-thumbnail card-user-picture"
 				{% if review.userId.picture %}
 					src="{{ review.userId.picture.url }}"
@@ -11,7 +11,7 @@
 					src="{% static 'images/defaultuser.png' %}"
 				{% endif %}
 				alt="Card image cap">
-				{{ review.userId.username }}
+				{{ review.userId }}
 			</a>
 		</h5>
 		<p>{{ review.stars }}/5</p>

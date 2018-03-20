@@ -32,7 +32,6 @@
                 <p>
                 {% with stars=object.get_stars %}
                     {% with int_stars=stars|floatformat:"0" %}
-                            <a href="#reviews">
                         {% for i in int_stars|times %}
                             &#9733
                         {% endfor %}
@@ -41,16 +40,21 @@
                                 &#9734
                             {% endfor %}
                         {% endwith %}
-                        </a>
                     {% endwith %}
                 {% endwith %}
                 </p>
             </div>
+			<a href="#reviews">
             <div class="row text-center">
                 <p>
-                    {{ nbr_reviews }} total
+					{% if nbr_reviews == 1 %}
+						{{ nbr_reviews }} Review
+					{% else %}
+						{{ nbr_reviews }} Reviews
+					{% endif %}
                 </p>
             </div>
+			</a>
         </div>
         <div class="col">
             <div class="row align-items-center">
