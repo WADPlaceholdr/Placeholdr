@@ -66,83 +66,66 @@ body {
 }
 
 /* 2 picture style */
-.stuffCard img.tripA1 {
+img.tripA1 {
 	-webkit-clip-path: polygon(0 0, 85% 0, 15% 100%, 0% 100%);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
 	position:absolute;
 }
 
-.stuffCard img.tripA2 {
+img.tripA2 {
 	-webkit-clip-path: polygon(100% 0, 85% 0, 15% 100%, 100% 100%);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
 }
 
 /* 3 picture style */
-.stuffCard img.tripB1 {
+img.tripB1 {
 	-webkit-clip-path: polygon(75% 0, 100% 0, 100% 25%, 25% 100%, 0 100%, 0 75%);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
 	position:absolute;
 }
 
-.stuffCard img.tripB2 {
+img.tripB2 {
 	-webkit-clip-path: polygon(0 0, 75% 0, 0 75%);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
 	position:absolute;
 }
 
-.stuffCard img.tripB3 {
+img.tripB3 {
 	-webkit-clip-path: polygon(100% 100%, 100% 25%, 25% 100%);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
 }
 
 /* 4 picture style */
-.stuffCard img.tripC1 {
+img.tripC1 {
 	-webkit-clip-path: polygon(15% 0, 85% 0, 50% 50%);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
 	position:absolute;
 }
 
-.stuffCard img.tripC2 {
+img.tripC2 {
 	-webkit-clip-path: polygon(15% 100%, 85% 100%, 50% 50%);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
 	position:absolute;
 }
 
-.stuffCard img.tripC3 {
+img.tripC3 {
 	-webkit-clip-path: polygon(0 0, 15% 0, 50% 50%, 15% 100%, 0 100%);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
 	position:absolute;
 }
 
-.stuffCard img.tripC4 {
+img.tripC4 {
 	-webkit-clip-path: polygon(100% 0, 100% 100%, 85% 100%, 50% 50%, 85% 0);
-    height: 180px;
     object-fit: cover;
 	z-index:-1;
-}
-
-.tripA1{
-	-webkit-clip-path: polygon(100% 0, 85% 0, 15% 100%, 100% 100%);
-}
-
-.tripA2{
-	-webkit-clip-path: polygon(0 0, 85% 0, 15% 100%, 0% 100%);
 }
 
 .stuffCardLong {

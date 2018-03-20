@@ -12,11 +12,10 @@
 
 {% block body_block %}
 	<div class="container">
+			{% if popular_places %}
 		<div class="row">
 			<h1>Most Popular Place</h1>
 		</div>
-			<div class="row">
-			{% if popular_places %}
 				<div class="row" style="padding:15px;">
                     {% include "placeholdr/place_trip_card.html" with object=popular_places.0.0 long=True %}
 				</div>
@@ -36,6 +35,5 @@
 			{% else %}
 				<h3>There are fewer than {{ count }} places!</h3>
 			{% endif %}
-			</div>
 	</div>
 {% endblock %}

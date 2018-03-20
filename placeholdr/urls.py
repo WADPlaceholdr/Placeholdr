@@ -43,4 +43,10 @@ urlpatterns = [
 	url(r'^new_places/$', views.new_places, name='new_places'),
 	# Popular Places page
 	url(r'^popular_places/$', views.popular_places, name='popular_places'),
+	# Top Trips page
+	url(r'^top_trips/$', views.top_trips, name='top_trips'),
+	# New Trips page
+	url(r'^new_trips/$', views.new_trips, name='new_trips'),
+	# Popular Trips page
+	url(r'^popular_trips/$', views.popular_trips, name='popular_trips'),
 ]

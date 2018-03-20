@@ -16,23 +16,20 @@
 	{% endif %}
 	{% if object.lat and object.picLink %}
 		<img class="card-img-top" src="{{ object.picLink.url}}" alt="{{ object.name }} picture"></img>
-	{% elif trip.4.picLink and trip.5.picLink and trip.6.picLink and trip.7.picLink %}
-	<img class="card-img-top tripC1" src="{{ trip.4.picLink.url}}" alt="{{ object.name }} picture"></img>
-	<img class="card-img-top tripC2" src="{{ trip.5.picLink.url}}" alt="{{ object.name }} picture"></img>
-	<img class="card-img-top tripC3" src="{{ trip.6.picLink.url}}" alt="{{ object.name }} picture"></img>
-	<img class="card-img-top tripC4" src="{{ trip.7.picLink.url}}" alt="{{ object.name }} picture"></img>
-	{% elif trip.4.picLink and trip.5.picLink and trip.6.picLink %}
-	<img class="card-img-top tripB1" src="{{ trip.4.picLink.url}}" alt="{{ object.name }} picture"></img>
-	<img class="card-img-top tripB2" src="{{ trip.5.picLink.url}}" alt="{{ object.name }} picture"></img>
-	<img class="card-img-top tripB3" src="{{ trip.6.picLink.url}}" alt="{{ object.name }} picture"></img>
-	{% elif trip.4.picLink and trip.5.picLink %}
-	<img class="card-img-top tripA1" src="{{ trip.4.picLink.url}}" alt="{{ object.name }} picture"></img>
-	<img class="card-img-top tripA2" src="{{ trip.5.picLink.url}}" alt="{{ object.name }} picture"></img>
-	{% elif trip.4.picLink and trip.5.picLink%}
-	    <img class="card-img-top tripA" src="{{ trip.4.picLink.url}}" alt="{{ object.name }} picture"/>
-	    <img class="card-img-top tripB" src="{{ trip.5.picLink.url}}" alt="{{ object.name }} picture"/>
+	{% elif trip.1.picLink and trip.2.picLink and trip.3.picLink and trip.4.picLink %}
+		<img class="card-img-top tripC1" src="{{ trip.1.picLink.url}}" alt="{{ object.name }} picture"></img>
+		<img class="card-img-top tripC2" src="{{ trip.2.picLink.url}}" alt="{{ object.name }} picture"></img>
+		<img class="card-img-top tripC3" src="{{ trip.3.picLink.url}}" alt="{{ object.name }} picture"></img>
+		<img class="card-img-top tripC4" src="{{ trip.4.picLink.url}}" alt="{{ object.name }} picture"></img>
+	{% elif trip.1.picLink and trip.2.picLink and trip.3.picLink %}
+		<img class="card-img-top tripB1" src="{{ trip.1.picLink.url}}" alt="{{ object.name }} picture"></img>
+		<img class="card-img-top tripB2" src="{{ trip.2.picLink.url}}" alt="{{ object.name }} picture"></img>
+		<img class="card-img-top tripB3" src="{{ trip.3.picLink.url}}" alt="{{ object.name }} picture"></img>
+	{% elif trip.1.picLink and trip.2.picLink %}
+		<img class="card-img-top tripA1" src="{{ trip.1.picLink.url}}" alt="{{ object.name }} picture"></img>
+		<img class="card-img-top tripA2" src="{{ trip.2.picLink.url}}" alt="{{ object.name }} picture"></img>
 	{% else %}
-		<img class="card-img-top" src="{% static 'images/eiffel.jpg' %}" alt="eiffel"/>
+		<img class="card-img-top" src="{% static 'images/no_image.png' %}" alt="no image"/>
 	{% endif %}
 	</a>
 	<div class="card-body">
