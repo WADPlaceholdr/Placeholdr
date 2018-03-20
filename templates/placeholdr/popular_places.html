@@ -12,19 +12,30 @@
 
 {% block body_block %}
 	<div class="container">
-			<h1>Popular Places</h1>
-			<br>
+		<div class="row">
+			<h1>Most Popular Place</h1>
+		</div>
+			<div class="row">
 			{% if popular_places %}
+				<div class="row" style="padding:15px;">
+                    {% include "placeholdr/place_trip_card.html" with object=popular_places.0.0 long=True %}
+				</div>
 				<div class="row">
+				<div class="row">
+					<h2>More Popular Places</h2>
+				</div>
 					<div class="card-deck">
 						<!-- place.0 = place, place.1 = average stars, place.2 = stars string, count = number of top places -->
 						{% for place in popular_places %}
-                                {% include "placeholdr/place_trip_card.html" with object=place.0 %}
+                            {% if place.0 != popular_places.0.0 %}
+								{% include "placeholdr/place_trip_card.html" with object=place.0 %}
+							{% endif %}
 						{% endfor %}
 					</div>
 				</div>
 			{% else %}
 				<h3>There are fewer than {{ count }} places!</h3>
 			{% endif %}
+			</div>
 	</div>
 {% endblock %}

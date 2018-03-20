@@ -32,11 +32,7 @@
                 <p>
                 {% with stars=object.get_stars %}
                     {% with int_stars=stars|floatformat:"0" %}
-                        {% if object.lat %}
-                            <a href="/placeholdr/place/{{ object.slug }}#reviews">
-                        {% else %}
-                            <a href="/placeholdr/trip/{{ object.slug }}#reviews">
-                        {% endif %}
+                            <a href="#reviews">
                         {% for i in int_stars|times %}
                             &#9733
                         {% endfor %}

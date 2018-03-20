@@ -8,7 +8,7 @@ body {
 	padding-top: 100px;
 	padding-bottom: 100px;
 	min-height: 100%;
-	  	background: linear-gradient(rgba(97,126,170,1), rgba(97,126,170,0.3), rgba(97,126,170,0.2), rgba(97,126,170,0)) fixed; 
+	background: linear-gradient(rgba(97,126,170,1), rgba(97,126,170,0.3), rgba(97,126,170,0.2), rgba(97,126,170,0)) fixed; 
 }
 .navbar {
     /*box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.47);*/
@@ -18,7 +18,7 @@ body {
 	bottom: 0;
 	width: 100%;
 	line-height: 60px;
-	background-color: #f5f5fc;
+	background-color: #f9f9fc;
 }
 
 #footer-row {
@@ -81,7 +81,6 @@ body {
 	z-index:-1;
 }
 
-<<<<<<< HEAD
 /* 3 picture style */
 .stuffCard img.tripB1 {
 	-webkit-clip-path: polygon(75% 0, 100% 0, 100% 25%, 25% 100%, 0 100%, 0 75%);
@@ -146,11 +145,9 @@ body {
 	-webkit-clip-path: polygon(0 0, 85% 0, 15% 100%, 0% 100%);
 }
 
-=======
 .stuffCardLong {
     width:100%;
 }
->>>>>>> 335dcf6d63c3fab2ac2a145263e534207c237310
 .stuffCardLong img {
 	object-fit: cover;
 	height:400px;
