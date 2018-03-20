@@ -19,7 +19,7 @@
 					<div class="card-deck">
 						<!-- place.0 = place, place.1 = average stars, place.2 = stars string, count = number of new places -->
 						{% for place in new_places %}
-                                {% include "placeholdr/place_trip_card.html" with object=place.0 long=True %}
+                                {% include "placeholdr/place_trip_card.html" with object=place.0 %}
 						{% endfor %}
 					</div>
 				</div>
