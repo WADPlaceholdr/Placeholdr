@@ -25,11 +25,42 @@ clone this repository
 ```
 git clone https://github.com/WADPlaceholdr/Placeholdr.git
 ```
+
 install requirements
 ```
 cd Placeholdr
-pip install –r requirements.txt
+pip install –r requirements.txt --yes
 ```
+
+**optional** create deployment_variables.py
+(don't use for development/test environment, deployment only)
+(default conf file uses HTTPS with HTST and all security headers strictly configured
+```
+mv placeholdr/deployment_variables.py.conf placeholdr/deployment_variables.py
+```
+
+
+create database
+```
+python manage.py migrate
+```
+
+**optional** populate placeholdr with sample data
+```
+python populate_placeholdr.py
+```
+
+SUMMARY
+
+```
+git clone https://github.com/WADPlaceholdr/Placeholdr.git
+cd Placeholdr
+pip install –r requirements.txt --yes
+$ mv placeholdr/deployment_variables.py.conf placeholdr/deployment_variables.py
+python manage.py migrate
+python populate_placeholdr.py
+```
+
 
 ## Support
 for support please submit an issue on [GitHub](https://github.com/WADPlaceholdr/Placeholdr/issues)

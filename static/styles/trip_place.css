@@ -7,13 +7,15 @@
 .reviewCard {
     min-width: 250px;
 }
+
 .spaced {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
 .card-user-picture {
-    width:60px;
-    height:60px;
+    width: 60px;
+    height: 60px;
     object-fit: cover !important;
 }
 
@@ -27,37 +29,41 @@
 }
 
 #rev_submit:hover, #rev_submit:active, #rev_submit:focus {
-    color:white;
+    color: white;
     background-color: #5574A3 !important;
     border-color: #5574A3 !important;
     transition: 0.25s;
     outline-color: #5574A3 !important;
 }
+
 #rev_submit:focus {
     box-shadow: 0 0 10px #5574A3 !important;
 }
+
 .progress {
     margin: 1rem;
 }
+
 .margined {
     margin: .5rem;
 }
 
-.text-center p,.text-center h2 {
+.text-center p, .text-center h2 {
     width: 100%;
 }
 
 #pictureCarousel {
     width: 100%;
-    height: 60vmin ;
+    height: 60vmin;
 }
 
 .carousel-inner {
-    height:100%;
+    height: 100%;
     width: 100%;
 }
+
 .carousel-item img {
-    height:100%;
+    height: 100%;
     width: 100%;
     object-fit: cover;
 }

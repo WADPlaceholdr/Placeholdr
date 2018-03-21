@@ -5,6 +5,7 @@ from django.utils.encoding import uri_to_iri
 
 from django.core.validators import MaxValueValidator
 
+
 class UserProfile(models.Model):
     # Links UserProfile to a User model instance
     user = models.OneToOneField(User)
@@ -19,6 +20,7 @@ class UserProfile(models.Model):
     favPlace = models.ForeignKey('Place', null=True)
     recommendedTrip = models.ForeignKey('Trip', null=True)
 
+    # Override this to make it return something useful
     def __str__(self):
         return self.user.username
 

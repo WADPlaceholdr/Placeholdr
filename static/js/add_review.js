@@ -31,79 +31,78 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function fix_tags(){
+function fix_tags() {
 
-	var tag_pattern = /(#(\S*))/gi;
-	
-	var tag_text = '<a style="color:red; text-decoration:none;" href="/placeholdr/search?=$2">$1</a>';
+    var tag_pattern = /(#(\S*))/gi;
 
-	
-	document.getElementById("tag_section").innerHTML=document.getElementById("tag_section").innerHTML.replace(tag_pattern,tag_text);
-	document.getElementById("review_section").innerHTML=document.getElementById("review_section").innerHTML.replace(tag_pattern,tag_text);
-	
-	
+    var tag_text = '<a style="color:red; text-decoration:none;" href="/placeholdr/search?=$2">$1</a>';
+
+
+    document.getElementById("tag_section").innerHTML = document.getElementById("tag_section").innerHTML.replace(tag_pattern, tag_text);
+    document.getElementById("review_section").innerHTML = document.getElementById("review_section").innerHTML.replace(tag_pattern, tag_text);
+
+
 }
 
-$(document).ready(function() {
-	
-	reset_page();
-	
+$(document).ready(function () {
+
+    reset_page();
+
 });
 
-function reset_page(){
-	
-	fix_tags();
-	$('#rev_submit').click(function(){
-		fix_stars();
-		
-		
-		$.ajax({
-			type: "POST",
-			url: "/placeholdr/ajax/",
-			dataType: 'json',
-			data: {
-				'csrfmiddlewaretoken' : getCookie('csrftoken'),
-				'task': document.getElementById("task").innerHTML,
-				'slug': document.getElementById("slug").innerHTML,
-				'review': document.getElementById("r_review").value + " ",
-				'stars': document.getElementById("r_stars").value
-			},
-			success: function(data){
-				response = data;
+function reset_page() {
 
-				document.getElementById("review_sec").innerHTML = response.rev_sec;
-				document.getElementById("star_rating").innerHTML = response.stars_string;
-				document.getElementById("tag_section").innerHTML = response.tags_string;
+    fix_tags();
+    $('#rev_submit').click(function () {
+        fix_stars();
 
-				document.getElementById("r_review").value = ""
-				reset_page();
-				fix_tags();
-			}
-		});
-	});
-	
+
+        $.ajax({
+            type: "POST",
+            url: "/placeholdr/ajax/",
+            dataType: 'json',
+            data: {
+                'csrfmiddlewaretoken': getCookie('csrftoken'),
+                'task': document.getElementById("task").innerHTML,
+                'slug': document.getElementById("slug").innerHTML,
+                'review': document.getElementById("r_review").value + " ",
+                'stars': document.getElementById("r_stars").value
+            },
+            success: function (data) {
+                response = data;
+
+                document.getElementById("review_sec").innerHTML = response.rev_sec;
+                document.getElementById("star_rating").innerHTML = response.stars_string;
+                document.getElementById("tag_section").innerHTML = response.tags_string;
+
+                document.getElementById("r_review").value = ""
+                reset_page();
+                fix_tags();
+            }
+        });
+    });
+
 }
 
 
+function fix_stars() {
+    if (document.getElementById("r_stars") == null) {
 
-function fix_stars(){
-	if (document.getElementById("r_stars") == null){
-		
-		return;
-		
-	}
-	
-	if (document.getElementById("r_stars").value.length > 1){
-		
-		document.getElementById('r_stars').value = document.getElementById('r_stars').value.substr(0,1);
-		alert("Please enter a number from 1-5");
-		
-	}
-	
-	if (document.getElementById('r_stars').value.search("[1-5]") == -1){
-		
-		document.getElementById('r_stars').value = "";
-		alert("Please enter a number from 1-5");
-		
-	}
+        return;
+
+    }
+
+    if (document.getElementById("r_stars").value.length > 1) {
+
+        document.getElementById('r_stars').value = document.getElementById('r_stars').value.substr(0, 1);
+        alert("Please enter a number from 1-5");
+
+    }
+
+    if (document.getElementById('r_stars').value.search("[1-5]") == -1) {
+
+        document.getElementById('r_stars').value = "";
+        alert("Please enter a number from 1-5");
+
+    }
 }
