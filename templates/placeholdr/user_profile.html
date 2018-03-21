@@ -59,7 +59,7 @@
     {% if userProfile.recommendedTrip %}
 		{% include "placeholdr/place_trip_card.html" with object=recTrip.0 trip=recTrip long=True %}
     {% else %}
-        {{ userProfile.user }} hasn't chosen a favourite trip!
+        {{ userProfile.user }} hasn't chosen a recommended trip!
     {% endif %}
 	</p>
 </div>
