@@ -1,23 +1,27 @@
 #body-search-form {
     width: 100%;
 }
+
 #body-search-bar {
     width: 100%;
 }
+
 .search {
     width: 100%
 }
+
 .spacer {
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
+
 .result {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
 .result-picture {
-    width:90px;
-    height:90px;
+    width: 90px;
+    height: 90px;
     object-fit: cover !important;
 }

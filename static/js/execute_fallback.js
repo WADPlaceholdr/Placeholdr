@@ -25,7 +25,7 @@ fallback.load({
         'jQuery.ui': ['jQuery']
     },
 
-    callback: function(success, failed) {
+    callback: function (success, failed) {
         // success - object containing all libraries that loaded successfully.
         // failed - object containing all libraries that failed to load.
 
@@ -35,19 +35,19 @@ fallback.load({
     }
 });
 
-fallback.ready(['jQuery'], function() {
+fallback.ready(['jQuery'], function () {
     // jQuery Finished Loading
 
     // Execute my jQuery dependent code here!
 });
 
-fallback.ready(['jQuery', 'JSON'], function() {
+fallback.ready(['jQuery', 'JSON'], function () {
     // jQuery and JSON Finished Loading
 
     // Execute my jQuery + JSON dependent code here!
 });
 
-fallback.ready(function() {
+fallback.ready(function () {
     // All of my libraries have finished loading!
 
     // Execute my code that applies to all of my libraries here!

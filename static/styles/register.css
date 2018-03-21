@@ -1,9 +1,9 @@
 #registration-container {
-	max-width: 500px;
+    max-width: 500px;
 }
 
 #register-button {
-    background-color:#5574A3;
+    background-color: #5574A3;
     border-color: #5574A3;
     transition: 0.5s;
 }

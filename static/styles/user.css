@@ -1,17 +1,18 @@
 .col {
-	margin: 1rem;
+    margin: 1rem;
 }
 
 .row {
-	margin: 1rem;
+    margin: 1rem;
 }
+
 .row-10 {
-	margin: 1rem;
+    margin: 1rem;
 }
 
 .seperator {
-	margin-top:3rem;
-	margin-bottom:3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 #user_container {

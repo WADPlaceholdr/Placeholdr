@@ -1,17 +1,18 @@
 .form-signin {
-	width: 100%;
-	max-width: 330px;
-	padding: 0px;
-	margin: auto;
-	margin-top: 5%;
+    width: 100%;
+    max-width: 330px;
+    padding: 0px;
+    margin: auto;
+    margin-top: 5%;
 }
 
 #login {
-	padding-left: 0px;
-	padding-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
+
 #login-button {
-    background-color:#5574A3;
+    background-color: #5574A3;
     border-color: #5574A3;
     transition: 0.5s;
 }
@@ -22,13 +23,13 @@
 }
 
 #notification {
-	width: 100%;
-	max-width: 330px;
-	padding: 15px;
-	margin: auto;
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
 }
 
 #login-logo {
-	max-width: 330px;
-	height: auto;
+    max-width: 330px;
+    height: auto;
 }
