@@ -725,9 +725,14 @@ def users(request):
 		return HttpResponse("Fewer than " + num_of_users + " places exist!")
 
 def submit_place(request):
-    if (not (request.user.is_authenticated)):
-        return HttpResponseRedirect(reverse('index'))
-    return render(request, 'placeholdr/submit_place.html', {})
+	if (not (request.user.is_authenticated)):
+		return HttpResponseRedirect(reverse('index'))
+	
+	user_form = UserForm()
+	password_form = PasswordForm()
+	profile_form = UserProfileForm()
+	
+	return render(request, 'placeholdr/submit_place.html', {'user_form': user_form, 'password_form': password_form, 'profile_form': profile_form})
 
 
 def submit_trip(request):

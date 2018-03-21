@@ -48,6 +48,17 @@ class PageForm(forms.ModelForm):
         # fields = ('title', 'url', 'views')
 
 
+class SubmitPlaceForm(forms.ModelForm):
+    placeName = forms.CharField(required=True, max_length=128)
+    placeDesc = forms.CharField(required=False, max_length=400)
+
+    class Meta:
+        model = Place
+        fields = ('name', 'desc', 'picLink', 'userId', 'lat', 'long', 'slug')
+        widgets = {
+            'picture': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
+        }
+		
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
