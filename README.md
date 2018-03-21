@@ -50,6 +50,17 @@ python manage.py migrate
 python populate_placeholdr.py
 ```
 
+SUMMARY
+
+```
+git clone https://github.com/WADPlaceholdr/Placeholdr.git
+cd Placeholdr
+pip install –r requirements.txt --yes
+$ mv placeholdr/deployment_variables.py.conf placeholdr/deployment_variables.py
+python manage.py migrate
+python populate_placeholdr.py
+```
+
 
 ## Support
 for support please submit an issue on [GitHub](https://github.com/WADPlaceholdr/Placeholdr/issues)
