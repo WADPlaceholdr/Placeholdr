@@ -39,19 +39,27 @@
 <div class="seperator"></div>
 <div class="row">
 	<h3 class="center">Favourite Place</h3>
+</div>
+<div class="col">
+	<p class="center">
     {% if userProfile.favPlace %}
-        {{ userProfile.favPlace }}
+        {% include "placeholdr/place_trip_card.html" with object=userProfile.favPlace long=True%}
     {% else %}
         {{ userProfile.user }} hasn't chosen a favourite place!
     {% endif %}
+	</p>
 </div>
 <br>
 <div class="seperator"></div>
 <div class="row">
 	<h3 class="center">Recommended Trip</h3>
+</div>
+<div class="col">
+	<p class="center">
     {% if userProfile.recommendedTrip %}
-        {{ userProfile.recommendedTrip }}
+		{% include "placeholdr/place_trip_card.html" with object=recTrip.0 trip=recTrip long=True %}
     {% else %}
         {{ userProfile.user }} hasn't chosen a favourite trip!
     {% endif %}
+	</p>
 </div>

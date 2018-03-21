@@ -335,7 +335,8 @@ def show_account(request):
     user = request.user
     # get logged in userProfile object
     userProfile = UserProfile.objects.get(user_id=user.id)
-    return render(request, 'placeholdr/account.html', {'user': user, "userProfile": userProfile})
+    recTrip = trip_pic_helper(userProfile.recommendedTrip)
+    return render(request, 'placeholdr/account.html', {'user': user, "userProfile": userProfile, "recTrip": recTrip})
 
 
 @login_required
