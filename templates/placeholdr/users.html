@@ -1,0 +1,99 @@
+{% extends 'placeholdr/base.html' %}
+{% load staticfiles %}
+{% load placeholdr_filters %}
+
+{% block title_block %}
+	Users
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}" />
+{% endblock %}
+
+{% block body_block %}
+	<div class="container">
+		{% if top or active or random %}
+		<div class="row">
+			<h1>Top Users</h1>
+		</div>
+		<div class="row">
+			<div class="card-deck">
+				{% for userProfile in top %}
+					<div class="card peopleCard wow animated slideInRight">
+						<a href="/placeholdr/user/{{ userProfile.user.username }}">
+						{% if userProfile.picture %}
+							<img class="card-img-top" src="{{ userProfile.picture.url }}" alt="{{ userProfile.user.username }}'s picture">
+						{% else %}
+							<img class="card-img-top" src="{% static 'images/defaultuser.png' %}" alt="default">
+						{% endif %}
+						</a>
+						<div class="card-body">
+							<h4 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h4>
+							<p class="card-text">Lives in {{ userProfile.livesIn }}</p>
+						</div>
+						<div class="card-footer">
+							<p class="card-text">Rep {{ userProfile.rep }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		
+		<div class="row">
+			<h1 class="title">Active Users</h1>
+		</div>
+		<div class="row">
+			<div class="card-deck">
+				{% for userProfile in active %}
+					<div class="card peopleCard wow animated slideInRight">
+						<a href="/placeholdr/user/{{ userProfile.user.username }}">
+						{% if userProfile.picture %}
+							<img class="card-img-top" src="{{ userProfile.picture.url }}" alt="{{ userProfile.user.username }}'s picture">
+						{% else %}
+							<img class="card-img-top" src="{% static 'images/defaultuser.png' %}" alt="default">
+						{% endif %}
+						</a>
+						<div class="card-body">
+							<h4 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h4>
+							<p class="card-text">Lives in {{ userProfile.livesIn }}</p>
+						</div>
+						<div class="card-footer">
+							<p class="card-text">Rep {{ userProfile.rep }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		
+		<div class="row">
+			<h1>Check Out These Users!</h1>
+		</div>
+		<div class="row">
+			<div class="card-deck">
+				{% for userProfile in random %}
+					<div class="card peopleCard wow animated slideInRight">
+						<a href="/placeholdr/user/{{ userProfile.user.username }}">
+						{% if userProfile.picture %}
+							<img class="card-img-top" src="{{ userProfile.picture.url }}" alt="{{ userProfile.user.username }}'s picture">
+						{% else %}
+							<img class="card-img-top" src="{% static 'images/defaultuser.png' %}" alt="default">
+						{% endif %}
+						</a>
+						<div class="card-body">
+							<h4 class="card-title"><a href="/placeholdr/user/{{ userProfile.user.username }}">{{ userProfile.user.username }}</a></h4>
+							<p class="card-text">Lives in {{ userProfile.livesIn }}</p>
+						</div>
+						<div class="card-footer">
+							<p class="card-text">Rep {{ userProfile.rep }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		
+		
+		{% else %}
+			<h3>There are fewer than {{ count }} users!</h3>
+		{% endif %}
+	</div>
+{% endblock %}

@@ -37,6 +37,8 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     # Delete account page
     url(r'^account/delete', views.delete_user, name='delete_user'),
+	# Navbar users page
+	url(r'^users', views.users, name='users'),
 
     ## Place related URLS
     # Place page

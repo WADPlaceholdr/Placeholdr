@@ -626,7 +626,6 @@ def new_places(request):
 
 
 def popular_places(request):
-    # If we have a User object, the details are correct
     num_of_places = 6
     if Place.objects.all().count() >= num_of_places:
         pop = []
@@ -679,7 +678,6 @@ def new_trips(request):
 
 
 def popular_trips(request):
-    # If we have a User object, the details are correct
     num_of_places = 6
     if Trip.objects.all().count() >= num_of_places:
         pop = []
@@ -700,6 +698,27 @@ def popular_trips(request):
     else:
         return HttpResponse("Fewer than " + num_of_places + " places exist!")
 
+def users(request):
+#UserProfile.objects.select_related('user').order_by('-rep')[:nbrOfTops + 2]
+	num_of_users = 6
+	all_users = UserProfile.objects.all()
+	all_users_plus = []
+	for user in all_users:
+		num_of_reviews = PlaceReview.objects.filter(userId=user.id).count() + TripReview.objects.filter(userId=user.id).count()
+		all_users_plus.append([user, num_of_reviews])
+	if all_users.count() >= num_of_users:
+		top_users = []
+		active_users = []
+		random_users = []
+		top_users = UserProfile.objects.select_related('user').order_by('-rep')[:num_of_users]
+		random_users = UserProfile.objects.select_related('user').order_by('?')[:num_of_users]
+		active_users_plus = sorted(all_users_plus, key=lambda x: x[1], reverse=True)[:num_of_users]
+		for user in active_users_plus:
+			active_users.append(user[0])
+		return render(request, 'placeholdr/users.html',
+		{'top': top_users, 'active': active_users, 'random': random_users, 'count': num_of_users})
+	else:
+		return HttpResponse("Fewer than " + num_of_users + " places exist!")
 
 def submit_place(request):
     if (not (request.user.is_authenticated)):

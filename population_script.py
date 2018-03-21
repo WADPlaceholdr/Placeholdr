@@ -21,7 +21,7 @@ def populate():
         {"username": "michael", "password": "pass1357",
          "bio": "Just a dad looking for some places suggested by some like-minded people!",
          "livesIn": "London", "rep": 2360,
-         "picture": "",#urllib.request.urlretrieve("https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg", 'media/profile_images/michael.jpg')[0]
+         "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/3/3b/Jens_Fink-Jensen.jpg", 'media/profile_images/michael.jpg')[0], #"https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg"
          "favPlace": 1, "recommendedTrip": 4
          },
 
@@ -61,6 +61,35 @@ def populate():
          "livesIn": "Edinburgh", "rep": 100,
 
          "picture": ""#urllib.request.urlretrieve("https://www.gla.ac.uk/media/media_209689_en.jpg", 'media/profile_images/david.jpg')[0]
+         },
+		 
+		 # 7
+        {"username": "gustavethetower", "password": "pass1357",
+         "bio": "I am the greatest architect to ever live, prove me wrong",
+         "livesIn": "Paris", "rep": 450,
+
+         "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/7/7f/Caricature_Gustave_Eiffel.png", 'media/profile_images/gustave.jpg')[0]
+         },
+		 
+		 # 8
+        {"username": "ocin", "password": "pass1357",
+         "bio": "Oh flower of Scotland!",
+         "livesIn": "Paisley", "rep": 12,
+         "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/d/d4/Igel01.jpg", 'media/profile_images/ocin.jpg')[0]
+         },
+		 
+		 # 9
+        {"username": "homerj", "password": "pass1357",
+         "bio": "No TV and no beer make Homer something something... ",
+         "livesIn": "Springfield", "rep": 780,
+         "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png", 'media/profile_images/homer.jpg')[0]
+         },
+		 
+		 # 10
+        {"username": "fawkes", "password": "pass1357",
+         "bio": "Firework Fanatic",
+         "livesIn": "London", "rep": 400,
+         "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/0/01/Gaj_Foksi.jpg", 'media/profile_images/fawkes.jpg')[0]
          }
     ]
 
