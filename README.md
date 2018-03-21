@@ -11,9 +11,14 @@ a live demo is available at https://placeholdr.pythonanywhere.com/
 (see [requirements.txt](https://github.com/WADPlaceholdr/Placeholdr/blob/master/requirements.txt))
 * Python 3.x
 * pip
-* Django 1.11.7
-* django-bootstrap4
-* Pillow
+* Django==1.11.7
+* django-bootstrap4==0.0.6
+* django-csp==3.3
+* django-mathfilters==0.4.0
+* django-referrer-policy==1.0
+* Pillow==5.0.0
+* pytz==2018.3
+* selenium==3.11.0
 
 ## Installation
 clone this repository
