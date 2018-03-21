@@ -9,8 +9,8 @@ a live demo is available at https://placeholdr.pythonanywhere.com/
 
 ## Requirements
 (see [requirements.txt](https://github.com/WADPlaceholdr/Placeholdr/blob/master/requirements.txt))
-* Python 3.x
-* pip
+* Python 3.6.x
+* pip3
 * Django==1.11.7
 * django-bootstrap4==0.0.6
 * django-csp==3.3
