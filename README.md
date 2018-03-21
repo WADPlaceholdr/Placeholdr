@@ -29,10 +29,10 @@ git clone https://github.com/WADPlaceholdr/Placeholdr.git
 install requirements
 ```
 cd Placeholdr
-pip install –r requirements.txt
+pip install –r requirements.txt --yes
 ```
 
-*optional* create deployment_variables.py
+**optional** create deployment_variables.py
 (don't use for development/test environment, deployment only)
 (default conf file uses HTTPS with HTST and all security headers strictly configured
 ```
@@ -45,7 +45,7 @@ create database
 python manage.py migrate
 ```
 
-*optional* populate placeholdr with sample data
+**optional** populate placeholdr with sample data
 ```
 python populate_placeholdr.py
 ```
