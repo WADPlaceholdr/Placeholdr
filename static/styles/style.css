@@ -70,6 +70,12 @@ body {
     object-fit: cover;
 }
 
+.place img{
+	width:100%;
+	max-height: 700px;
+	object-fit: cover;
+}
+
 /* 2 picture style */
 img.tripA1 {
     -webkit-clip-path: polygon(0 0, 85% 0, 15% 100%, 0% 100%);
