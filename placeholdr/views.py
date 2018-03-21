@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
-from placeholdr.forms import UserForm, PasswordForm, UserProfileForm, ChangeUserForm
+from placeholdr.forms import UserForm, PasswordForm, UserProfileForm, ChangeUserForm, ChangePasswordForm
 from placeholdr.search import normalize_query, get_query
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -366,11 +366,50 @@ def edit_profile(request):
         else:
             print(user_form.errors, profile_form.errors)
     else:
-        print("user when redering forms" + str(user))
         user_form = ChangeUserForm(instance=user)
         profile_form = UserProfileForm(instance=user)
 
     return render(request, 'placeholdr/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
+@login_required
+def change_password(request):
+    # get logged in user object
+    user = request.user
+    userProfile = UserProfile.objects.get(user_id=user.id)
+
+    # If it's a HTTP POST, we're interested in processing form data
+    if request.method == 'POST':
+        # Attempt to get information from the form
+        password_form = ChangePasswordForm(data=request.POST, instance=user)
+
+        # If the two forms are valid
+        if password_form.is_valid():
+            password = password_form.cleaned_data['password']
+            if authenticate(username=user, password=password):
+                new_password = password_form.cleaned_data['new_password']
+                confirm_new_password = password_form.cleaned_data['confirm_new_password']
+                if new_password == confirm_new_password:
+                    # Hash the password then update the user object
+                    user.set_password(new_password)
+                    user.save()
+                else:
+                    error = "passwords did not match"
+                    return render(request, 'placeholdr/change_password.html',
+                                  {'password_form': password_form, 'error':error})
+            else:
+                # Bad login details provided
+                print("Invalid login details: {0}, {1}".format(user, password))
+                error = "Invalid login details supplied."
+                return render(request, 'placeholdr/change_password.html',
+                              {'password_form': password_form, 'error': error})
+
+        else:
+            print(password_form.errors)
+    else:
+        password_form = ChangePasswordForm(instance=user)
+
+    return render(request, 'placeholdr/change_password.html', {'password_form': password_form})
 
 
 @login_required

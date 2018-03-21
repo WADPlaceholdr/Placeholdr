@@ -53,17 +53,14 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email')
 
-class ChangeUserForm(forms.ModelForm):
-    username = forms.CharField(required=False)
-    class Meta:
-        model = User
-        fields = ('username', 'email')
 
 class PasswordForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
+
     class Meta:
         model = User
         fields = ('password',)
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -72,3 +69,21 @@ class UserProfileForm(forms.ModelForm):
         widgets = {
             'picture': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
         }
+
+
+class ChangeUserForm(forms.ModelForm):
+    username = forms.CharField(required=False)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+
+class ChangePasswordForm(forms.ModelForm):
+    password = forms.CharField(required=True, widget=forms.PasswordInput())
+    new_password = forms.CharField(required=True, widget=forms.PasswordInput())
+    confirm_new_password = forms.CharField(required=True, widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('password', 'new_password', 'confirm_new_password')
