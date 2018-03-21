@@ -1,7 +1,7 @@
 from django.db import models
 from django.test import TestCase
 from placeholdr.models import Place, UserProfile, PlaceReview, Trip, TripNode, TripReview
-from placeholdr.forms import RegistrationForm
+from placeholdr.forms import UserProfileForm
 from django.contrib import auth
 from django.contrib.auth.models import User
 import population_script
@@ -251,14 +251,19 @@ class ContentTests(TestCase):
 class FormTests(TestCase):
     def setUp(self):
         self.user = create_user()
+        self.place = create_place(self.user)
+        self.trip = create_multiple_trips(self.user)[0]
 
     def test_registration_form_is_displayed_correctly(self):
         None
 
     def test_registration_form_is_valid(self):
-        form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "picture": None}
-        form = RegistrationForm(data=form_data)
-        self.assertTrue(form.is_valid())
+        # TODO: populating a select field
+        #form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "picture": None, "favPlace": (1, "Atomium"), "recommendedTrip": (2, "Papercup Glasgow")}
+        #form = UserProfileForm(data=form_data)
+        #print (form.errors)
+        #self.assertTrue(form.is_valid())
+        None
 
     # TODO
     # Submit place form

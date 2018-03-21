@@ -21,7 +21,8 @@ def populate():
         {"username": "michael", "password": "pass1357",
          "bio": "Just a dad looking for some places suggested by some like-minded people!",
          "livesIn": "London", "rep": 2360,
-         "picture": ""#urllib.request.urlretrieve("https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg", 'media/profile_images/michael.jpg')[0]
+         "picture": "",#urllib.request.urlretrieve("https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg", 'media/profile_images/michael.jpg')[0]
+         "favPlace": 1, "recommendedTrip": 4
          },
 
         # 2

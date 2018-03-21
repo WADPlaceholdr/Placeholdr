@@ -38,10 +38,20 @@
 </div>
 <div class="seperator"></div>
 <div class="row">
-	<h3 class="center">Favourite Places</h3>
+	<h3 class="center">Favourite Place</h3>
+    {% if userProfile.favPlace %}
+        {{ userProfile.favPlace }}
+    {% else %}
+        {{ userProfile.user }} hasn't chosen a favourite place!
+    {% endif %}
 </div>
 <br>
 <div class="seperator"></div>
 <div class="row">
 	<h3 class="center">Recommended Trip</h3>
+    {% if userProfile.recommendedTrip %}
+        {{ userProfile.recommendedTrip }}
+    {% else %}
+        {{ userProfile.user }} hasn't chosen a favourite trip!
+    {% endif %}
 </div>

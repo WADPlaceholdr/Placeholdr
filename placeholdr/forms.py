@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from placeholdr.models import Page, Category, UserProfile
+from placeholdr.models import Page, Category, UserProfile, Place, Trip
 
 
 class CategoryForm(forms.ModelForm):
@@ -63,9 +63,12 @@ class PasswordForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    favPlace = forms.ModelChoiceField(queryset=Place.objects.all(), required=False)
+    recommendedTrip = forms.ModelChoiceField(queryset=Trip.objects.all(), required=False)
+
     class Meta:
         model = UserProfile
-        fields = ('bio', 'livesIn', 'picture')
+        fields = ('bio', 'livesIn', 'picture', 'favPlace', 'recommendedTrip')
         widgets = {
             'picture': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
         }
