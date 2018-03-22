@@ -63,7 +63,7 @@ function reset_page() {
             dataType: 'json',
             data: {
                 'csrfmiddlewaretoken': getCookie('csrftoken'),
-                'task': document.getElementById("task").innerHTML,
+                'task': document.getElementById("task").innerHTML + "_review",
                 'slug': document.getElementById("slug").innerHTML,
                 'review': document.getElementById("r_review").value + " ",
                 'stars': document.getElementById("r_stars").value
@@ -81,7 +81,56 @@ function reset_page() {
             }
         });
     });
+	
+	do_rep(0);
 
+}
+
+function do_rep(value){
+	
+	$.ajax({
+            type: "POST",
+            url: "/placeholdr/ajax/",
+            dataType: 'json',
+            data: {
+                'csrfmiddlewaretoken': getCookie('csrftoken'),
+                'task': document.getElementById("task").innerHTML + "_rep",
+                'slug': document.getElementById("slug").innerHTML,
+                'rep': value
+            },
+            success: function (data) {
+                response = data;
+
+				rep_val = data.rep;
+				
+				if (rep_val == "1"){
+					document.getElementById("repup").src = document.getElementById("repup").src.replace(".png", "_dark.png");
+					document.getElementById("repdown").src = document.getElementById("repdown").src.replace("_dark", "");
+					
+					document.getElementById("repup").setAttribute("onClick","");
+					document.getElementById("repdown").setAttribute("onClick","do_rep(-1)");
+				}else if(rep_val == "-1"){
+					document.getElementById("repdown").src = document.getElementById("repdown").src.replace(".png", "_dark.png");
+					document.getElementById("repup").src = document.getElementById("repup").src.replace("_dark", "");
+					
+					document.getElementById("repup").setAttribute("onClick","do_rep(1)");
+					document.getElementById("repdown").setAttribute("onClick","");
+				}else{
+					document.getElementById("repup").src = document.getElementById("repup").src.replace("_dark", "");
+					document.getElementById("repdown").src = document.getElementById("repdown").src.replace("_dark", "");
+					
+					document.getElementById("repup").setAttribute("onClick","do_rep(1)");
+					document.getElementById("repdown").setAttribute("onClick","do_rep(-1)");
+				}
+
+            },
+			error: function (data) {
+				if (value != 0){
+					alert("Please login to rate a user");
+				}
+			}
+        });
+	
 }
 
 

@@ -1,5 +1,6 @@
 {% load mathfilters %}
 {% load placeholdr_filters %}
+{% load staticfiles %}
 
 <div class="col">
     <div class="row">
@@ -28,6 +29,10 @@
                     <h2>0</h2>
                 {% endif %}
             </div>
+			<div class="row text-center" id="rep_section">
+				<img src="{% static 'images/uprep.png' %}" id="repup" onclick="do_rep(1)">
+				<img src="{% static 'images/downrep.png' %}" id="repdown" onclick="do_rep(-1)">
+			</div>
             <div class="row text-center">
                 <p>
                 {% with stars=object.get_stars %}
