@@ -18,14 +18,11 @@
 			</div>
 			<div class="row spaced">
 				<div class="col">
-					<div class="row">
-						<h2>Pictures</h2>
-					</div>
 					<div class="row place">
 						{% if place.picLink %}
-                            <img src="{{place.picLink.url}}" alt="Picture of {{ place.name }}"></img>
+                            <img class="img-thumbnail" src="{{place.picLink.url}}" alt="Picture of {{ place.name }}"></img>
                         {% else %}
-                            <img src="{% static 'images/defaultimage.png' %}" alt="placeholder"></img>
+                            <img class="img-thumbnail" src="{% static 'images/defaultimage.png' %}" alt="placeholder"></img>
                         {% endif %}
 					</div>
 				</div>
