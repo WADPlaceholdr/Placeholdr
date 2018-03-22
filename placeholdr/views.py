@@ -8,7 +8,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
-from django.utils.encoding import iri_to_uri
 from django.db.models import Count
 import json, re
 
@@ -29,9 +28,6 @@ from placeholdr.models import UserProfile
 # Import the Tag models
 from placeholdr.models import PlaceTag
 from placeholdr.models import TripTag
-
-# Import the PageForm
-from placeholdr.forms import PageForm
 
 
 ################################################ PLACE ################################################
@@ -268,19 +264,22 @@ def submit_trip(request):
     user = request.user
     userProfile = UserProfile.objects.get(user_id=user.id)
 
-    # If it's a HTTP POST, we're interested in processing form data
-    if request.method == 'POST':
-        trip_form = SubmitTripForm(data=request.POST)
-        # If the two forms are valid
-        if trip_form.is_valid():
-            # Save the user's form data to the database
-            trip = trip_form.save()
-        else:
-            print(trip_form.errors, trip_form.errors)
-    else:
-        trip_form = SubmitTripForm()
+    trip_form = None
+    entry_query = None
+    found_places = None
+    found = None
+    query_string = ''
+    search_fields = ('name', 'desc')
 
-    return render(request, 'placeholdr/submit_trip.html', {'trip_form': trip_form})
+    if ('q' in request.GET) and request.GET['q'].strip():
+        query_string = request.GET['q']
+
+        entry_query = get_query(query_string, search_fields)
+        found_places = Place.objects.filter(entry_query).order_by('id')
+        found = found_places.exists()
+
+    return render(request, 'placeholdr/submit_trip.html',
+                  {'query_string': query_string, 'found': found, 'found_places': found_places, 'trip_form': trip_form})
 
 
 ################################################ PLACE OR TRIP ################################################

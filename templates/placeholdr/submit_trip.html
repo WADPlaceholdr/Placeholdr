@@ -12,7 +12,7 @@
 {% block body_block %}
     <div class="container">
         <div class="row">
-            <form class="form-inline my-2 my-lg-0" id="body-search-form" action="{% url 'search' %}" method="GET">
+            <form class="form-inline my-2 my-lg-0" id="body-search-form" action="{% url 'submit_trip' %}" method="GET">
                 <div class="row search">
                         <div class="col">
                             <input id="body-search-bar" class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
@@ -31,21 +31,15 @@
             <div class="row">
                 <div class="col">
                     {% for place in found_places %}
-                        <div class="row-2">
-                            <a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
-                            <p>{{ place.desc|striptags }}</p>
-                        </div>
-                    {% endfor %}
-                    {% for trip in found_trips %}
-                        <div class="row-2">
-                            <a href="/placeholdr/trip/{{ trip.slug }}">{{ trip.name }}</a><br/>
-                            <p>{{ trip.desc|striptags }}</p>
-                        </div>
-                    {% endfor %}
-                    {% for currentUser in found_users %}
-                        <div class="row-2">
-                            <a href="/placeholdr/user/{{ currentUser }}">{{ currentUser }}</a><br/>
-                            <p>{{ currentUser.bio|striptags }}</p>
+                        <div class="row">
+                            <div class="col">
+                                <a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
+                                <p>{{ place.desc|striptags }}</p>
+
+                            </div>
+                            <div class="col-xs align-self-center">
+                                <button type="button" class="btn btn-success align-middle" id="{{ place.slug }}">Add to Trip</button>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
