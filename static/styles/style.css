@@ -256,9 +256,6 @@ img.tripC4 {
     margin-right: 3px;
 }
 
-#navbarDropdown4::after {
-}
-
 #username {
     display: inline-block;
     width: 120px; /* the element needs a fixed width (in px, em, %, etc) */

@@ -117,15 +117,13 @@
 									<img class="img-thumbnail user-picture" id="navbar-user-picture" src="{% static 'images/defaultuser.png' %}"></img>
 								{% endif %}
 							{% else %}
-								<img class="img-thumbnail user-picture invisible" id="navbar-user-picture" src="{% static 'images/blank.png' %}"></img>
+								<img class=" " id="navbar-user-picture" src="{% static 'svg/person.svg' %}"></img>
 							{% endif %}
-							<div id="username">
-								{% if user.is_authenticated %}
-									{{ loggedUser.username }}
-								{% else %}
-									Hello, stranger!
-								{% endif %}
-							</div>
+                            {% if user.is_authenticated %}
+                                {{ loggedUser.username|truncatechars:10|ljust:"100" }}
+                            {% else %}
+                                Hello Stranger
+                            {% endif %}
 						</a>
 						<div class="dropdown-menu animated fadeInDown" aria-labelledby="navbarDropdown4">
 							{% if user.is_authenticated %}

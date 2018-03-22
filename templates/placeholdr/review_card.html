@@ -16,6 +16,6 @@
 		</h5>
 		<p>{{ review.stars }}/5</p>
 		<p class="card-text">{{ review.review|striptags }}</p>
-		<p class="card-text"><small class="text-muted">Last updated {{ review.modified_date }}</small></p>
+		<p class="card-text"><small class="text-muted">Last updated {{ review.modified_date|timesince }} ago</small></p>
 	</div>
 </div>
