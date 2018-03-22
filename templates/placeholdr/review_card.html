@@ -1,5 +1,7 @@
 {% load staticfiles %}
+{% load mathfilters %}
 {% load placeholdr_filters %}
+
 <div class="card reviewCard wow animated fadeInUp">
 	<div class="card-body">
 		<h5 class="card-title">
@@ -14,7 +16,20 @@
 				{{ review.userId }}
 			</a>
 		</h5>
-		<p>{{ review.stars }}/5</p>
+        <p>
+        {% with stars=review.stars %}
+            {% with int_stars=stars|floatformat:"0" %}
+                {% for i in int_stars|times %}
+                    &#9733
+                {% endfor %}
+                {% with empty_stars=5|sub:int_stars %}
+                    {% for i in empty_stars|times %}
+                        &#9734
+                    {% endfor %}
+                {% endwith %}
+            {% endwith %}
+        {% endwith %}
+		</p>
 		<p class="card-text">{{ review.review|striptags }}</p>
 		<p class="card-text"><small class="text-muted">Last updated {{ review.modified_date|timesince }} ago</small></p>
 	</div>
