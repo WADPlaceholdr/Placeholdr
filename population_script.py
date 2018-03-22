@@ -111,7 +111,7 @@ def populate():
          "desc": "Speciality Coffee & OG Brunch based in Glasgow, Scotland. "
                  "A speciality coffee roaster and cafe, putting avocado on toast since 2012.",
          "name": "Papercup Glasgow",
-         "picLink": ""#urllib.request.urlretrieve("https://media.timeout.com/images/102920974/image.jpg", 'media/place_images/papercup.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/8/84/Caf%C3%A9_M%C3%A9lange%2C_Wien.jpg", 'media/place_images/papercup.jpg')[0]
          },
 
         # 3
@@ -119,7 +119,7 @@ def populate():
          "desc": "Located in one of the West End's most vibrant & community spirited streets, "
                  "you'll find the Glaswegian hub of Artisan Roast.",
          "name": "Artisan Roast",
-         "picLink": ""#urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
+         "picLink": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/2/27/Arrow_Hotel_interior_coffee_shop_2.JPG", 'media/place_images/artisan.jpg')[0]
          },
 
         # 4
