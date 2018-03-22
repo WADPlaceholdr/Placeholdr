@@ -22,7 +22,6 @@ def populate():
          "bio": "Just a dad looking for some places suggested by some like-minded people!",
          "livesIn": "London", "rep": 2360,
          "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/3/3b/Jens_Fink-Jensen.jpg", 'media/profile_images/michael.jpg')[0], #"https://previews.123rf.com/images/libertos/libertos1205/libertos120500022/13701871-cheerful-middle-aged-man-in-a-baseball-cap-.jpg"
-         "favPlace": 1, "recommendedTrip": 4
          },
 
         # 2
@@ -330,6 +329,10 @@ def populate():
         {"userId": 4, "tripId": 6, "stars": 4, "review": "Could be better"},
     ]
 
+    users_fav = [
+        {"username": "michael", "favPlace": 2, "recommendedTrip": 3}
+    ]
+
     for user in users:
         corrected_image_url = user["picture"].replace("media/","")
         us = add_user(user["username"], user["password"], user["bio"], user["livesIn"], user["rep"], corrected_image_url)
@@ -349,6 +352,9 @@ def populate():
 
     for trip_n in tripNodes:
         t_n = add_trip_node(trip_n["tripId"], trip_n["placeId"], trip_n["tripPoint"])
+
+    for fav in users_fav:
+        f = add_favourites(fav["username"], fav["favPlace"], fav["recommendedTrip"])
 
 
 def add_user(name, pword, bio, livesIn, rep, picture):
@@ -388,6 +394,14 @@ def add_trip_review(trUId, trTId, trS, trR):
     return tr
 
 
+def add_favourites(username, pid, tid):
+    u = User.objects.get_or_create(username=username)[0]
+    up = UserProfile.objects.get_or_create(user=u)[0]
+    up.favPlace = Place.objects.get_or_create(pk=pid)[0]
+    up.recommendedTrip = Trip.objects.get_or_create(pk=tid)[0]
+    up.save()
+
 if __name__ == '__main__':
     print("Starting Placeholdr (tm) population script...")
     populate()
+    print("Populated!")
