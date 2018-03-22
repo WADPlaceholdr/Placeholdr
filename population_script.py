@@ -62,7 +62,7 @@ def populate():
 
          "picture": ""#urllib.request.urlretrieve("https://www.gla.ac.uk/media/media_209689_en.jpg", 'media/profile_images/david.jpg')[0]
          },
-		 
+
 		 # 7
         {"username": "gustavethetower", "password": "pass1357",
          "bio": "I am the greatest architect to ever live, prove me wrong",
@@ -70,21 +70,21 @@ def populate():
 
          "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/7/7f/Caricature_Gustave_Eiffel.png", 'media/profile_images/gustave.jpg')[0]
          },
-		 
+
 		 # 8
         {"username": "ocin", "password": "pass1357",
          "bio": "Oh flower of Scotland!",
          "livesIn": "Paisley", "rep": 12,
          "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/commons/d/d4/Igel01.jpg", 'media/profile_images/ocin.jpg')[0]
          },
-		 
+
 		 # 9
         {"username": "homerj", "password": "pass1357",
          "bio": "No TV and no beer make Homer something something... ",
          "livesIn": "Springfield", "rep": 780,
          "picture": urllib.request.urlretrieve("https://upload.wikimedia.org/wikipedia/en/0/02/Homer_Simpson_2006.png", 'media/profile_images/homer.jpg')[0]
          },
-		 
+
 		 # 10
         {"username": "fawkes", "password": "pass1357",
          "bio": "Firework Fanatic",
@@ -119,7 +119,7 @@ def populate():
          "desc": "Located in one of the West End's most vibrant & community spirited streets, "
                  "you'll find the Glaswegian hub of Artisan Roast.",
          "name": "Artisan Roast",
-         "picLink": urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
+         "picLink": ""#urllib.request.urlretrieve("https://2.bp.blogspot.com/-aKTS_bOdIyc/Vxiadd9PPVI/AAAAAAAACU0/GP-pUTkoyicZfBS2ne6V5_a8eKM6Kw8twCLcB/s1600/Artisan_Roast_Glasgow_interior_1242.jpg", 'media/place_images/artisan.jpg')[0]
          },
 
         # 4
