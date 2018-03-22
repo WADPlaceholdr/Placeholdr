@@ -29,7 +29,7 @@
 		<img class="card-img-top tripA1" src="{{ trip.1.picLink.url}}" alt="{{ object.name }} picture"></img>
 		<img class="card-img-top tripA2" src="{{ trip.2.picLink.url}}" alt="{{ object.name }} picture"></img>
 	{% else %}
-		<img class="card-img-top" src="{% static 'images/no_image.png' %}" alt="no image"/>
+		<img class="card-img-top" src="{% static 'images/defaultimage.png' %}" alt="no image"/>
 	{% endif %}
 	</a>
 	<div class="card-body">

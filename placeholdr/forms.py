@@ -49,15 +49,18 @@ class PageForm(forms.ModelForm):
 
 
 class SubmitPlaceForm(forms.ModelForm):
-    placeName = forms.CharField(required=True, max_length=128)
-    placeDesc = forms.CharField(required=False, max_length=400)
+    name = forms.CharField(required=True, max_length=128)
+    desc = forms.CharField(required=False, max_length=400)
 
     class Meta:
         model = Place
-        fields = ('name', 'desc', 'picLink', 'userId', 'lat', 'long', 'slug')
+        fields = ('name', 'desc', 'picLink', 'lat', 'long')
         widgets = {
-            'picture': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
+            'picLink': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
         }
+
+class SubmitTripForm(forms.ModelForm):
+    print('test')
 		
 class UserForm(forms.ModelForm):
     class Meta:

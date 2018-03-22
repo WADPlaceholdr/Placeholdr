@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
-from placeholdr.forms import UserForm, PasswordForm, UserProfileForm, ChangeUserForm, ChangePasswordForm
+from placeholdr.forms import *
 from placeholdr.search import normalize_query, get_query
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -533,47 +533,6 @@ def get_reviews(request, isTrip, r_slug):
         render(request, 'placeholdr/review_section.html', {'reviews': reviews}).getvalue().decode('utf-8'))}
 
 
-def add_place_review(request):
-    # If it's a HTTP POST, we're interested in processing form data
-    if request.method == 'POST':
-        # Attempt to get information from the form
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
-
-        # If the two forms are valid
-        if user_form.is_valid() and profile_form.is_valid():
-            # Save the user's form data to the database
-            user = user_form.save()
-
-            # Hash the password then update the user object
-            user.set_password(user.password)
-            user.save()
-
-            profile = profile_form.save(commit=False)
-            profile.user = user
-
-            # Check if there's a profile picture
-            if 'picture' in request.FILES:
-                profile.picture = request.FILES['picture']
-            profile.picture.url = profile.picture.url.replace("media/", "")
-
-            # Save the UserProfile model instance
-            profile.save()
-
-            registered = True
-
-        else:
-
-            print(user_form.errors, profile_form.errors)
-    else:
-        user_form = UserForm()
-        password_form = PasswordForm()
-        profile_form = UserProfileForm()
-
-    return render(request, 'placeholdr/register.html',
-                  {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
-
-
 def star_helper(place, type):
     num_reviews = PlaceReview.objects.filter(placeId=place.id).count()
     place_stars = 0.0
@@ -724,18 +683,50 @@ def users(request):
 	else:
 		return HttpResponse("Fewer than " + num_of_users + " places exist!")
 
+@login_required
 def submit_place(request):
-	if (not (request.user.is_authenticated)):
-		return HttpResponseRedirect(reverse('index'))
-	
-	user_form = UserForm()
-	password_form = PasswordForm()
-	profile_form = UserProfileForm()
-	
-	return render(request, 'placeholdr/submit_place.html', {'user_form': user_form, 'password_form': password_form, 'profile_form': profile_form})
+    # get logged in user object
+    user = request.user
+    userProfile = UserProfile.objects.get(user_id=user.id)
+
+    # If it's a HTTP POST, we're interested in processing form data
+    if request.method == 'POST':
+        place_form = SubmitPlaceForm(data=request.POST)
+        # If the two forms are valid
+        if place_form.is_valid():
+            place = place_form.save(commit=False)
+            place.userId = userProfile
+
+            # Check if there's a picture
+            if 'picLink' in request.FILES:
+                place.picLink = request.FILES['picLink']
+
+            # Save the user's form data to the database
+            place = place_form.save()
+        else:
+            print(place_form.errors, place_form.errors)
+    else:
+        place_form = SubmitPlaceForm()
+
+    return render(request, 'placeholdr/submit_place.html', {'place_form': place_form})
 
 
+@login_required
 def submit_trip(request):
-    if (not (request.user.is_authenticated)):
-        return HttpResponseRedirect(reverse('index'))
-    return render(request, 'placeholdr/submit_place.html', {})
+    # get logged in user object
+    user = request.user
+    userProfile = UserProfile.objects.get(user_id=user.id)
+
+    # If it's a HTTP POST, we're interested in processing form data
+    if request.method == 'POST':
+        trip_form = SubmitTripForm(data=request.POST)
+        # If the two forms are valid
+        if trip_form.is_valid():
+            # Save the user's form data to the database
+            trip = trip_form.save()
+        else:
+            print(trip_form.errors, trip_form.errors)
+    else:
+        trip_form = SubmitTripForm()
+
+    return render(request, 'placeholdr/submit_trip.html', {'trip_form': trip_form})
