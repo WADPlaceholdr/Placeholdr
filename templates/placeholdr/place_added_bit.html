@@ -1,0 +1,16 @@
+{% load staticfiles %}
+{% load mathfilters %}
+{% load placeholdr_filters %}
+
+<div class="card reviewCard wow animated fadeInUp" id="{{ result.slug }}">
+	<div class="row">
+		<div class="col">
+			<a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
+			<p>{{ place.desc|striptags }}</p>
+
+		</div>
+		<div class="col-xs align-self-center">
+			<button type="button" class="btn btn-danger align-middle" id="{{place.slug}}_added" onclick="remove_place({{ place.slug }})">Remove From Trip</button>
+		</div>
+	</div>
+</div>

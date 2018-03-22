@@ -29,21 +29,12 @@
                 <p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
             </div>
             <div class="row">
-                <div class="col">
-                    {% for place in found_places %}
-                        <div class="row">
-                            <div class="col">
-                                <a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
-                                <p>{{ place.desc|striptags }}</p>
-
-                            </div>
-                            <div class="col-xs align-self-center">
-                                <button type="button" class="btn btn-success align-middle" id="{{ place.slug }}">Add to Trip</button>
-                            </div>
-                        </div>
-                    {% endfor %}
+                <div class="col" id="result_section">
+                    {% include "placeholdr/psearch_section.html" %}
                 </div>
             </div>
+			<div class="row" id="added_section">
+			</div>
         {% endif %}
 
         {% if query_string %}
@@ -71,4 +62,9 @@
             <p>Try to search in the bar above.</p>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block js_block %}
+	<script src="{% static 'js/add_trip.js' %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% load staticfiles %}
+{% load mathfilters %}
+{% load placeholdr_filters %}
+
+<div class="card reviewCard wow animated fadeInUp" id="{{ place.slug }}">
+	<div class="row">
+		<div class="col">
+			<a href="/placeholdr/place/{{ place.slug }}">{{ place.name }}</a><br/>
+			<p>{{ place.desc|striptags }}</p>
+
+		</div>
+		<div class="col-xs align-self-center">
+			<button type="button" class="btn btn-success align-middle" onclick="add_place('{{ place.slug }}')">Add to Trip</button>
+		</div>
+	</div>
+</div>
