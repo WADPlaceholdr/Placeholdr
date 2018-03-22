@@ -4,7 +4,7 @@
 {% load bootstrap4 %}
 
 {% block title_block %}
-	Register
+	Submit Place
 {% endblock %}
 
 {% block css_block %}
@@ -13,32 +13,18 @@
 
 {% block body_block %}
 	<div class="container" id="registration-container">
-		{% if registered %}
-            <h1>Thank you for registering!</h1><br>
-            <p>You have been logged in</p>
-            <p>You can view your account <a href="{% url 'account' %}">here</a></p>
-		{% else %}
-			{% if not user.is_authenticated %}
-				<h1>You are already registered</h1>
-			    <p>If you wish to create a new account, please <a href="{% url 'logout' %}">logout</a></p>
-			    <p>If you wish to delete your account, please go to <a href="{% url 'account' %}">your account</a></p>
-			{% else %}
-				<h1>Register for Placeholdr</h1>
-				<br>
-				<form id="user_form" method="post" action="{% url 'register' %}"
-					enctype="multipart/form-data">
-					{% csrf_token %}
+        <h1>Submit Place</h1>
+        <br>
+        <form id="user_form" method="post" action="{% url 'submit_place' %}"
+            enctype="multipart/form-data">
+            {% csrf_token %}
 
-					<!-- Display each form bootstrapped -->
-					{% bootstrap_form submit_place_form %}
-                    {% bootstrap_form password_form %}
-					{% bootstrap_form profile_form %}
+            <!-- Display each form bootstrapped -->
+            {% bootstrap_form place_form %}
 
-					<br>
-					<!-- Provide a button to click to submit the form -->
-					<button type="submit" class="btn btn-primary" id="register-button" name="submit" value="Register">Register</button>
-				</form>
-			{% endif %}
-		{% endif %}
+            <br>
+            <!-- Provide a button to click to submit the form -->
+            <button type="submit" class="btn btn-primary" id="register-button" name="submit" value="Register">Submit</button>
+        </form>
 	</div>
 {% endblock %}
