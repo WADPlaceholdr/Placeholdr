@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css_block %}
-	<link rel="stylesheet" type="text/css" href="{% static 'styles/search.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/submit_trip.css' %}" />
 {% endblock %}
 
 {% block body_block %}
@@ -27,7 +27,7 @@
 		<div class="row">
 			<p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
 		</div>
-		<div class="row">
+		<div class="row" id="result_section">
 			<div class="col" id="result_section">
 				{% include "placeholdr/psearch_section.html" %}
 			</div>

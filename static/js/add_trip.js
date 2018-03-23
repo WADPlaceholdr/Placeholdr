@@ -1,6 +1,6 @@
 function add_place(p_slug){
 	
-	document.getElementById(p_slug).style.visibility="hidden";
+	document.getElementById(p_slug).style.display="none";
 	
 	$.ajax({
 		type: "POST",

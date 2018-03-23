@@ -16,6 +16,7 @@
 <div class="row">
     <form class="center" id="user_form" method="post" action="">
         <div class="form-group">
+            {% csrf_token %}
             <label for="id_rep">Reputation</label>
             <input type="number" name="rep" value="{% if userProfile.rep or userProfile.rep == 0 %}{{ userProfile.rep }}{% else %}0{% endif %}"
             class="form-control" placeholder="{% if userProfile.rep or userProfile.rep == 0 %}{{ userProfile.rep }}{% else %}0{% endif %}"
