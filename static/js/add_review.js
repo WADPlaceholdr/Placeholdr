@@ -72,7 +72,6 @@ function reset_page() {
                 response = data;
 
                 document.getElementById("review_sec").innerHTML = response.rev_sec;
-                document.getElementById("star_rating").innerHTML = response.stars_string;
                 document.getElementById("tag_section").innerHTML = response.tags_string;
 
                 document.getElementById("r_review").value = ""
