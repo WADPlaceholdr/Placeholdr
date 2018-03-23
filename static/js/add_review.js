@@ -1,27 +1,9 @@
-/*
-function add_place_review(slug){
-	fix_stars();
-	
-	/*
-	var xhttp = new XMLHttpRequest();
-	var params = "task=add_place_review&slug="+slug+"&review="+document.getElementById("pr_review").value+"&stars="+document.getElementById("pr_stars");
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("review_section").innerHTML = this.responseText;
-		}
-	};
-	xhttp.open("POST", "/placeholdr/ajax", true);
-	xhttp.send(params);
-	
-}
-*/
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
             var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
@@ -74,6 +56,8 @@ function reset_page() {
                 document.getElementById("review_sec").innerHTML = response.rev_sec;
                 document.getElementById("tag_section").innerHTML = response.tags_string;
 
+				//document.getElementById("starz").innerHTML = response.starz;
+				
                 document.getElementById("r_review").value = ""
                 reset_page();
                 fix_tags();

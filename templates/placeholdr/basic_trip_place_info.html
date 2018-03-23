@@ -23,8 +23,15 @@
     </div>
     <div class="row align-items-center" >
         <div class="col-4 align-self-center">
+            <div class="row text-center" id="star_rating">
+                {% if stars %}
+                    <h2>{{ stars|floatformat:2  }}</h2>
+                {% else %}
+                    <h2>0</h2>
+                {% endif %}
+            </div>
             <div class="row text-center">
-                <p>
+                <p id="starz">
                 {% with stars=object.get_stars %}
                     {% with int_stars=stars|floatformat:"0" %}
                         {% for i in int_stars|times %}
