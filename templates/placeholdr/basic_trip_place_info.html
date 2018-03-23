@@ -60,6 +60,16 @@
                 </p>
             </div>
 			</a>
+			
+			<div class="row">
+			<p>
+			{% if user %}
+				Submitted by <a href="/placeholdr/user/{{user}}">{{user}}</a>
+			{% else %}
+				Submitted by Placeholdr
+			{% endif %}
+			</p>
+			</div>
         </div>
         <div class="col">
             <div class="row align-items-center">
@@ -81,6 +91,7 @@
         </div>
     </div>
 </div>
+
 <div class="col-sm">
     {% if mapsUrl %}
         {% if trip_nodes %}
