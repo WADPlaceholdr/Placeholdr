@@ -42,6 +42,7 @@ DEBUG = True
 
 REFERRER_POLICY = "no-referrer-when-downgrade"
 CSP_REPORT_ONLY = True
+CSP_DEFAULT_SRC = ('*', 'unsafe-inline', 'unsafe-eval' )
 
 ALLOWED_HOSTS = ['*']
 
@@ -56,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'mathfilters',
+    'geoposition',
     'placeholdr',
 ]
 
@@ -141,13 +143,19 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
+#STATIC_ROOT = STATIC_DIR
 STATICFILES_DIRS = [STATIC_DIR, ]
 
+
+
+GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyBGavxVnsakSrZRryrjOt3_GrbZe1XhNCk'
+
+# Deoployment variables
 try:
     from .deployment_variables import *
 

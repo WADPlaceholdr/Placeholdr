@@ -8,7 +8,7 @@ class SubmitPlaceForm(forms.ModelForm):
 
     class Meta:
         model = Place
-        fields = ('name', 'desc', 'picLink', 'lat', 'long')
+        fields = ('name', 'desc', 'picLink','position')
         widgets = {
             'picLink': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
         }

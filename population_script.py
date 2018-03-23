@@ -2,17 +2,21 @@
 
 import os
 
+from geoposition import Geoposition
+
+from placeholdr_project import settings
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'placeholdr_project.settings')
-
+from geoposition.fields import GeopositionField
 import django
 
 django.setup()
+#settings.configure()
 
 from placeholdr.models import User, UserProfile, Place, Trip, TripNode, TripReview, PlaceReview
 from django.template.defaultfilters import slugify
 import urllib.request
-
 
 def populate():
     # Much secure
@@ -370,7 +374,7 @@ def add_user(name, pword, bio, livesIn, rep, picture):
 
 
 def add_place(puserId, plat, plong, pdesc, pname, ppic):
-    p = Place.objects.get_or_create(name=pname, userId=UserProfile.objects.get(pk=puserId), lat=plat, long=plong, desc=pdesc,
+    p = Place.objects.get_or_create(name=pname, userId=UserProfile.objects.get(pk=puserId), position=Geoposition(float(plat),float(plong)), desc=pdesc,
                                     picLink=ppic,
                                     slug=slugify(pname))[0]
     return p

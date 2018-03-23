@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils.encoding import uri_to_iri
 
 from django.core.validators import MaxValueValidator
+from geoposition.fields import GeopositionField
 
 
 class UserProfile(models.Model):
@@ -29,6 +30,7 @@ class Place(models.Model):
     userId = models.ForeignKey(UserProfile)
     lat = models.CharField(max_length=20)
     long = models.CharField(max_length=20)
+    position = GeopositionField()
     desc = models.CharField(max_length=400)
     picLink = models.ImageField(upload_to='place_images', blank=True)
     slug = models.SlugField(unique=True)
@@ -54,7 +56,10 @@ class Place(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        self.lat = str(self.position.latitude)
+        self.long = str(self.position.longitude)
         super(Place, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.name
