@@ -47,7 +47,7 @@ python manage.py migrate
 
 **optional** populate placeholdr with sample data
 ```
-python populate_placeholdr.py
+python population_script.py
 ```
 
 SUMMARY
@@ -58,7 +58,7 @@ cd Placeholdr
 pip install –r requirements.txt --yes
 $ mv placeholdr/deployment_variables.py.conf placeholdr/deployment_variables.py
 python manage.py migrate
-python populate_placeholdr.py
+python population_script.py
 ```
 
 
