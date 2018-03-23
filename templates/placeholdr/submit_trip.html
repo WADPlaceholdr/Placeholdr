@@ -1,0 +1,67 @@
+{% extends 'placeholdr/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block css_block %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/submit_trip.css' %}" />
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="row">
+            
+                <div class="row search">
+                        <div class="col">
+                            <input id="searchy" class="form-control mr-sm-2" name="q" type="search" placeholder="Search" onkeyup="search_for_places()" aria-label="Search">
+                        </div>
+                        <div class="col-xs">
+                            <button class="btn btn-outline-success my-2 my-sm-0" onclick="search_for_places()">Search</button>
+                        </div>
+                </div>
+            
+        </div>
+
+		<div class="row">
+			<p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
+		</div>
+		<div class="row" id="result_section">
+			<div class="col" id="result_section">
+				{% include "placeholdr/psearch_section.html" %}
+			</div>
+		</div>
+		<div class="row" id="added_section">
+		</div>
+        {% if query_string %}
+            {% if not found %}
+                <p>No results found for <b>{{ query_string }}</b>.</p>
+                {% if user.is_authenticated %}
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-3">
+                            <p> Feel free to add {{ query_string }}: </p>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-outline-secondary" href="">Add a Trip</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-outline-secondary" href="">Add a Place</button>
+                        </div>
+                    </div>
+                {% else %}
+                    <p> <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to create {{ query_string }}</p>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <p>Try to search in the bar above.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js_block %}
+	<script src="{% static 'js/add_trip.js' %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+{% endblock %}

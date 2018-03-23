@@ -148,6 +148,17 @@ class TripReview(models.Model):
 
     def __str__(self):
         return self.stars
+		
+		
+class RepRecord(models.Model):
+    userId = models.ForeignKey(UserProfile)
+    tpSlug = models.CharField(max_length=400)
+    rep = models.IntegerField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.rep
 
 
 class Category(models.Model):

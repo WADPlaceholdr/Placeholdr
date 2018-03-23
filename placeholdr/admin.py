@@ -1,5 +1,5 @@
 from django.contrib import admin
-from placeholdr.models import Place, Trip, PlaceReview, TripReview, TripNode
+from placeholdr.models import Place, Trip, PlaceReview, TripReview, TripNode, RepRecord
 from placeholdr.models import UserProfile
 
 
@@ -21,6 +21,9 @@ class TripReviewAdmin(admin.ModelAdmin):
 
 class TripNodeAdmin(admin.ModelAdmin):
     list_display = ('id', 'placeId', 'tripId', 'tripPoint')
+	
+class RepRecordAdmin(admin.ModelAdmin):
+    list_display = ('id', 'userId', 'rep', 'tpSlug')
 
 
 # Register your models here.
@@ -30,3 +33,4 @@ admin.site.register(PlaceReview, PlaceReviewAdmin)
 admin.site.register(TripReview, TripReviewAdmin)
 admin.site.register(TripNode, TripNodeAdmin)
 admin.site.register(UserProfile)
+admin.site.register(RepRecord,RepRecordAdmin)
