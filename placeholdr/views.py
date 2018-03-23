@@ -332,10 +332,14 @@ def show_user(request, username):
         userProfile = UserProfile.objects.get(user_id=user.id)
 
         # If we have a User object, the details are correct
+        if userProfile.recommendedTrip:
+           recTrip = trip_pic_helper(userProfile.recommendedTrip)
+        else:
+           recTrip = None
         if userProfile:
             return render(request,
                           'placeholdr/user.html',
-                          {'shownUser': user, "shownUserProfile": userProfile})
+                          {'shownUser': user, "shownUserProfile": userProfile, 'recTrip': recTrip})
         else:
             return HttpResponse("Invalid user slug supplied.")
     else:

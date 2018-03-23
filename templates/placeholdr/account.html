@@ -15,9 +15,9 @@
 			<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 				<div class="btn-group mr-5" role="group" aria-label="Basic example">
 					<a class="btn btn-primary" href="{% url 'edit_profile' %}" id="first-button" role="button">Edit Profile</a>
-					<a class="btn btn-primary" href="{% url 'change_password' %}" id="first-button" role="button">Change Password</a>
-					<button type="button" class="btn btn-primary" href="">Add a Trip</button>
-					<button type="button" class="btn btn-primary" href="">Add a Place</button>
+					<a class="btn btn-primary" href="{% url 'change_password' %}" role="button">Change Password</a>
+					<a class="btn btn-primary" href="{% url 'submit_place' %}" role="button">Add a Place</a>
+					<a class="btn btn-primary" href="{% url 'submit_trip' %}" role="button">Add a Trip</a>
 					<a class="btn btn-primary" href="{% url 'logout' %}" id="last-button" role="button">Logout</a>
 				</div>
 				<!-- Button trigger modal -->
