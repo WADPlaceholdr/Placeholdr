@@ -303,37 +303,39 @@ def submit_trip(request):
 ################################################ PLACE OR TRIP ################################################
 
 def get_reviews(request, isTrip, r_slug):
-    if isTrip:
-        reviews = TripReview.objects.filter(tripId=Trip.objects.get(slug=r_slug))
-        tags = TripTag.objects.filter(tripId=Trip.objects.get(slug=r_slug)).values('tagText').distinct().annotate(
-            tagNum=Count('tagText')).order_by('-tagNum')
-    else:
-        reviews = PlaceReview.objects.filter(placeId=Place.objects.get(slug=r_slug))
-        tags = PlaceTag.objects.filter(placeId=Place.objects.get(slug=r_slug)).values('tagText').distinct().annotate(
-            tagNum=Count('tagText')).order_by('-tagNum')
+	if isTrip:
+		reviews = TripReview.objects.filter(tripId=Trip.objects.get(slug=r_slug))
+		tags = TripTag.objects.filter(tripId=Trip.objects.get(slug=r_slug)).values('tagText').distinct().annotate(
+			tagNum=Count('tagText')).order_by('-tagNum')
+	else:
+		reviews = PlaceReview.objects.filter(placeId=Place.objects.get(slug=r_slug))
+		tags = PlaceTag.objects.filter(placeId=Place.objects.get(slug=r_slug)).values('tagText').distinct().annotate(
+			tagNum=Count('tagText')).order_by('-tagNum')
 
-    stars = 0
-    stars_string = ""
-    reviews_array = []
-    tags_string = "Currently no tags"
+	stars = 0
+	stars_string = ""
+	reviews_array = []
+	tags_string = "Currently no tags"
+	rev_num = 0
+	
+	if tags:
+		tags_string = "<ul>"
+		for tag in tags:
+			tags_string += "<li>#" + tag['tagText'] + " (" + str(tag['tagNum']) + ")" + "</li>"
+		tags_string += "</ul>"
 
-    if tags:
-        tags_string = "<ul>"
-        for tag in tags:
-            tags_string += "<li>#" + tag['tagText'] + " (" + str(tag['tagNum']) + ")" + "</li>"
-        tags_string += "</ul>"
-
-    if reviews:
-        for review in reviews:
-            stars += review.stars
-        stars = round(stars / len(reviews))
-        for i in range(5):
-            if i < stars:
-                stars_string += '<img src="/static/images/star.png">'
-            else:
-                stars_string += '<img src="/static/images/starempty.png">'
-    return {'stars_string': stars_string, 'tags_string': tags_string, 'rev_sec': str(
-        render(request, 'placeholdr/review_section.html', {'reviews': reviews}).getvalue().decode('utf-8'))}
+	if reviews:
+		for review in reviews:
+			rev_num += 1
+			stars += review.stars
+		stars = round(stars / len(reviews))
+		for i in range(5):
+			if i < stars:
+				stars_string += '&#9733'
+			else:
+				stars_string += '&#9734'
+	return {'starz': stars_string, 'tags_string': tags_string, 'star_num':stars, 'rev_num':rev_num, 'rev_sec': str(
+		render(request, 'placeholdr/review_section.html', {'reviews': reviews}).getvalue().decode('utf-8'))}
 
 
 ################################################ USER ################################################

@@ -56,7 +56,9 @@ function reset_page() {
                 document.getElementById("review_sec").innerHTML = response.rev_sec;
                 document.getElementById("tag_section").innerHTML = response.tags_string;
 
-				//document.getElementById("starz").innerHTML = response.starz;
+				document.getElementById("star_rating").innerHTML = "<h2>" + response.star_num + "</h2>";
+				document.getElementById("starz").innerHTML = response.starz;
+				document.getElementById("rev_num").innerHTML = response.rev_num + " Review" + ((parseInt(response.rev_num) > 1) ? "s" : "");
 				
                 document.getElementById("r_review").value = ""
                 reset_page();
