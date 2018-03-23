@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 from django.db.models import Count
-import json, re
+import json, re, time
 
 # Import User
 from django.contrib.auth.models import User
@@ -124,30 +124,31 @@ def popular_places(request):
 
 @login_required
 def submit_place(request):
-    # get logged in user object
-    user = request.user
-    userProfile = UserProfile.objects.get(user_id=user.id)
+	# get logged in user object
+	user = request.user
+	userProfile = UserProfile.objects.get(user_id=user.id)
 
-    # If it's a HTTP POST, we're interested in processing form data
-    if request.method == 'POST':
-        place_form = SubmitPlaceForm(data=request.POST)
-        # If the two forms are valid
-        if place_form.is_valid():
-            place = place_form.save(commit=False)
-            place.userId = userProfile
+	# If it's a HTTP POST, we're interested in processing form data
+	if request.method == 'POST':
+		place_form = SubmitPlaceForm(data=request.POST)
+		# If the two forms are valid
+		if place_form.is_valid():
+			place = place_form.save(commit=False)
+			place.userId = userProfile
 
-            # Check if there's a picture
-            if 'picLink' in request.FILES:
-                place.picLink = request.FILES['picLink']
+			# Check if there's a picture
+			if 'picLink' in request.FILES:
+				place.picLink = request.FILES['picLink']
 
-            # Save the user's form data to the database
-            place = place_form.save()
-        else:
-            print(place_form.errors, place_form.errors)
-    else:
-        place_form = SubmitPlaceForm()
+			# Save the user's form data to the database
+			place = place_form.save()
+			return show_place(request,place.slug)
+		else:
+			print(place_form.errors, place_form.errors)
+	else:
+		place_form = SubmitPlaceForm()
 
-    return render(request, 'placeholdr/submit_place.html', {'place_form': place_form})
+	return render(request, 'placeholdr/submit_place.html', {'place_form': place_form})
 
 
 ################################################ TRIP ################################################
@@ -292,7 +293,7 @@ def submit_trip(request):
 				place = Place.objects.filter(slug=p_slug)[0]
 				TripNode.objects.get_or_create(tripId=trip,placeId=place,tripPoint=counter)
 				counter = counter + 1
-			
+			return show_trip(request,trip.slug)
 		else:
 			print(trip_form.errors, trip_form.errors)
 
