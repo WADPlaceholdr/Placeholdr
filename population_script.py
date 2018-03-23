@@ -330,7 +330,13 @@ def populate():
     ]
 
     users_fav = [
-        {"username": "michael", "favPlace": 2, "recommendedTrip": 3}
+        {"username": "michael", "favPlace": 2, "recommendedTrip": 3},
+        {"username": "_amy_", "favPlace": 1, "recommendedTrip": 1},
+        {"username": "samtakespics", "favPlace": 3, "recommendedTrip": 1},
+        {"username": "homerj", "favPlace": 4, "recommendedTrip": 2},
+        {"username": "gustavethetower", "favPlace": 5, "recommendedTrip": 2},
+        {"username": "fawkes", "favPlace": 5, "recommendedTrip": 4},
+        {"username": "davidm", "favPlace": 6, "recommendedTrip": 3},
     ]
 
     for user in users:
