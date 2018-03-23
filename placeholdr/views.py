@@ -730,26 +730,23 @@ def ajax_tasks(request):
 				RepRecord.objects.get_or_create(tpSlug=rep_slug, rep=value, userId=userProf)
 			return HttpResponse(json.dumps({"exists":True, "rep":value}), content_type='application/json')
 		if request.POST.get("task") == "trip_search":
-			user = request.user
-			userProfile = UserProfile.objects.get(user_id=user.id)
-
 			trip_form = None
 			entry_query = None
 			found_places = None
 			found = None
 			query_string = ''
 			search_fields = ('name', 'desc')
-
-			if ('q' in request.GET) and request.GET['q'].strip():
-				query_string = request.GET['q']
-
+			results_list = []
+			if request.POST.get("q").strip():
+				query_string = request.POST.get('q')
 				entry_query = get_query(query_string, search_fields)
 				found_places = Place.objects.filter(entry_query).order_by('id')
 				found = found_places.exists()
-
-			return HttpResponse(json.dumps({'query_string': query_string, 'found': found, 'found_places': found_places, 'trip_form': trip_form}))
+				for found_p in found_places:
+					results_list.append(render(request, 'placeholdr/psearch_result.html',{"place":found_p}).getvalue().decode('utf-8'))
+			return HttpResponse(json.dumps({'query_string': query_string, 'found': found, 'found_places': results_list}))
 		if request.POST.get("task") == "get_added_place":
-			return HttpResponse(render(request, 'placeholdr/place_added_bit.html',{"place":Place.objects.get(slug=str(request.POST.get("slug")))}).getvalue().decode('utf-8'))
+			return HttpResponse(render(request, 'placeholdr/place_added_bit.html',{"place":Place.objects.get(slug=str(request.POST.get("slug").replace("_","-")))}).getvalue().decode('utf-8'))
 			
 	else:
 		return HttpResponse("Error")

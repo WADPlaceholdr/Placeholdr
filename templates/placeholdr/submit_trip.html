@@ -12,31 +12,28 @@
 {% block body_block %}
     <div class="container">
         <div class="row">
-            <form class="form-inline my-2 my-lg-0" id="body-search-form" action="{% url 'submit_trip' %}" method="GET">
+            
                 <div class="row search">
                         <div class="col">
-                            <input id="body-search-bar" class="form-control mr-sm-2" name="q" type="search" placeholder="Search" aria-label="Search">
+                            <input id="searchy" class="form-control mr-sm-2" name="q" type="search" placeholder="Search" onkeyup="search_for_places()" aria-label="Search">
                         </div>
                         <div class="col-xs">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <button class="btn btn-outline-success my-2 my-sm-0" onclick="search_for_places()">Search</button>
                         </div>
                 </div>
-            </form>
+            
         </div>
 
-        {% if found %}
-            <div class="row">
-                <p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
-            </div>
-            <div class="row">
-                <div class="col" id="result_section">
-                    {% include "placeholdr/psearch_section.html" %}
-                </div>
-            </div>
-			<div class="row" id="added_section">
+		<div class="row">
+			<p>Your search for <b>{{ query_string }}</b> returned the following results: </p>
+		</div>
+		<div class="row">
+			<div class="col" id="result_section">
+				{% include "placeholdr/psearch_section.html" %}
 			</div>
-        {% endif %}
-
+		</div>
+		<div class="row" id="added_section">
+		</div>
         {% if query_string %}
             {% if not found %}
                 <p>No results found for <b>{{ query_string }}</b>.</p>
