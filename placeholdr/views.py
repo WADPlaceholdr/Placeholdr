@@ -262,26 +262,42 @@ def popular_trips(request):
 
 @login_required
 def submit_trip(request):
-    # get logged in user object
-    user = request.user
-    userProfile = UserProfile.objects.get(user_id=user.id)
+	# get logged in user object
+	user = request.user
+	userProfile = UserProfile.objects.get(user_id=user.id)
 
-    trip_form = None
-    entry_query = None
-    found_places = None
-    found = None
-    query_string = ''
-    search_fields = ('name', 'desc')
+	trip_form = SubmitTripForm()
+	entry_query = None
+	found_places = None
+	found = None
+	query_string = ''
+	search_fields = ('name', 'desc')
 
-    if ('q' in request.GET) and request.GET['q'].strip():
-        query_string = request.GET['q']
+	if request.method == "POST":
+		trip_form = SubmitTripForm(data=request.POST)
+		# If the two forms are valid
+		if trip_form.is_valid():
+			trip = trip_form.save(commit=False)
+			trip.userId = userProfile
 
-        entry_query = get_query(query_string, search_fields)
-        found_places = Place.objects.filter(entry_query).order_by('id')
-        found = found_places.exists()
+			# Check if there's a picture
+			if 'picLink' in request.FILES:
+				trip.picLink = request.FILES['picLink']
 
-    return render(request, 'placeholdr/submit_trip.html',
-                  {'query_string': query_string, 'found': found, 'found_places': found_places, 'trip_form': trip_form})
+			# Save the user's form data to the database
+			trip = trip_form.save()
+			pattern = re.compile(r'([^;]+);*')
+			counter = 0;
+			for p_slug in re.findall(pattern,request.POST.get("slug_holder")):
+				place = Place.objects.filter(slug=p_slug)[0]
+				TripNode.objects.get_or_create(tripId=trip,placeId=place,tripPoint=counter)
+				counter = counter + 1
+			
+		else:
+			print(trip_form.errors, trip_form.errors)
+
+	return render(request, 'placeholdr/submit_trip.html',
+				  {'query_string': query_string, 'found': found, 'found_places': found_places, 'trip_form': trip_form})
 
 
 ################################################ PLACE OR TRIP ################################################
