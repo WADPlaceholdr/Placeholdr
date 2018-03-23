@@ -1,6 +1,8 @@
+var slugs_array = [];
+
 function add_place(p_slug){
 	
-	document.getElementById(p_slug).style.display="none";
+	document.getElementById(p_slug).outerHTML="";
 	
 	$.ajax({
 		type: "POST",
@@ -13,6 +15,8 @@ function add_place(p_slug){
 		},
 		success: function (data) {
 			
+			slugs_array.push(p_slug.replace(/_/gi,"-"));
+			document.getElementById("slug_holder").value = slugs_array.join(";") + ";";
 			document.getElementById("added_section").innerHTML += data;
 			reset_page();
 		},
@@ -28,12 +32,11 @@ function add_place(p_slug){
 $(document).ready(function () {
 
 	reset_page();
+	slugs_array = [];
 	
 });
 
 function dedash(one){
-	//alert(one);
-	//alert(one.replace(/-/gi,"_"));
 	return one.replace(/-/gi,"_");
 }
 
@@ -55,39 +58,17 @@ function remove_place(p_slug){
 	reset_page();
 	
 	document.getElementById(p_slug + "_added").outerHTML = "";
-	document.getElementById(p_slug).style.visibility = "visible";
+	
+	slugs_array.splice(slugs_array.indexOf(p_slug), 1);
+	document.getElementById("slug_holder").value = slugs_array.join(";") + ";";
+	
+	search_for_places();
 	
 }
-/*
-function add_bit(p_slug){
-
-	
-	$.ajax({
-		type: "POST",
-		url: "/placeholdr/ajax/",
-		dataType: 'text',
-		data: {
-			'csrfmiddlewaretoken': getCookie('csrftoken'),
-			'task': "get_added_place",
-			'slug': p_slug
-		},
-		success: function (data) {
-			
-			document.getElementById("added_section").innerHTML = data;
-			reset_page();
-			
-		},
-		error: function (data) {
-			alert("Damn");
-			var err = eval("(" + data.responseText + ")");
-			alert(err.Message);
-		}
-	});
-	
-}
-*/
 
 function search_for_places(){
+
+	var dont;
 
 	$.ajax({
 		type: "POST",
@@ -101,10 +82,17 @@ function search_for_places(){
 		success: function (data) {
 			document.getElementById("result_section").innerHTML = "";
 			for (var i = 0; i < data.found_places.length; i++){
-				document.getElementById("result_section").innerHTML += data.found_places[i];
+				dont = false
+				for (var j =0; j < slugs_array.length; j++){
+					if (data.found_places[i].search(slugs_array[j]) != -1){
+						dont = true;
+					}
+				}
+				if (!dont){
+					document.getElementById("result_section").innerHTML += data.found_places[i];
+				}
 			}
-			
-			//document.getElementById("result_section").innerHTML = data;
+
 			reset_page();
 			
 		},
@@ -132,3 +120,5 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+

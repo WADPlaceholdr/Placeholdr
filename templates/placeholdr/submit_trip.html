@@ -1,5 +1,6 @@
 {% extends 'placeholdr/base.html' %}
 {% load staticfiles %}
+{% load bootstrap4 %}
 
 {% block title %}
     Search
@@ -11,6 +12,17 @@
 
 {% block body_block %}
     <div class="container">
+		<div class="container" id="registration-container">
+			<form id="user_form" method="post" action="{% url 'submit_trip' %}"
+				enctype="multipart/form-data">
+				<input type="hidden" value="" id="slug_holder" name="slug_holder">
+				{% csrf_token %}
+
+				<!-- Display each form bootstrapped -->
+				{% bootstrap_form trip_form %}
+				<button type="submit" class="btn btn-primary" id="register-button" name="submit" value="Submit Trip">Submit Trip</button>
+			</form>
+		</div>
         <div class="row">
             
                 <div class="row search">
