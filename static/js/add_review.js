@@ -82,6 +82,8 @@ function reset_page() {
     });
 	
 	do_rep(0);
+	
+	
 
 }
 
@@ -121,6 +123,12 @@ function do_rep(value){
 					document.getElementById("repup").setAttribute("onClick","do_rep(1)");
 					document.getElementById("repdown").setAttribute("onClick","do_rep(-1)");
 				}
+				
+				document.getElementById("repup").src = document.getElementById("repup").src.replace("_dark_dark_dark", "_dark");
+				document.getElementById("repdown").src = document.getElementById("repdown").src.replace("_dark_dark_dark", "_dark");
+				
+				document.getElementById("repup").src = document.getElementById("repup").src.replace("_dark_dark", "_dark");
+				document.getElementById("repdown").src = document.getElementById("repdown").src.replace("_dark_dark", "_dark");
 
             },
 			error: function (data) {
