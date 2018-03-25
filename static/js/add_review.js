@@ -126,6 +126,36 @@ function do_rep(value){
 	
 }
 
+function user_follow(task){
+	
+	if (task == "follow_user"){
+		document.getElementById('follows').outerHTML = '<button id="follows" onclick="user_follow(\'unfollow_user\')" value="Unfollow" type="button">Unfollow</button>';
+	}else if(task == "unfollow_user"){
+		document.getElementById('follows').outerHTML = '<button id="follows" onclick="user_follow(\'follow_user\')" value="Follow" type="button">Follow</button>';
+	}else{
+		return;
+	}
+	
+	$.ajax({
+            type: "POST",
+            url: "/placeholdr/ajax/",
+            dataType: 'json',
+            data: {
+                'csrfmiddlewaretoken': getCookie('csrftoken'),
+                'task': task,
+                'u_slug': document.getElementById("submitter").innerHTML,
+            },
+            success: function (data) {
+				document.getElementById("submitter").style.visibility = "visible";
+			},
+			error: function (data) {
+				if (value != 0){
+					alert("Please login to rate a user");
+				}
+			}
+        });
+	
+}
 
 function fix_stars() {
     if (document.getElementById("r_stars") == null) {

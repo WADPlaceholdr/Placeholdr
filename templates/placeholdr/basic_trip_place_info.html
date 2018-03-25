@@ -62,6 +62,13 @@
 			<p>
 			{% if submitter %}
 				Submitted by <a href="/placeholdr/user/{{submitter}}">{{submitter}}</a>
+				{% if user.is_authenticated %}
+					{% if following %}
+						<button id="follows" onclick="user_follow('unfollow_user')" value="Unfollow" type="button">Unfollow</button>
+					{% else %}
+						<button id="follows" onclick="user_follow('follow_user')" value="Follow" type="button">Follow</button>
+					{% endif %}
+				{% endif %}
 			{% else %}
 				Submitted by Placeholdr
 			{% endif %}
@@ -93,6 +100,11 @@
             </div>
         </div>
     </div>
+	{% if submitter %}
+		<div id="follow_footer" class="row f_footer">
+			<h4>Following {{ submitter }}</h4>
+		</div>
+	{% endif %}
 </div>
 
 <div class="col-sm">

@@ -67,3 +67,16 @@
     width: 100%;
     object-fit: cover;
 }
+
+#follow_footer {
+	position:fixed;
+	display:inline-block;
+	left:15px;
+	height:3.5%;
+	width:100%;
+	top:96.5%;
+	background-color:#F8F9FA;
+	z-index:5;
+	text-align:center;
+	visibility:hidden;
+}

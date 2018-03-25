@@ -164,6 +164,15 @@ class RepRecord(models.Model):
 
     def __str__(self):
         return self.rep
+		
+class FollowUser(models.Model):
+    userId = models.ForeignKey(UserProfile)
+    following = models.ForeignKey(UserProfile, related_name="follows")
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.userId.user.username
 
 
 class Category(models.Model):
@@ -181,7 +190,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Page(models.Model):
     category = models.ForeignKey(Category)
