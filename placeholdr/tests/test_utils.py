@@ -7,6 +7,8 @@ def create_user():
     # Create a user
     user = User.objects.get_or_create(username="user", password="pass1357", email="temporary@gmail.com")[0]
 
+    user.set_password(user.password)
+    user.save()
     # Link it to a user profile
     user_profile = UserProfile.objects.get_or_create(user=user, bio="I am just a test user", livesIn="Command Line", rep=200)[0]
 
@@ -14,8 +16,8 @@ def create_user():
 
 
 def create_place(user):
-    i = user.user.id
-    place = Place(name="Place " + str(i), position=Geoposition(float(i * 78.2357),float(i * 15.4913)),
+    i = user.id
+    place = Place(name="Place Test", position=Geoposition(float(i * 78.2357),float(i * 15.4913)),
                   desc="I'm just a place in location " + str(i), userId=user)
     place.save()
 
@@ -23,13 +25,13 @@ def create_place(user):
 
 
 def create_place_review(user, place):
-    review = PlaceReview(userId=user, placeId=place, stars=4, review="Cool cool cool cool")
+    review = PlaceReview(userId=user, placeId=place, stars=1, review="Not good enough")
     review.save()
     return review
 
 
 def create_trip(user):
-    trip = Trip.objects.get_or_create(userId=user, name="Trip " + str(user.user.id), desc="Just a trip")[0]
+    trip = Trip.objects.get_or_create(userId=user, name="Trip Test", desc="Just a trip")[0]
     return trip
 
 
@@ -53,23 +55,27 @@ def create_trip_review(user, trip):
 def create_multiple_places(user):
     places = []
 
-    # Create place 1 through 4
-    for i in range(1, 5):
+    # Create place 1 through 5
+    for i in range(1, 6):
         place = Place(name="Place " + str(i), position=Geoposition(float(i * 78.2357),float(i * 15.4913)),
                       desc="I'm just a place in location " + str(i), userId=user)
         place.save()
         places.append(place)
+        PlaceReview.objects.get_or_create(userId=user, placeId=place, stars=0+i, review="They're all the same")
+
     return places
 
 
 def create_multiple_trips(user):
     trips = []
 
-    # Create trip 1 through 4
-    for i in range(1, 5):
+    # Create trip 1 through 5
+    for i in range(1, 6):
         trip = Trip(userId=user, name="Trip " + str(i), desc="I'm just trip number " + str(i))
         trip.save()
         trips.append(trip)
+        TripReview.objects.get_or_create(userId=user, tripId=trip, stars=0+i, review="Also all the same")
+
     return trips
 
 

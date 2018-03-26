@@ -1,13 +1,10 @@
-from django.db import models
 from django.test import TestCase, Client
 from placeholdr.models import Place, UserProfile, PlaceReview, Trip, TripNode, TripReview
-from placeholdr.forms import UserProfileForm
+from placeholdr.forms import UserForm, PasswordForm, UserProfileForm, SubmitPlaceForm, SubmitTripForm
 from django.contrib import auth
 from django.contrib.auth.models import User
-import population_script
-from geoposition import Geoposition
-
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
+import os, population_script
 from django.core.urlresolvers import reverse
 from placeholdr.tests import test_utils as utils
 
@@ -35,21 +32,29 @@ class IndexTests(TestCase):
         self.assertCountEqual(response.context['userProfiles'], [])
         self.assertCountEqual(response.context['trips'], [])
 
-    # With 4 places, make sure they are all displayed in the index (featured = random for now)
+    # Make sure index displays 4 places
     def test_index_displays_four_featured_places(self):
-        places = utils.create_multiple_places(utils.create_user())
+        places = utils.create_multiple_places(utils.create_user())[:4]
         response = self.client.get(reverse('index'))
+        hit = 0
 
-        for i in range(1, 5):
-            self.assertIn("Place " + str(i), response.content.decode('ascii'))
+        for i in range(1, 6):
+            if ("Place "+ str(i)) in response.content.decode('ascii'):
+                hit += 1
 
-    # With 4 trips, make sure they are all displayed in the index (featured = random for now)
+        self.assertEquals(hit, 4)
+
+    # Make sure index displays 4 trips
     def test_index_displays_four_featured_trips(self):
-        trips = utils.create_multiple_trips(utils.create_user())
+        trips = utils.create_multiple_trips(utils.create_user())[:4]
         response = self.client.get(reverse('index'))
+        hit = 0
 
-        for i in range(1, 5):
-            self.assertIn("Trip " + str(i), response.content.decode('ascii'))
+        for i in range(1, 6):
+            if ("Trip "+ str(i)) in response.content.decode('ascii'):
+                hit += 1
+
+        self.assertEquals(hit, 4)
 
     def test_index_displays_six_top_users(self):
         users = utils.create_top_users()
@@ -88,7 +93,7 @@ class ModelTests(TestCase):
 
     def test_create_new_trip(self):
         trips_in_database = Trip.objects.all()
-        self.assertEquals(len(trips_in_database), 4)
+        self.assertEquals(len(trips_in_database), 5)
         self.assertEquals(trips_in_database[0].name, "Trip 1")
 
 
@@ -138,64 +143,76 @@ class UrlTests(TestCase):
     def test_access_place_that_does_not_exist(self):
         response = self.client.get(reverse('show_place', args=['neverland']))
 
-        # Check the rendered page is not empty = customised
-        self.assertNotEquals(response.content.decode('ascii'), '')
+        # Check that it has a response as status code 404 not found (as designed)
+        self.assertEquals(response.status_code, 404)
+
+        # Check the rendered page contains appropriate message
+        self.assertIn("Place does not exist", response.content.decode('ascii'))
 
     # Command line will display "Trip matching query does not exist."
     def test_access_trip_that_does_not_exist(self):
         response = self.client.get(reverse('show_trip', args=['perfect-trip']))
 
-        # Check the rendered page is not empty = customised
-        self.assertNotEquals(response.content.decode('ascii'), '')
+        # Check that it has a response as status code 404 not found (as designed)
+        self.assertEquals(response.status_code, 404)
+
+        # Check the rendered page contains appropriate
+        self.assertIn("Trip does not exist", response.content.decode('ascii'))
+
+    def test_login_redirects_to_index(self):
+        # Access login page with appropriate data
+        response = self.client.post(reverse('login'), {'username': 'user', 'password': 'pass1357'})
+
+        self.assertRedirects(response, reverse('index'))
 
 
 class ContentTests(TestCase):
-    # TODO
-    # Index contains appropriate ratings
-    # Test negative rating
-    # Test negative rep
-    # Check new places
-    # Check top places
-    # Check new trips
-    # Check top trips
-
     def setUp(self):
         self.user = utils.create_user()
-        self.client = Client()
         self.places = utils.create_multiple_places(self.user)
-        self.trip = utils.create_trip(self.user)
-        self.trip_nodes = utils.create_trip_nodes(self.trip, self.places)
+        self.trips = utils.create_multiple_trips(self.user)
 
-    def test_trip_page_displays_places(self):
-        None
-        # Error: userprofile does not exist
-        #for node in self.trip_nodes:
-        #    response = self.client.get(reverse('show_trip', args=[self.trip.slug]))
-        #    self.assertIn(str(Place.objects.get(name=node.placeId.name)), response.content.decode('ascii'))
+    def test_new_places_displays_newest_places(self):
+        response = self.client.get(reverse('new_places'))
 
-    def place_page_displays_rating_and_review(self):
-        review = utils.create_place_review(self.user, self.places[0])
-        response = self.client.get(reverse('show_place'), args=['place-1'])
-        self.assertIn(review.stars, response.content.decode('ascii'))
-        self.assertIn(review.review, response.content.decode('ascii'))
+        # places are named Place 1 through Place 5 (newest:5)
+        for i in range(5, 0, -1):
+            self.assertIn("Place " + str(i), response.content.decode('ascii'))
 
-    def trip_page_displays_rating_and_review(self):
-        review = utils.create_trip_review(self.user, self.trip)
-        response = self.client.get(reverse('show_trip'), args=["trip-" + str(user.user.id)])
-        self.assertIn(review.stars, response.content.decode('ascii'))
-        self.assertIn(review.review, response.content.decode('ascii'))
+    def test_new_trips_displays_newest_trips(self):
+        response = self.client.get(reverse('new_trips'))
 
-    def test_login(self):
-        #self.client.login(username=self.user, password='pass1357')
-        #response = self.client.get(reverse('account'))
-        #self.assertEqual(response.status_code, 200)
-        None
+        # trips are named Trip 1 through Trip 5 (newest:5)
+        for i in range(5, 0, -1):
+            self.assertIn("Trip " + str(i), response.content.decode('ascii'))
 
-    def test_place_page_displays_post_review_when_logged_in(self):
-        None
 
-    def test_trip_page_displays_post_review_when_logged_in(self):
-        None
+    # # USER PROFILE ERRORS WITH SHOW_PLACE, SHOW_TRIP #
+    # def test_trip_page_displays_places(self):
+    #     None
+    #     #for node in self.trip_nodes:
+    #     #    response = self.client.get(reverse('show_trip', args=[self.trip.slug]))
+    #     #    self.assertIn(str(Place.objects.get(name=node.placeId.name)), response.content.decode('ascii'))
+    #
+    # def test_place_page_displays_rating_and_review(self):
+    #     review = utils.create_place_review(self.user, self.places[0])
+    #     response = self.client.get(reverse('show_place', args=['place-1']))
+    #     self.assertIn(review.stars, response.content.decode('ascii'))
+    #     self.assertIn(review.review, response.content.decode('ascii'))
+    #
+    # def test_trip_page_displays_rating_and_review(self):
+    #     review = utils.create_trip_review(self.user, self.trip)
+    #     response = self.client.get(reverse('show_trip', args=["trip-" + str(self.user.user.id)]))
+    #     self.assertIn(review.stars, response.content.decode('ascii'))
+    #     self.assertIn(review.review, response.content.decode('ascii'))
+    #
+    # def test_login(self):
+    #     self.client.login(username=self.user, password='pass1357')
+    #     response = self.client.get(reverse('account'))
+    #     self.assertEqual(response.status_code, 200)
+    #     None
+    #
+    # # ERRORS #
 
 
 
@@ -206,37 +223,145 @@ class FormTests(TestCase):
         self.trip = utils.create_multiple_trips(self.user)[0]
 
     def test_registration_form_is_displayed_correctly(self):
-        None
+        # Access page
+        response = self.client.get(reverse('register'))
+
+        # Check right forms are displayed
+        self.assertTrue(isinstance(response.context['user_form'], UserForm))
+        self.assertTrue(isinstance(response.context['password_form'], PasswordForm))
+        self.assertTrue(isinstance(response.context['profile_form'], UserProfileForm))
+
+        user_form = UserForm()
+        password_form = PasswordForm()
+        profile_form = UserProfileForm()
+        self.assertEquals(response.context['user_form'].as_p(), user_form.as_p())
+        self.assertEquals(response.context['password_form'].as_p(), password_form.as_p())
+        self.assertEquals(response.context['profile_form'].as_p(), profile_form.as_p())
 
     def test_registration_form_is_valid(self):
-        # TODO: populating a select field
-        #form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "picture": None, "favPlace": (1, "Atomium"), "recommendedTrip": (2, "Papercup Glasgow")}
-        #form = UserProfileForm(data=form_data)
-        #print (form.errors)
-        #self.assertTrue(form.is_valid())
-        None
+        place_pk = Place.objects.all()[0].pk
+        trip_pk = Trip.objects.all()[0].pk
+        form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "picture": None, "favPlace": str(place_pk), "recommendedTrip": str(trip_pk)}
+        form = UserProfileForm(data=form_data)
+        self.assertTrue(form.is_valid())
 
-    # TODO
+    def test_login_provides_error_message(self):
+        # Access login page
+        response = self.client.post(reverse('login'), {'username': 'wrong', 'password': 'wrongpass'})
+        self.assertIn('Invalid login details supplied.', response.content.decode('ascii'))
+
+    def test_submit_place_form_is_displayed_correctly(self):
+        # Log in
+        self.client.login(username="user", password="pass1357")
+
+        # Access page (login required)
+        response = self.client.get(reverse('submit_place'))
+
+        # Check the page is actually accessible and doesn't redirect the user
+        self.assertNotEquals(response.status_code, 302)
+        # Check the form is the right one
+        self.assertTrue(isinstance(response.context['place_form'], SubmitPlaceForm))
+
+        # Check page displays right fields
+        self.assertIn("Name".lower(), response.content.decode('ascii').lower())
+        self.assertIn("Desc".lower(), response.content.decode('ascii').lower())
+        self.assertIn("Position".lower(), response.content.decode('ascii').lower())
+        self.assertIn("PicLink".lower(), response.content.decode('ascii').lower())
+        # Checks for API
+        self.assertIn("maps".lower(), response.content.decode('ascii').lower())
+
     def test_submit_place_form_is_valid(self):
         None
+        # TODO how is the map implemented? --> filling the form
+        #form_data = {"name": self.place.name, "desc": self.place.desc, "picLink": None, "position": self.place.position}
+        #form = SubmitPlaceForm(data=form_data)
+        #self.assertTrue(form.is_valid())
 
-    def test_submit_place_deals_with_coordinates(self):
+    def test_submit_trip_form_is_displayed_correctly(self):
+        # Log in
+        self.client.login(username="user", password="pass1357")
+
+        # Access page (login required)
+        response = self.client.get(reverse('submit_trip'))
+
+        # Check the page is actually accessible and doesn't redirect the user
+        self.assertNotEquals(response.status_code, 302)
+        # Check the form is the right one
+        self.assertTrue(isinstance(response.context['trip_form'], SubmitTripForm))
+
+        trip_form = SubmitTripForm()
+        self.assertEquals(response.context['trip_form'].as_p(), trip_form.as_p())
+
+    # this will produce a fail right now
+    def test_submit_trip_with_no_places_should_not_work(self):
+        print("This will produce a fail right now")
+        form_data = {"name": "Let's go on a test trip", "desc": "here we go", "picLink": None}
+        form = SubmitTripForm(data=form_data)
+        self.assertFalse(form.is_valid())
+
+    def test_registration_and_upload_image_works(self):
+        image = SimpleUploadedFile("testuser.jpg", content=open('static/images/logonobg.png', 'rb').read(), content_type="image/png")
+        response = self.client.post(reverse('register'), {'username': "testuser", "password": "hello", "email": "hello@gmail.com", "picture": image, "bio": "coolios", "livesIn": "commandLine"})
+
+        # Check user was registered
+        self.assertIn('Thank you for registering!'.lower(), response.content.decode('ascii').lower())
+        user = User.objects.get(username='testuser')
+        user_profile = UserProfile.objects.get(user=user)
+        path = os.path.realpath('.')+'/media/profile_images/testuser.jpg'
+
+        # Check file was saved properly
+        self.assertTrue(os.path.isfile(path))
+
+        # Delete file
+        os.remove(path)
+
+class UserAccessTests(TestCase):
+    def setUp(self):
+        self.user = utils.create_user()
+        self.place = utils.create_place(self.user)
+
+    def test_right_picture_is_displayed(self):
+        response = self.client.get(reverse('index'))
+        self.assertIn('src="/static/svg/person.svg"'.lower(), response.content.decode('ascii').lower())
+
+        self.client.login(username="user", password="pass1357")
+        response = self.client.get(reverse('index'))
+        self.assertIn('src="/static/images/defaultuser.png"'.lower(), response.content.decode('ascii').lower())
+
+    def test_log_in(self):
+        self.client.login(username="user", password="pass1357")
+        u = auth.get_user(self.client)
+        self.assertTrue(u.is_authenticated())
+
+    def test_submit_links(self):
+        # check links are disabled when user is logged out
+        response = self.client.get(reverse('index'))
+        self.assertIn('<a class="dropdown-item\n\ndisabled\n\n" href="/placeholdr/submit_place/"'.lower().replace(" ", ""), response.content.decode('ascii').lower().replace(" ", ""))
+        self.assertIn('<a class="dropdown-item\n\ndisabled\n\n" href="/placeholdr/submit_trip/"'.lower().replace(" ", ""), response.content.decode('ascii').lower().replace(" ", ""))
+
+        # now log in user to make sure the links work
+        self.client.login(username="user", password="pass1357")
+        response = self.client.get(reverse('index'))
+        self.assertIn(reverse('submit_place'), response.content.decode('ascii'))
+        self.assertIn(reverse('submit_trip'), response.content.decode('ascii'))
+
+    def test_submit_place_redirects_when_not_logged_in(self):
+        response = self.client.get(reverse('submit_place'))
+        u = auth.get_user(self.client)
+        self.assertFalse(u.is_authenticated())
+        self.assertEquals(response.status_code, 302)
+
+    def test_submit_trip_redirects_when_not_logged_in(self):
+        response = self.client.get(reverse('submit_trip'))
+        u = auth.get_user(self.client)
+        self.assertFalse(u.is_authenticated())
+        self.assertEquals(response.status_code, 302)
+
+    def test_review_box(self):
         None
-
-    def test_submit_trip_form_is_valid(self):
-        None
-
-    def test_review_form_is_valid(self):
-        None
+        # TODO figure out userprof error
+        #response = self.client.get(reverse('show_place', args=["place-test"]))
+        #self.assertIn("Please login to post a review".lower(), response.content.decode('ascii').lower())
+        #self.client.login(username="user", password="pass1357")
 
 
-class UserTests(TestCase):
-    # TODO
-    # Test log in
-    # Test displayed links when logged in/logged out
-    # Test user image shows up top right
-    def test_stranger_picture_is_displayed(self):
-        None
-
-    def test_user_picture_is_displayed(self):
-        None
