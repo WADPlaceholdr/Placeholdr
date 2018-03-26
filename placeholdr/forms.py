@@ -2,16 +2,18 @@ from django import forms
 from django.contrib.auth.models import User
 from placeholdr.models import Page, Category, UserProfile, Place, Trip
 
+
 class SubmitPlaceForm(forms.ModelForm):
     name = forms.CharField(required=True, max_length=128)
     desc = forms.CharField(required=False, max_length=400)
 
     class Meta:
         model = Place
-        fields = ('name', 'desc', 'picLink','position')
+        fields = ('name', 'desc', 'picLink', 'position')
         widgets = {
             'picLink': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
         }
+
 
 class SubmitTripForm(forms.ModelForm):
     name = forms.CharField(required=True, max_length=128)
@@ -23,7 +25,8 @@ class SubmitTripForm(forms.ModelForm):
         widgets = {
             'picLink': forms.FileInput(attrs={'class': 'custom-file', 'id': "customFile"}),
         }
-		
+
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User

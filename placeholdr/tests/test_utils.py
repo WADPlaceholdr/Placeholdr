@@ -2,13 +2,13 @@ from placeholdr.models import Place, UserProfile, PlaceReview, Trip, TripNode, T
 from django.contrib.auth.models import User
 from geoposition import Geoposition
 
-# Utilities
+
 def create_user():
     # Create a user
     user = User.objects.get_or_create(username="user", password="pass1357", email="temporary@gmail.com")[0]
-
     user.set_password(user.password)
     user.save()
+
     # Link it to a user profile
     user_profile = UserProfile.objects.get_or_create(user=user, bio="I am just a test user", livesIn="Command Line", rep=200)[0]
 
@@ -81,10 +81,12 @@ def create_multiple_trips(user):
 
 def create_top_users():
     users = []
+
     for i in range(1, 11):
         user = User(username="user" + str(i), password="test")
         user.save()
         up = UserProfile(user=user, rep=i)
         up.save()
         users.append(up)
+
     return users

@@ -5,7 +5,7 @@ from django.utils.encoding import uri_to_iri
 
 from django.core.validators import MaxValueValidator
 from geoposition.fields import GeopositionField
-
+import geoposition
 
 class UserProfile(models.Model):
     # Links UserProfile to a User model instance

@@ -186,7 +186,6 @@ class ContentTests(TestCase):
         for i in range(5, 0, -1):
             self.assertIn("Trip " + str(i), response.content.decode('ascii'))
 
-
     # # USER PROFILE ERRORS WITH SHOW_PLACE, SHOW_TRIP #
     # def test_trip_page_displays_places(self):
     #     None
@@ -205,12 +204,6 @@ class ContentTests(TestCase):
     #     response = self.client.get(reverse('show_trip', args=["trip-" + str(self.user.user.id)]))
     #     self.assertIn(review.stars, response.content.decode('ascii'))
     #     self.assertIn(review.review, response.content.decode('ascii'))
-    #
-    # def test_login(self):
-    #     self.client.login(username=self.user, password='pass1357')
-    #     response = self.client.get(reverse('account'))
-    #     self.assertEqual(response.status_code, 200)
-    #     None
     #
     # # ERRORS #
 
