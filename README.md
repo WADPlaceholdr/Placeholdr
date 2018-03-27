@@ -16,6 +16,7 @@ a live demo is available at https://placeholdr.pythonanywhere.com/
 * django-csp==3.3
 * django-mathfilters==0.4.0
 * django-referrer-policy==1.0
+* django-geoposition==0.3.1
 * Pillow==5.0.0
 * pytz==2018.3
 * selenium==3.11.0
