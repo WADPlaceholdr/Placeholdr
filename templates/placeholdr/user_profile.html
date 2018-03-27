@@ -26,6 +26,12 @@
 </div>
 <div class="row">
     <p class="center text-justify">
+        Followers: {{ followers }}<br/>
+        Following: {{ follows }}
+    </p>
+</div>
+<div class="row">
+    <p class="center text-justify">
         {% if userProfile.bio %}
             {{ userProfile.bio|striptags }}
         {% else %}

@@ -359,10 +359,15 @@ def show_user(request, username):
             recTrip = trip_pic_helper(userProfile.recommendedTrip)
         else:
             recTrip = None
+
+        if userProfile.follows:
+            following_list = userProfile.follows.all().count()
+            followers_list = userProfile.followed_by.all().count()
+
         if userProfile:
             return render(request,
                           'placeholdr/user.html',
-                          {'shownUser': user, "shownUserProfile": userProfile, 'recTrip': recTrip})
+                          {'shownUser': user, "shownUserProfile": userProfile, 'recTrip': recTrip, 'follows': following_list, 'followers': followers_list})
         else:
             return HttpResponse("Invalid user slug supplied.")
     else:

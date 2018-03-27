@@ -8,7 +8,7 @@ from placeholdr_project import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'placeholdr_project.settings')
-from geoposition.fields import GeopositionField
+
 import django
 
 django.setup()
@@ -347,8 +347,10 @@ def populate():
     ]
 
     following = [
-        {"username": "michael", "follows": ["samtakespics", "baracko"]},
-        {"username": "baracko", "follows": ["fawkes", "davidm"]}
+        {"username": "michael", "follows": ["samtakespics", "baracko", "homerj"]},
+        {"username": "baracko", "follows": ["fawkes", "davidm", "gustavethetower"]},
+        {"username": "_amy", "follows": ["samtakespics"]},
+        {"username": "davidm", "follows": ["baracko", "gustavethetower", "fawkes"]}
     ]
 
     for user in users:
