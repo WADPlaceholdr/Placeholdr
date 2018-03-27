@@ -20,3 +20,7 @@ def get_item(dictionary, key):
 def staticmedia(link):
     new_link = link.replace('/media/media/', '')
     return new_link
+
+@register.filter
+def get_type(value):
+    return type(value)

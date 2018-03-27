@@ -65,7 +65,7 @@
 				{% if user.is_authenticated %}
 					{% if following %}
 						<button id="follows" onclick="user_follow('unfollow_user')" value="Unfollow" type="button">Unfollow</button>
-					{% elif user != submitter %}
+					{% elif user.get_username != submitter %}
 						<button id="follows" onclick="user_follow('follow_user')" value="Follow" type="button">Follow</button>
                     {% else %}
 					{% endif %}
