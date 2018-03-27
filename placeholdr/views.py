@@ -65,7 +65,7 @@ def show_place(request, place_slug):
 
             mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
             review_inf = get_reviews(request, False, place_slug)
-            submitter = place.userId
+            submitter = get_user_prof(place.userId)
             if request.user.is_authenticated():
                 userProf = get_user_prof(request.user)
                 following = is_following(userProf, submitter)

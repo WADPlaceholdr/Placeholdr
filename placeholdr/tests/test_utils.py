@@ -15,6 +15,20 @@ def create_user():
     return user_profile
 
 
+def create_top_users():
+    users = []
+
+    for i in range(1, 11):
+        user = User(username="user" + str(i), password="test")
+        user.set_password(user.password)
+        user.save()
+        up = UserProfile(user=user, rep=i)
+        up.save()
+        users.append(up)
+
+    return users
+
+
 def create_place(user):
     i = user.id
     place = Place(name="Place Test", position=Geoposition(float(i * 78.2357),float(i * 15.4913)),
@@ -77,16 +91,3 @@ def create_multiple_trips(user):
         TripReview.objects.get_or_create(userId=user, tripId=trip, stars=0+i, review="Also all the same")
 
     return trips
-
-
-def create_top_users():
-    users = []
-
-    for i in range(1, 11):
-        user = User(username="user" + str(i), password="test")
-        user.save()
-        up = UserProfile(user=user, rep=i)
-        up.save()
-        users.append(up)
-
-    return users

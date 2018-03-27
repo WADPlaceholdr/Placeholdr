@@ -321,7 +321,7 @@ class FormTests(TestCase):
         os.remove(path)
 
 
-class UserAccessTests(TestCase):
+class UserTests(TestCase):
     def setUp(self):
         self.user = utils.create_user()
         self.place = utils.create_place(self.user)
@@ -374,3 +374,26 @@ class UserAccessTests(TestCase):
         self.client.login(username="user", password="pass1357")
         response = self.client.get(reverse('show_place', args=["place-test"]))
         self.assertIn("Enter your review here".lower(), response.content.decode('ascii').lower())
+
+    def test_following_features(self):
+        # First sure make the follow button is not in the page when unauthenticated
+        response = self.client.get(reverse('show_place', args=["place-test"]))
+        self.assertNotIn('onclick="user_follow'.lower(), response.content.decode('ascii').lower())
+
+        usertwo = utils.create_top_users()[0]
+
+        # Now access the page as a logged in user
+        self.client.login(username="user1", password="test")
+        response = self.client.get(reverse('show_place', args=["place-test"]))
+
+        # usertwo doesn't follow user: check button
+        self.assertIn("follow_user", response.content.decode('ascii'))
+
+        usertwo.follows.add(self.user)
+        usertwo.save()
+
+        # user follows usertwo: check button
+        response = self.client.get(reverse('show_place', args=["place-test"]))
+        self.assertIn("unfollow_user".lower(), response.content.decode('ascii').lower())
+
+

@@ -346,6 +346,11 @@ def populate():
         {"username": "davidm", "favPlace": 5, "recommendedTrip": 5},
     ]
 
+    following = [
+        {"username": "michael", "follows": ["samtakespics", "baracko"]},
+        {"username": "baracko", "follows": ["fawkes", "davidm"]}
+    ]
+
     for user in users:
         corrected_image_url = user["picture"].replace("media/","")
         us = add_user(user["username"], user["password"], user["bio"], user["livesIn"], user["rep"], corrected_image_url)
@@ -368,6 +373,10 @@ def populate():
 
     for fav in users_fav:
         f = add_favourites(fav["username"], fav["favPlace"], fav["recommendedTrip"])
+
+    for user in following:
+        for u in user["follows"]:
+            f = add_following(user["username"], u)
 
 
 def add_user(name, pword, bio, livesIn, rep, picture):
@@ -414,6 +423,15 @@ def add_favourites(username, pid, tid):
     up = UserProfile.objects.get_or_create(user=u)[0]
     up.favPlace = Place.objects.get_or_create(pk=pid)[0]
     up.recommendedTrip = Trip.objects.get_or_create(pk=tid)[0]
+    up.save()
+
+
+def add_following(username, following):
+    u = User.objects.get_or_create(username=username)[0]
+    up = UserProfile.objects.get_or_create(user=u)[0]
+    f = User.objects.get_or_create(username=following)[0]
+    fp = UserProfile.objects.get_or_create(user=f)[0]
+    up.follows.add(fp)
     up.save()
 
 if __name__ == '__main__':
