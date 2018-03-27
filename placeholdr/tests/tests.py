@@ -396,4 +396,10 @@ class UserTests(TestCase):
         response = self.client.get(reverse('show_place', args=["place-test"]))
         self.assertIn("unfollow_user".lower(), response.content.decode('ascii').lower())
 
+    def test_cannot_change_your_own_rep(self):
+        self.client.login(username="user", password="pass1357")
+        response = self.client.get(reverse('show_place', args=["place-test"]))
+        self.assertNotIn('id="repup"', response.content.decode('ascii'))
+        self.assertNotIn('id="repdown"', response.content.decode('ascii'))
+
 

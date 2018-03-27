@@ -196,7 +196,7 @@ def show_trip(request, trip_slug):
                 mapsUrl = mapsUrl[:-1]
                 mapsUrl += "&destination=" + trip_nodes[len(trip_nodes) - 1].placeId.lat + "%2C" + trip_nodes[
                     len(trip_nodes) - 1].placeId.long
-                submitter = str(get_user_prof(trip.userId))
+            submitter = str(get_user_prof(trip.userId))
             if request.user.is_authenticated():
                 userProf = get_user_prof(request.user)
                 following = is_following(userProf, submitter)
