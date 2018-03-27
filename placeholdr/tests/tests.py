@@ -170,6 +170,7 @@ class ContentTests(TestCase):
     def setUp(self):
         self.user = utils.create_user()
         self.places = utils.create_multiple_places(self.user)
+        self.trip = utils.create_trip(self.user)
         self.trips = utils.create_multiple_trips(self.user)
 
     def test_new_places_displays_newest_places(self):
@@ -186,26 +187,24 @@ class ContentTests(TestCase):
         for i in range(5, 0, -1):
             self.assertIn("Trip " + str(i), response.content.decode('ascii'))
 
-    # # USER PROFILE ERRORS WITH SHOW_PLACE, SHOW_TRIP #
-    # def test_trip_page_displays_places(self):
-    #     None
-    #     #for node in self.trip_nodes:
-    #     #    response = self.client.get(reverse('show_trip', args=[self.trip.slug]))
-    #     #    self.assertIn(str(Place.objects.get(name=node.placeId.name)), response.content.decode('ascii'))
-    #
-    # def test_place_page_displays_rating_and_review(self):
-    #     review = utils.create_place_review(self.user, self.places[0])
-    #     response = self.client.get(reverse('show_place', args=['place-1']))
-    #     self.assertIn(review.stars, response.content.decode('ascii'))
-    #     self.assertIn(review.review, response.content.decode('ascii'))
-    #
-    # def test_trip_page_displays_rating_and_review(self):
-    #     review = utils.create_trip_review(self.user, self.trip)
-    #     response = self.client.get(reverse('show_trip', args=["trip-" + str(self.user.user.id)]))
-    #     self.assertIn(review.stars, response.content.decode('ascii'))
-    #     self.assertIn(review.review, response.content.decode('ascii'))
-    #
-    # # ERRORS #
+    def test_trip_page_displays_places(self):
+        trip_nodes = utils.create_trip_nodes(self.trip, self.places)
+        for node in trip_nodes:
+            response = self.client.get(reverse('show_trip', args=[self.trip.slug]))
+            self.assertIn(str(Place.objects.get(name=node.placeId.name)), response.content.decode('ascii'))
+
+    def test_place_page_displays_rating_and_review(self):
+        review = utils.create_place_review(self.user, self.places[0])
+        response = self.client.get(reverse('show_place', args=['place-1']))
+        self.assertIn(str(review.stars), response.content.decode('utf8'))
+        self.assertIn(str(review.review), response.content.decode('utf8'))
+
+    def test_trip_page_displays_rating_and_review(self):
+        review = utils.create_trip_review(self.user, self.trip)
+        response = self.client.get(reverse('show_trip', args=["trip-test"]))
+        self.assertIn(str(review.stars), response.content.decode('utf8'))
+        self.assertIn(str(review.review), response.content.decode('utf8'))
+
 
 
 
@@ -252,6 +251,7 @@ class FormTests(TestCase):
 
         # Check the page is actually accessible and doesn't redirect the user
         self.assertNotEquals(response.status_code, 302)
+
         # Check the form is the right one
         self.assertTrue(isinstance(response.context['place_form'], SubmitPlaceForm))
 
@@ -351,10 +351,11 @@ class UserAccessTests(TestCase):
         self.assertEquals(response.status_code, 302)
 
     def test_review_box(self):
-        None
-        # TODO figure out userprof error
-        #response = self.client.get(reverse('show_place', args=["place-test"]))
-        #self.assertIn("Please login to post a review".lower(), response.content.decode('ascii').lower())
-        #self.client.login(username="user", password="pass1357")
+        response = self.client.get(reverse('show_place', args=["place-test"]))
+        self.assertIn("Please login to post a review".lower(), response.content.decode('ascii').lower())
+
+        self.client.login(username="user", password="pass1357")
+        response = self.client.get(reverse('show_place', args=["place-test"]))
+        self.assertIn("Enter your review here".lower(), response.content.decode('ascii').lower())
 
 

@@ -36,6 +36,8 @@ from placeholdr.models import FollowUser
 ################################################ PLACE ################################################
 
 def show_place(request, place_slug):
+    userProf = None
+    following = None
     # If the request is HTTP POST, try to get the relevant information
     if place_slug:
         # Use request.POST.get('<variable>') instead of .get['<v as
@@ -64,8 +66,9 @@ def show_place(request, place_slug):
             mapsUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyD9HsKLciMeT4H_c-NrIFyEI6vVZgY5GGg&q=" + place.lat + "," + place.long
             review_inf = get_reviews(request, False, place_slug)
             submitter = place.userId
-            userProf = get_user_prof(request.user)
-            following = is_following(userProf, submitter)
+            if request.user.is_authenticated():
+                userProf = get_user_prof(request.user)
+                following = is_following(userProf, submitter)
             return render(request,
                           'placeholdr/place.html',
                           {'place': place, 'reviews': place_reviews, 'mapsUrl': mapsUrl, 'review_inf': review_inf,
@@ -159,6 +162,8 @@ def submit_place(request):
 ################################################ TRIP ################################################
 
 def show_trip(request, trip_slug):
+    userProf = None
+    following = None
     # If the request is HTTP POST, try to get the relevant information
     if trip_slug:
         # Use request.POST.get('<variable>') instead of .get['<v as
@@ -198,8 +203,9 @@ def show_trip(request, trip_slug):
                 mapsUrl += "&destination=" + trip_nodes[len(trip_nodes) - 1].placeId.lat + "%2C" + trip_nodes[
                     len(trip_nodes) - 1].placeId.long
             submitter = trip.userId
-            userProf = get_user_prof(request.user)
-            following = is_following(userProf, submitter)
+            if request.user.is_authenticated():
+                userProf = get_user_prof(request.user)
+                following = is_following(userProf, submitter)
             return render(request, 'placeholdr/trip.html',
                           {'trip': trip, 'places': places, 'trip_nodes': trip_nodes, 'mapsUrl': mapsUrl,
                            'review_inf': review_inf, 'reviews': trip_reviews, 'stars': trip.get_stars(),
