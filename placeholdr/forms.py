@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from placeholdr.models import Page, Category, UserProfile, Place, Trip
+from placeholdr.models import UserProfile, Place, Trip
 
 
 class SubmitPlaceForm(forms.ModelForm):

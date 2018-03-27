@@ -708,6 +708,7 @@ def star_helper(place, type):
 def ajax_tasks(request):
     if not request.user.is_authenticated:
         return HttpResponse(status=403)
+
     if request.method == 'POST':
 
         is_trip = False
