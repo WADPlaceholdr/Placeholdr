@@ -224,11 +224,14 @@ def populate():
         {"userId": 3, "desc": "Ride along some scenic routes and stop at very scenic places",
          "name": "Nature in the US"},
         # 3
-        {"userId": 1, "desc": "Trek in cold cold Iceland before getting warm in a lagoon", "name": "Hot and Cold"},
+        {"userId": 1, "desc": "Trek in cold cold Iceland before getting warm in a lagoon",
+         "name": "Hot and Cold"},
         # 4
-        {"userId": 3, "desc": "Have some drinks in Belgium and see some sights", "name": "Beer Trip"},
+        {"userId": 3, "desc": "Have some drinks in Belgium and see some sights",
+         "name": "Beer Trip"},
         # 5
-        {"userId": 5, "desc": "Have a look at some universities and how pretty they are", "name": "Academic Roadtrip"},
+        {"userId": 5, "desc": "Have a look at some universities and how pretty they are",
+         "name": "Academic Roadtrip"},
         # 6
         {"userId": 4,
          "desc": "This trip is for coffee fanatics who aren't scared of dying of a coffee overdose by visiting a lot of coffee places",
@@ -335,12 +338,12 @@ def populate():
 
     users_fav = [
         {"username": "michael", "favPlace": 2, "recommendedTrip": 3},
-        {"username": "_amy_", "favPlace": 1, "recommendedTrip": 1},
-        {"username": "samtakespics", "favPlace": 3, "recommendedTrip": 1},
-        {"username": "homerj", "favPlace": 4, "recommendedTrip": 2},
+        {"username": "_amy_", "favPlace": 13, "recommendedTrip": 3},
+        {"username": "samtakespics", "favPlace": 4, "recommendedTrip": 2},
+        {"username": "homerj", "favPlace": 10, "recommendedTrip": 4},
         {"username": "gustavethetower", "favPlace": 5, "recommendedTrip": 2},
-        {"username": "fawkes", "favPlace": 5, "recommendedTrip": 4},
-        {"username": "davidm", "favPlace": 6, "recommendedTrip": 3},
+        {"username": "fawkes", "favPlace": 7, "recommendedTrip": 1},
+        {"username": "davidm", "favPlace": 5, "recommendedTrip": 5},
     ]
 
     for user in users:
