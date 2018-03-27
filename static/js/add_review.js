@@ -119,7 +119,7 @@ function do_rep(value){
             },
 			error: function (data) {
 				if (value != 0){
-					alert("Please login to rate a user");
+					alert("Please login to rate a user!");
 				}
 			}
         });
@@ -150,7 +150,7 @@ function user_follow(task){
 			},
 			error: function (data) {
 				if (value != 0){
-					alert("Please login to rate a user");
+					alert("Please login to rate a user!");
 				}
 			}
         });
