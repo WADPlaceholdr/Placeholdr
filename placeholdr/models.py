@@ -21,6 +21,8 @@ class UserProfile(models.Model):
     favPlace = models.ForeignKey('Place', null=True)
     recommendedTrip = models.ForeignKey('Trip', null=True)
 
+    follows = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
+
     # Override this to make it return something useful
     def __str__(self):
         return self.user.username
@@ -164,12 +166,3 @@ class RepRecord(models.Model):
 
     def __str__(self):
         return self.rep
-		
-class FollowUser(models.Model):
-    userId = models.ForeignKey(UserProfile)
-    following = models.ForeignKey(UserProfile, related_name="follows")
-    created_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.userId.user.username

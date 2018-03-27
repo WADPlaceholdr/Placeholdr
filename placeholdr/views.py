@@ -30,7 +30,7 @@ from placeholdr.models import PlaceTag
 from placeholdr.models import TripTag
 
 from placeholdr.models import RepRecord
-from placeholdr.models import FollowUser
+#from placeholdr.models import FollowUser
 
 
 ################################################ PLACE ################################################
@@ -789,8 +789,11 @@ def ajax_tasks(request):
 
 
 def is_following(userP, followingP):
-    return (int(FollowUser.objects.filter(userId=userP, following=followingP).count()) > 0)
-
+    list_f = userP.follows.all()
+    return list_f.filter(user__username=followingP).count() > 0
 
 def get_user_prof(user):
     return UserProfile.objects.get(user_id=user.id)
+
+def get_related_places(place, tag):
+    None
