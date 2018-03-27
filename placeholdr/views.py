@@ -37,7 +37,7 @@ from placeholdr.models import FollowUser
 
 def show_place(request, place_slug):
     userProf = None
-    following = None
+    following = False
     # If the request is HTTP POST, try to get the relevant information
     if place_slug:
         # Use request.POST.get('<variable>') instead of .get['<v as
@@ -83,8 +83,8 @@ def show_place(request, place_slug):
 
 def top_places(request):
     num_of_places = 6
+    top = []
     if Place.objects.all().count() >= num_of_places:
-        top = []
         for place in Place.objects.all():
             star_array = star_helper(place, "place")
 
@@ -95,9 +95,7 @@ def top_places(request):
                 if star_array[1] > top[0][1]:
                     top[0] = star_array
         top = sorted(top, key=lambda x: x[1], reverse=True)
-        return render(request, 'placeholdr/top_places.html', {'top_places': top, 'count': num_of_places})
-    else:
-        return HttpResponse("Fewer than " + num_of_places + " places exist!")
+    return render(request, 'placeholdr/top_places.html', {'top_places': top, 'count': num_of_places})
 
 
 def new_places(request):
@@ -107,15 +105,13 @@ def new_places(request):
         new = Place.objects.order_by('-id')[:num_of_places]
         for place in new:
             new_places.append(star_helper(place, "place"))
-        return render(request, 'placeholdr/new_places.html', {'new_places': new_places, 'count': num_of_places})
-    else:
-        return HttpResponse("Fewer than " + num_of_places + " places exist!")
+    return render(request, 'placeholdr/new_places.html', {'new_places': new_places, 'count': num_of_places})
 
 
 def popular_places(request):
     num_of_places = 6
+    pop = []
     if Place.objects.all().count() >= num_of_places:
-        pop = []
         for place in Place.objects.all():
             star_array = star_helper(place, "place")
             if len(pop) < num_of_places:
@@ -125,9 +121,7 @@ def popular_places(request):
                 if star_array[3] > pop[0][3]:
                     pop[0] = star_array
         pop = sorted(pop, key=lambda x: x[3], reverse=True)
-        return render(request, 'placeholdr/popular_places.html', {'popular_places': pop, 'count': num_of_places})
-    else:
-        return HttpResponse("Fewer than " + num_of_places + " places exist!")
+    return render(request, 'placeholdr/popular_places.html', {'popular_places': pop, 'count': num_of_places})
 
 
 @login_required
@@ -225,15 +219,14 @@ def new_trips(request):
         new = Trip.objects.order_by('-id')[:num_of_trips]
         for trip in new:
             new_trips.append(trip_pic_helper(trip))
-        return render(request, 'placeholdr/new_trips.html', {'new_trips': new_trips, 'count': num_of_trips})
-    else:
-        return HttpResponse("Fewer than " + num_of_trips + " trips exist!")
+    return render(request, 'placeholdr/new_trips.html', {'new_trips': new_trips, 'count': num_of_trips})
 
 
 def top_trips(request):
     num_of_trips = 6
+    top = []
+    top_trips = []
     if Trip.objects.all().count() >= num_of_trips:
-        top = []
         for trip in Trip.objects.all():
             star_array = star_helper(trip, "trip")
 
@@ -247,13 +240,13 @@ def top_trips(request):
         top_trips = []
         for trip_plus in top:
             top_trips.append(trip_pic_helper(trip_plus[0]))
-        return render(request, 'placeholdr/top_trips.html', {'top_trips': top_trips, 'count': num_of_trips})
-    else:
-        return HttpResponse("Fewer than " + num_of_trips + " trips exist!")
+        top = top_trips
+    return render(request, 'placeholdr/top_trips.html', {'top_trips': top_trips, 'count': num_of_trips})
 
 
 def popular_trips(request):
     num_of_trips = 6
+    popular_trips = []
     if Trip.objects.all().count() >= num_of_trips:
         pop = []
         for trip in Trip.objects.all():
@@ -268,11 +261,8 @@ def popular_trips(request):
         popular_trips = []
         for trip_plus in pop:
             popular_trips.append(trip_pic_helper(trip_plus[0]))
-        return render(request, 'placeholdr/popular_trips.html',
+    return render(request, 'placeholdr/popular_trips.html',
                       {'popular_trips': popular_trips, 'count': num_of_trips})
-    else:
-        return HttpResponse("Fewer than " + num_of_trips + " trips exist!")
-
 
 @login_required
 def submit_trip(request):
@@ -385,23 +375,22 @@ def users(request):
     num_of_users = 6
     all_users = UserProfile.objects.all()
     all_users_plus = []
+    top_users = []
+    active_users = []
+    random_users = []
     for user in all_users:
         num_of_reviews = PlaceReview.objects.filter(userId=user.id).count() + TripReview.objects.filter(
             userId=user.id).count()
         all_users_plus.append([user, num_of_reviews])
     if all_users.count() >= num_of_users:
-        top_users = []
-        active_users = []
-        random_users = []
         top_users = UserProfile.objects.select_related('user').order_by('-rep')[:num_of_users]
         random_users = UserProfile.objects.select_related('user').order_by('?')[:num_of_users]
         active_users_plus = sorted(all_users_plus, key=lambda x: x[1], reverse=True)[:num_of_users]
         for user in active_users_plus:
             active_users.append(user[0])
-        return render(request, 'placeholdr/users.html',
+    return render(request, 'placeholdr/users.html',
                       {'top': top_users, 'active': active_users, 'random': random_users, 'count': num_of_users})
-    else:
-        return HttpResponse("Fewer than " + num_of_users + " places exist!")
+
 
 
 ################################################ AUTHENTICATION ################################################

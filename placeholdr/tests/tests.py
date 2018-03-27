@@ -8,8 +8,78 @@ import os, population_script
 from django.core.urlresolvers import reverse
 from placeholdr.tests import test_utils as utils
 
+class ContentTests(TestCase):
+    def setUp(self):
+        self.user = utils.create_top_users()[0]
+        self.places = utils.create_multiple_places(self.user)
+        self.trips = utils.create_multiple_trips(self.user)
+        self.trip = self.trips[0]
 
-class IndexTests(TestCase):
+    # Make sure index displays 4 places
+    def test_index_displays_four_featured_places(self):
+        places = self.places[:4]
+        response = self.client.get(reverse('index'))
+        hit = 0
+
+        for i in range(1, 6):
+            if ("Place " + str(i)) in response.content.decode('ascii'):
+                hit += 1
+
+        self.assertEquals(hit, 4)
+
+    # Make sure index displays 4 trips
+    def test_index_displays_four_featured_trips(self):
+        trips = self.trips[:4]
+        response = self.client.get(reverse('index'))
+        hit = 0
+
+        for i in range(1, 6):
+            if ("Trip " + str(i)) in response.content.decode('ascii'):
+                hit += 1
+
+        self.assertEquals(hit, 4)
+
+    def test_index_displays_six_top_users(self):
+        response = self.client.get(reverse('index'))
+
+        # users are named user1 through user6
+        for i in range(10, 5, -1):
+            self.assertIn("user" + str(i), response.content.decode('ascii'))
+
+    def test_new_places_displays_newest_places(self):
+        response = self.client.get(reverse('new_places'))
+
+        # places are named Place 1 through Place 5 (newest:5)
+        for i in range(5, 0, -1):
+            self.assertIn("Place " + str(i), response.content.decode('ascii'))
+
+    def test_new_trips_displays_newest_trips(self):
+        response = self.client.get(reverse('new_trips'))
+
+        # trips are named Trip 1 through Trip 5 (newest:5)
+        for i in range(5, 0, -1):
+            self.assertIn("Trip " + str(i), response.content.decode('ascii'))
+
+    def test_trip_page_displays_places(self):
+        trip_nodes = utils.create_trip_nodes(self.trip, self.places)
+        for node in trip_nodes:
+            response = self.client.get(reverse('show_trip', args=[self.trip.slug]))
+            self.assertIn(str(Place.objects.get(name=node.placeId.name)), response.content.decode('utf8'))
+
+    def test_place_page_displays_rating_and_review(self):
+        review = utils.create_place_review(self.user, self.places[0])
+        response = self.client.get(reverse('show_place', args=['place-1']))
+        self.assertIn(str(review.stars), response.content.decode('utf8'))
+        self.assertIn(str(review.review), response.content.decode('utf8'))
+
+    def test_trip_page_displays_rating_and_review(self):
+        review = utils.create_trip_review(self.user, self.trip)
+        response = self.client.get(reverse('show_trip', args=["trip-1"]))
+        self.assertIn(str(review.stars), response.content.decode('utf8'))
+        self.assertIn(str(review.review), response.content.decode('utf8'))
+
+
+class EmptySiteTests(TestCase):
     def test_index_contains_featured_places_title(self):
         response = self.client.get(reverse('index'))
         self.assertIn('Featured Places'.lower(), response.content.decode('ascii').lower())
@@ -32,37 +102,19 @@ class IndexTests(TestCase):
         self.assertCountEqual(response.context['userProfiles'], [])
         self.assertCountEqual(response.context['trips'], [])
 
-    # Make sure index displays 4 places
-    def test_index_displays_four_featured_places(self):
-        places = utils.create_multiple_places(utils.create_user())[:4]
-        response = self.client.get(reverse('index'))
-        hit = 0
+    def test_pages_are_displayed_nicely_when_empty(self):
+        pages = ['index', 'users',
+                 'new_places', 'top_places', 'popular_places',
+                 'new_trips', 'top_trips', 'popular_trips']
 
-        for i in range(1, 6):
-            if ("Place "+ str(i)) in response.content.decode('ascii'):
-                hit += 1
-
-        self.assertEquals(hit, 4)
-
-    # Make sure index displays 4 trips
-    def test_index_displays_four_featured_trips(self):
-        trips = utils.create_multiple_trips(utils.create_user())[:4]
-        response = self.client.get(reverse('index'))
-        hit = 0
-
-        for i in range(1, 6):
-            if ("Trip "+ str(i)) in response.content.decode('ascii'):
-                hit += 1
-
-        self.assertEquals(hit, 4)
-
-    def test_index_displays_six_top_users(self):
-        users = utils.create_top_users()
-        response = self.client.get(reverse('index'))
-
-        # users are named user1 through user6
-        for i in range(10, 5, -1):
-            self.assertIn("user" + str(i), response.content.decode('ascii'))
+        for page in pages:
+            response = self.client.get(reverse(page))
+            if page == 'index':
+                self.assertIn("There are no", response.content.decode('ascii'))
+                self.assertIn("today", response.content.decode('ascii'))
+            else:
+                self.assertIn("There are fewer than", response.content.decode('ascii'))
+            self.assertTemplateUsed(response, 'placeholdr/base.html')
 
 
 class ModelTests(TestCase):
@@ -71,7 +123,6 @@ class ModelTests(TestCase):
         self.place = utils.create_place(self.user)
         self.place_review = utils.create_place_review(self.user, self.place)
         self.trips = utils.create_multiple_trips(self.user)
-
 
     def test_create_a_new_user(self):
         # Check that User is in database
@@ -95,7 +146,6 @@ class ModelTests(TestCase):
         trips_in_database = Trip.objects.all()
         self.assertEquals(len(trips_in_database), 5)
         self.assertEquals(trips_in_database[0].name, "Trip 1")
-
 
     def test_population_script_changes(self):
         # populate
@@ -166,48 +216,6 @@ class UrlTests(TestCase):
         self.assertRedirects(response, reverse('index'))
 
 
-class ContentTests(TestCase):
-    def setUp(self):
-        self.user = utils.create_user()
-        self.places = utils.create_multiple_places(self.user)
-        self.trip = utils.create_trip(self.user)
-        self.trips = utils.create_multiple_trips(self.user)
-
-    def test_new_places_displays_newest_places(self):
-        response = self.client.get(reverse('new_places'))
-
-        # places are named Place 1 through Place 5 (newest:5)
-        for i in range(5, 0, -1):
-            self.assertIn("Place " + str(i), response.content.decode('ascii'))
-
-    def test_new_trips_displays_newest_trips(self):
-        response = self.client.get(reverse('new_trips'))
-
-        # trips are named Trip 1 through Trip 5 (newest:5)
-        for i in range(5, 0, -1):
-            self.assertIn("Trip " + str(i), response.content.decode('ascii'))
-
-    def test_trip_page_displays_places(self):
-        trip_nodes = utils.create_trip_nodes(self.trip, self.places)
-        for node in trip_nodes:
-            response = self.client.get(reverse('show_trip', args=[self.trip.slug]))
-            self.assertIn(str(Place.objects.get(name=node.placeId.name)), response.content.decode('ascii'))
-
-    def test_place_page_displays_rating_and_review(self):
-        review = utils.create_place_review(self.user, self.places[0])
-        response = self.client.get(reverse('show_place', args=['place-1']))
-        self.assertIn(str(review.stars), response.content.decode('utf8'))
-        self.assertIn(str(review.review), response.content.decode('utf8'))
-
-    def test_trip_page_displays_rating_and_review(self):
-        review = utils.create_trip_review(self.user, self.trip)
-        response = self.client.get(reverse('show_trip', args=["trip-test"]))
-        self.assertIn(str(review.stars), response.content.decode('utf8'))
-        self.assertIn(str(review.review), response.content.decode('utf8'))
-
-
-
-
 class FormTests(TestCase):
     def setUp(self):
         self.user = utils.create_user()
@@ -233,7 +241,8 @@ class FormTests(TestCase):
     def test_registration_form_is_valid(self):
         place_pk = Place.objects.all()[0].pk
         trip_pk = Trip.objects.all()[0].pk
-        form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "picture": None, "favPlace": str(place_pk), "recommendedTrip": str(trip_pk)}
+        form_data = {"bio": self.user.bio, "livesIn": self.user.livesIn, "picture": None, "favPlace": str(place_pk),
+                     "recommendedTrip": str(trip_pk)}
         form = UserProfileForm(data=form_data)
         self.assertTrue(form.is_valid())
 
@@ -266,9 +275,9 @@ class FormTests(TestCase):
     def test_submit_place_form_is_valid(self):
         None
         # TODO how is the map implemented? --> filling the form
-        #form_data = {"name": self.place.name, "desc": self.place.desc, "picLink": None, "position": self.place.position}
-        #form = SubmitPlaceForm(data=form_data)
-        #self.assertTrue(form.is_valid())
+        # form_data = {"name": self.place.name, "desc": self.place.desc, "picLink": None, "position": self.place.position}
+        # form = SubmitPlaceForm(data=form_data)
+        # self.assertTrue(form.is_valid())
 
     def test_submit_trip_form_is_displayed_correctly(self):
         # Log in
@@ -293,20 +302,24 @@ class FormTests(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_registration_and_upload_image_works(self):
-        image = SimpleUploadedFile("testuser.jpg", content=open('static/images/logonobg.png', 'rb').read(), content_type="image/png")
-        response = self.client.post(reverse('register'), {'username': "testuser", "password": "hello", "email": "hello@gmail.com", "picture": image, "bio": "coolios", "livesIn": "commandLine"})
+        image = SimpleUploadedFile("testuser.jpg", content=open('static/images/logonobg.png', 'rb').read(),
+                                   content_type="image/png")
+        response = self.client.post(reverse('register'),
+                                    {'username': "testuser", "password": "hello", "email": "hello@gmail.com",
+                                     "picture": image, "bio": "coolios", "livesIn": "commandLine"})
 
         # Check user was registered
         self.assertIn('Thank you for registering!'.lower(), response.content.decode('ascii').lower())
         user = User.objects.get(username='testuser')
         user_profile = UserProfile.objects.get(user=user)
-        path = os.path.realpath('.')+'/media/profile_images/testuser.jpg'
+        path = os.path.realpath('.') + '/media/profile_images/testuser.jpg'
 
         # Check file was saved properly
         self.assertTrue(os.path.isfile(path))
 
         # Delete file
         os.remove(path)
+
 
 class UserAccessTests(TestCase):
     def setUp(self):
@@ -329,8 +342,12 @@ class UserAccessTests(TestCase):
     def test_submit_links(self):
         # check links are disabled when user is logged out
         response = self.client.get(reverse('index'))
-        self.assertIn('<a class="dropdown-item\n\ndisabled\n\n" href="/placeholdr/submit_place/"'.lower().replace(" ", ""), response.content.decode('ascii').lower().replace(" ", ""))
-        self.assertIn('<a class="dropdown-item\n\ndisabled\n\n" href="/placeholdr/submit_trip/"'.lower().replace(" ", ""), response.content.decode('ascii').lower().replace(" ", ""))
+        self.assertIn(
+            '<a class="dropdown-item\n\ndisabled\n\n" href="/placeholdr/submit_place/"'.lower().replace(" ", ""),
+            response.content.decode('ascii').lower().replace(" ", ""))
+        self.assertIn(
+            '<a class="dropdown-item\n\ndisabled\n\n" href="/placeholdr/submit_trip/"'.lower().replace(" ", ""),
+            response.content.decode('ascii').lower().replace(" ", ""))
 
         # now log in user to make sure the links work
         self.client.login(username="user", password="pass1357")
@@ -357,5 +374,3 @@ class UserAccessTests(TestCase):
         self.client.login(username="user", password="pass1357")
         response = self.client.get(reverse('show_place', args=["place-test"]))
         self.assertIn("Enter your review here".lower(), response.content.decode('ascii').lower())
-
-
