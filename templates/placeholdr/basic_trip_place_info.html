@@ -7,6 +7,34 @@
         <h1>{{ object.name }}</h1>
     </div>
     <div class="row">
+
+            {% if submitter %}
+                <div class="col">
+                    Submitted by <a href="/placeholdr/user/{{submitter}}">{{submitter}}</a>
+                </div>
+                <div class='col'>
+                    {% if user.is_authenticated %}
+                        {% if following %}
+                            <button class="btn btn-sm btn-outline-success my-2 my-sm-0" id="follows" onclick="user_follow('unfollow_user')" value="Unfollow" type="button">Unfollow</button>
+                        {% elif user.get_username != submitter %}
+                            <button class="btn btn-sm btn-outline-success my-2 my-sm-0" id="follows" onclick="user_follow('follow_user')" value="Follow" type="button">Follow</button>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="col">
+                    Submitted by Placeholdr
+                </div>
+            {% endif %}
+            {% if user.get_username != submitter %}
+                <div class="col" id="rep_section">
+                    <img src="{% static 'svg/arrow-up.svg' %}" id="repup" onclick="do_rep(1)">
+                    <img src="{% static 'svg/arrow-down.svg' %}" id="repdown" onclick="do_rep(-1)">
+                </div>
+            {% endif %}
+
+    </div>
+    <div class="row">
         {% if object.desc %}
             <p>{{ object.desc|striptags }}</p>
         {% else %}
@@ -60,31 +88,6 @@
                 </p>
             </div>
 			</a>
-			
-			<div class="row center">
-			<p>
-			{% if submitter %}
-				Submitted by <a href="/placeholdr/user/{{submitter}}">{{submitter}}</a>
-				{% if user.is_authenticated %}
-					{% if following %}
-						<button class="btn btn-outline-success my-2 my-sm-0" id="follows" onclick="user_follow('unfollow_user')" value="Unfollow" type="button">Unfollow</button>
-					{% elif user.get_username != submitter %}
-						<button class="btn btn-outline-success my-2 my-sm-0" id="follows" onclick="user_follow('follow_user')" value="Follow" type="button">Follow</button>
-					{% endif %}
-				{% endif %}
-			{% else %}
-				Submitted by Placeholdr
-			{% endif %}
-			</p>
-			<div class="row text-center">
-                {% if user.get_username != submitter %}
-                    <div id="rep_section">
-                        <img src="{% static 'images/uprep.png' %}" id="repup" onclick="do_rep(1)">
-                        <img src="{% static 'images/downrep.png' %}" id="repdown" onclick="do_rep(-1)">
-                    </div>
-                {% endif %}
-			</div>
-			</div>
         </div>
         <div class="col">
             <div class="row align-items-center">
