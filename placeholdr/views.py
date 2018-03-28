@@ -756,6 +756,26 @@ def ajax_tasks(request):
 					PlaceTag.objects.get_or_create(userId=userProf, placeId=link, tagText=tag)
 			return HttpResponse(json.dumps(get_reviews(request, is_trip, r_slug)), content_type='application/json')
 
+		if request.POST.get("task") == "follow_user":
+			u_slug = request.POST.get("u_slug")
+			to_follow = User.objects.filter(username=u_slug)
+			if not to_follow:
+				return HttpResponse("Error")
+			u_prof = UserProfile.objects.get(user=to_follow)
+			userProf.follows.add(u_prof)
+			userProf.save()
+			return HttpResponse("Worked!")
+			
+		if request.POST.get("task") == "unfollow_user":
+			u_slug = request.POST.get("u_slug")
+			to_unfollow = User.objects.filter(username=u_slug)
+			if not to_unfollow:
+				return HttpResponse("Error")
+			u_prof = UserProfile.objects.get(user=to_unfollow)
+			userProf.follows.remove(u_prof)
+			userProf.save()
+			return HttpResponse("Worked!")
+			
 		if request.POST.get("task") == "update_tags":
 			if request.POST.get("is_trip") == "y":
 				is_trip = True
