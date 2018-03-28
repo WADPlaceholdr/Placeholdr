@@ -327,6 +327,7 @@ def get_reviews(request, isTrip, r_slug):
 	stars_string = ""
 	reviews_array = []
 	tags_string = "Currently no tags"
+	stars_num = 0
 	rev_num = 0
 
 	if tags:
