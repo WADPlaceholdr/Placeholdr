@@ -339,13 +339,15 @@ def get_reviews(request, isTrip, r_slug):
 		for review in reviews:
 			rev_num += 1
 			stars += review.stars
+		stars_num = round(stars / len(reviews),2)
 		stars = round(stars / len(reviews))
 		for i in range(5):
 			if i < stars:
 				stars_string += '&#9733'
 			else:
 				stars_string += '&#9734'
-	return {'starz': stars_string, 'tags_string': tags_string, 'star_num': stars, 'rev_num': rev_num, 'rev_sec': str(
+		
+	return {'starz': stars_string, 'tags_string': tags_string, 'star_num': stars_num, 'rev_num': rev_num, 'rev_sec': str(
 		render(request, 'placeholdr/review_section.html', {'reviews': reviews}).getvalue().decode('utf-8'))}
 
 
@@ -792,6 +794,8 @@ def ajax_tasks(request):
 
 		if request.POST.get("task") == "add_place_rep" or request.POST.get("task") == "add_trip_rep":
 			value = request.POST.get("rep")
+			if tpUser.id == request.user:
+				value = 0
 			records = RepRecord.objects.filter(tpSlug=rep_slug, userId=userProf)
 			if str(value) == "0":
 				if records.count() > 0:
@@ -799,6 +803,7 @@ def ajax_tasks(request):
 										content_type='application/json')
 				else:
 					return HttpResponse({"exists": False, "rep": 0})
+				
 			if records.count() > 0:
 				UserProfile.objects.filter(id=tpUser.id).update(rep=UserProfile.objects.get(id=tpUser.id).rep -
 																	RepRecord.objects.filter(tpSlug=rep_slug,
