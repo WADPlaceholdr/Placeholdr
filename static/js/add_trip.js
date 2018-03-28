@@ -19,11 +19,6 @@ function add_place(p_slug){
 			document.getElementById("slug_holder").value = slugs_array.join(";") + ";";
 			document.getElementById("added_section").innerHTML += data;
 			reset_page();
-		},
-		error: function (data) {
-			alert("Damn");
-			var err = eval("(" + data.responseText + ")");
-			alert(err.Message);
 		}
 	});
 	
@@ -95,11 +90,6 @@ function search_for_places(){
 
 			reset_page();
 			
-		},
-		error: function (data) {
-			alert("Damn");
-			var err = eval("(" + data.responseText + ")");
-			alert(err.Message);
 		}
 	});
 	

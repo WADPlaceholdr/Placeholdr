@@ -22,6 +22,9 @@
 				{% bootstrap_form trip_form %}
 				<button type="submit" class="btn btn-primary" id="register-button" name="submit" value="Submit Trip">Submit Trip</button>
 			</form>
+			{% if warning %}
+				<h3 class="text-danger">{{ warning }}</h3>
+			{% endif %}
 		</div>
         <div class="row">
             
