@@ -78,6 +78,18 @@ class ContentTests(TestCase):
         self.assertIn(str(review.stars), response.content.decode('utf8'))
         self.assertIn(str(review.review), response.content.decode('utf8'))
 
+    def test_user_profile_displays_following(self):
+        # get user's profile
+        u = utils.create_user()
+        response = self.client.get(reverse('show_user', args=[u]))
+        self.assertIn("Following: 0", response.content.decode('ascii'))
+
+        # user now follows user1
+        u.follows.add(self.user)
+        u.save()
+        response = self.client.get(reverse('show_user', args=[u]))
+        self.assertIn("Following: 1", response.content.decode('ascii'))
+
 
 class EmptySiteTests(TestCase):
     def test_index_contains_featured_places_title(self):
@@ -272,13 +284,6 @@ class FormTests(TestCase):
         # Checks for API
         self.assertIn("maps".lower(), response.content.decode('ascii').lower())
 
-    def test_submit_place_form_is_valid(self):
-        None
-        # TODO how is the map implemented? --> filling the form
-        # form_data = {"name": self.place.name, "desc": self.place.desc, "picLink": None, "position": self.place.position}
-        # form = SubmitPlaceForm(data=form_data)
-        # self.assertTrue(form.is_valid())
-
     def test_submit_trip_form_is_displayed_correctly(self):
         # Log in
         self.client.login(username="user", password="pass1357")
@@ -294,12 +299,11 @@ class FormTests(TestCase):
         trip_form = SubmitTripForm()
         self.assertEquals(response.context['trip_form'].as_p(), trip_form.as_p())
 
-    # this will produce a fail right now
     def test_submit_trip_with_no_places_should_not_work(self):
-        print("This will produce a fail right now")
-        form_data = {"name": "Let's go on a test trip", "desc": "here we go", "picLink": None}
-        form = SubmitTripForm(data=form_data)
-        self.assertFalse(form.is_valid())
+        self.client.login(username="user", password="pass1357")
+        form_data = {"name": "Let's go on a test trip", "desc": "here we go", "picLink": None, "slug_holder": 0}
+        response = self.client.post(reverse('submit_trip'), data=form_data)
+        self.assertIn("You need to have at least two places in your trip!", response.content.decode('ascii'))
 
     def test_registration_and_upload_image_works(self):
         image = SimpleUploadedFile("testuser.jpg", content=open('static/images/logonobg.png', 'rb').read(),
@@ -321,7 +325,7 @@ class FormTests(TestCase):
         os.remove(path)
 
 
-class UserTests(TestCase):
+class UserAccessTests(TestCase):
     def setUp(self):
         self.user = utils.create_user()
         self.place = utils.create_place(self.user)
