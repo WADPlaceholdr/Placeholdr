@@ -163,9 +163,9 @@ function do_rep(value){
 function user_follow(task){
 	
 	if (task == "follow_user"){
-		document.getElementById('follows').outerHTML = '<button class="btn btn-primary" id="follows" onclick="user_follow(\'unfollow_user\')" value="Unfollow" type="button">Unfollow</button>';
+		document.getElementById('follows').outerHTML = '<button class="btn btn-primary btn-sm" id="follows" onclick="user_follow(\'unfollow_user\')" value="Unfollow" type="button">Unfollow</button>';
 	}else if(task == "unfollow_user"){
-		document.getElementById('follows').outerHTML = '<button class="btn btn-primary" id="follows" onclick="user_follow(\'follow_user\')" value="Follow" type="button">Follow</button>';
+		document.getElementById('follows').outerHTML = '<button class="btn btn-primary btn-sm" id="follows" onclick="user_follow(\'follow_user\')" value="Follow" type="button">Follow</button>';
 	}else{
 		return;
 	}
