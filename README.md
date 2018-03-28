@@ -7,6 +7,22 @@ placeholdr is a Django web application with the objective of allowing people to 
 ## Demo
 a live demo is available at https://placeholdr.pythonanywhere.com/
 
+## External sources
+* django
+* Google Maps API
+* Bootstrap
+* django-bootstrap4
+* animate.css
+* wow.js
+* Search code snippet by julienphalip.com
+* django-csp
+* django-mathfilters
+* django-referrer-policy
+* django-geoposition
+* Pillow
+* pytz
+* selenium
+
 ## Requirements
 (see [requirements.txt](https://github.com/WADPlaceholdr/Placeholdr/blob/master/requirements.txt))
 * Python 3.6.x
