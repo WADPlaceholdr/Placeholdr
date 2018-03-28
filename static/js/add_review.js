@@ -28,8 +28,9 @@ function fix_tags() {
 
 $(document).ready(function () {
 
+	update();
     reset_page();
-
+	
 });
 
 function reset_page() {
@@ -69,8 +70,35 @@ function reset_page() {
 	
 	do_rep(0);
 	
-	
+}
 
+function update(){
+	
+	$.ajax({
+		type: "POST",
+		url: "/placeholdr/ajax/",
+		dataType: 'json',
+		data: {
+			'csrfmiddlewaretoken': getCookie('csrftoken'),
+			'task': "update_tags",
+			'slug': document.getElementById("slug").innerHTML,
+			'is_trip': (document.getElementById("task").innerHTML != "add_place" ? 'y' : 'n')
+		},
+		success: function (data) {
+			response = data;
+
+			document.getElementById("review_sec").innerHTML = response.rev_sec;
+			document.getElementById("tag_section").innerHTML = response.tags_string;
+
+			document.getElementById("star_rating").innerHTML = "<h2>" + response.star_num + "</h2>";
+			document.getElementById("starz").innerHTML = response.starz;
+			document.getElementById("rev_num").innerHTML = response.rev_num + " Review" + ((parseInt(response.rev_num) > 1) ? "s" : "");
+			
+			reset_page();
+			fix_tags();
+		}
+	});
+	
 }
 
 function do_rep(value){

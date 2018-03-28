@@ -707,13 +707,15 @@ def star_helper(place, type):
 
 
 def ajax_tasks(request):
-	if not request.user.is_authenticated:
-		return HttpResponse(status=403)
 
 	if request.method == 'POST':
+	
+		if not request.user.is_authenticated and not request.POST.get('task') == "update_tags":
+			return HttpResponse(status=403)
 
 		is_trip = False
-		userProf = UserProfile.objects.get(user=request.user)
+		if request.user.is_authenticated:
+			userProf = UserProfile.objects.get(user=request.user)
 		if request.POST.get("task") == "add_place_review":
 			review = request.POST.get("review")
 			stars = request.POST.get("stars")
@@ -744,6 +746,12 @@ def ajax_tasks(request):
 					PlaceTag.objects.get_or_create(userId=userProf, placeId=link, tagText=tag)
 			return HttpResponse(json.dumps(get_reviews(request, is_trip, r_slug)), content_type='application/json')
 
+		if request.POST.get("task") == "update_tags":
+			if request.POST.get("is_trip") == "y":
+				is_trip = True
+			r_slug = request.POST.get("slug")
+			return HttpResponse(json.dumps(get_reviews(request, is_trip, r_slug)), content_type='application/json')
+			
 		if request.POST.get("task") == "add_place_rep":
 			rep_slug = "p_" + str(request.POST.get("slug"))
 			tpUser = Place.objects.filter(slug=str(request.POST.get("slug")))[0].userId
