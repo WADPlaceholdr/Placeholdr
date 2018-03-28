@@ -19,9 +19,15 @@ function fix_tags() {
 
     var tag_text = '<a style="color:red; text-decoration:none;" href="/placeholdr/search?=$2">$1</a>';
 
+	var tag_patt_two = /(href=".*)(<\/a>)(")/gi;
+	
+	var tag_text_two = '$1$3'
 
     document.getElementById("tag_section").innerHTML = document.getElementById("tag_section").innerHTML.replace(tag_pattern, tag_text);
     document.getElementById("review_section").innerHTML = document.getElementById("review_section").innerHTML.replace(tag_pattern, tag_text);
+	
+	document.getElementById("tag_section").innerHTML = document.getElementById("tag_section").innerHTML.replace(tag_patt_two, tag_text_two);
+    document.getElementById("review_section").innerHTML = document.getElementById("review_section").innerHTML.replace(tag_patt_two, tag_text_two);
 
 
 }
