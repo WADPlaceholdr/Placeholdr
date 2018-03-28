@@ -349,7 +349,7 @@ def populate():
     following = [
         {"username": "michael", "follows": ["samtakespics", "baracko", "homerj"]},
         {"username": "baracko", "follows": ["fawkes", "davidm", "gustavethetower"]},
-        {"username": "_amy", "follows": ["samtakespics"]},
+        {"username": "_amy_", "follows": ["samtakespics"]},
         {"username": "davidm", "follows": ["baracko", "gustavethetower", "fawkes"]}
     ]
 
