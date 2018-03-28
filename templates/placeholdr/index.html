@@ -6,10 +6,6 @@
 	Give us your Place to Hold!
 {% endblock %}
 
-{% block css_block %}
-	<link rel="stylesheet" type="text/css" href="{% static 'styles/index.css' %}" />
-{% endblock %}
-
 {% block body_block %}
 	<div class="container">
 		<div class="row">
@@ -24,9 +20,10 @@
 					</div>
 				</div>
 			{% else %}
+                <div class="w-100"></div>
 				<h3>There are no featured places today.</h3>
 			{% endif %}
-		</div>
+        </div>
 		<div class="row">
 			<h1>Featured Trips</h1>
 			{% if trips %}
@@ -38,6 +35,7 @@
 					</div>
 				</div>
 			{% else %}
+                <div class="w-100"></div>
 				<h3>There are no featured trips today.</h3>
 			{% endif %}
 		</div>
@@ -67,6 +65,7 @@
 					</div>
 				</div>
 			{% else %}
+                <div class="w-100"></div>
 				<h3>There are no top users today.</h3>
 			{% endif %}
 		</div>
