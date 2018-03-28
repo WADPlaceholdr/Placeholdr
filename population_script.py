@@ -275,12 +275,12 @@ def populate():
 
 		# Grand Canyon
 		{"userId": 5, "placeId": 4, "stars": 5,
-		 "review": "Very #pretty and very warm. Good place for some philosophical thinking. "},
+		 "review": "Very #pretty and very #warm. Good place for some philosophical thinking. "},
 
 		# UofG
 		{"userId": 6, "placeId": 5, "stars": 4, "review": "In spite of the rain, the buildings were very pretty. "},
 		{"userId": 4, "placeId": 5, "stars": 3,
-		 "review": "Very pretty but I wish you could visit the main building tower as well"},
+		 "review": "Very #pretty but I wish you could visit the main building tower as well"},
 
 		# Atomium
 		{"userId": 3, "placeId": 1, "stars": 3,
@@ -288,8 +288,12 @@ def populate():
 
 		# Artisan Roast
 		{"userId": 4, "placeId": 3, "stars": 5,
-		 "review": "Some good coffee to get you ready to write essays."},
+		 "review": "Some good #coffee to get you ready to write essays."},
 		{"userId": 6, "placeId": 3, "stars": 2, "review": "Papercup makes better coffee"},
+
+		# Artisan Roast
+		{"userId": 4, "placeId": 2, "stars": 5,
+		 "review": "I love #coffee"},
 
 		# Loch Ness
 		{"userId": 1, "placeId": 7, "stars": 2, "review": "Disappointed by the lack of monster"},
@@ -298,7 +302,7 @@ def populate():
 		{"userId": 3, "placeId": 10, "stars": 4, "review": "I liked it"},
 
 		# Iceland national park
-		{"userId": 1, "placeId": 11, "stars": 4, "review": "Very pretty, very cold, some nice trekking"},
+		{"userId": 1, "placeId": 11, "stars": 4, "review": "Very #pretty, very cold, some nice trekking"},
 
 		# Silverton
 		{"userId": 5, "placeId": 12, "stars": 2, "review": "I mean it looked nice from afar but is there really anything to do there"},
@@ -314,12 +318,12 @@ def populate():
 		{"userId": 4, "tripId": 1, "stars": 5, "review": "Deserves 5 stars just for Loch Lochy"},
 
 		# US nature
-		{"userId": 3, "tripId": 2, "stars": 5, "review": "Very #dry landscapes but still very pretty"},
+		{"userId": 3, "tripId": 2, "stars": 5, "review": "Very #dry landscapes but still very #pretty"},
 		{"userId": 5, "tripId": 2, "stars": 5, "review": "Good trip for some escape overall"},
 
 		# Iceland
 		{"userId": 1, "tripId": 3, "stars": 3, "review": "Could be way warmer"},
-		{"userId": 3, "tripId": 3, "stars": 5, "review": "Iceland is insanely pretty"},
+		{"userId": 3, "tripId": 3, "stars": 5, "review": "Iceland is insanely #pretty"},
 
 
 		# Beers
@@ -330,7 +334,7 @@ def populate():
 		{"userId": 4, "tripId": 5, "stars": 3,
 		 "review": "It was nice but it reminded me of the work I'm supposed to be doing"},
 		{"userId": 6, "tripId": 5, "stars": 4,
-		 "review": "Glasgow is definitely the #prettiest out of the three"},
+		 "review": "Glasgow is definitely the prettiest out of the three"},
 
 		# Coffee
 		{"userId": 4, "tripId": 6, "stars": 4, "review": "Could be better"},
@@ -348,6 +352,10 @@ def populate():
 	
 	place_tags = [
 		{"userId":5, "placeId":4, "tagText":"pretty"},
+		{"userId": 5, "placeId": 4, "tagText": "warm"},
+		{"userId": 4, "placeId": 3, "tagText": "coffee"},
+		{"userId": 4, "placeId": 2, "tagText": "coffee"},
+		{"userId": 1, "placeId": 11, "tagText": "pretty"},
 		{"userId":1, "placeId":6, "tagText":"warm"},
 		{"userId":3, "placeId":1, "tagText":"scenic"}
 	]
@@ -355,7 +363,8 @@ def populate():
 	trip_tags = [
 		{"userId":6, "tripId":1, "tagText":"nice"},
 		{"userId":3, "tripId":2, "tagText":"dry"},
-		{"userId":6, "tripId":5, "tagText":"prettiest"}
+		{"userId": 3, "tripId": 2, "tagText": "pretty"},
+		{"userId":3, "tripId":3, "tagText":"pretty"}
 	]
 	
 	following = [
