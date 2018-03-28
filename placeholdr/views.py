@@ -656,10 +656,20 @@ def search(request):
 
 	if ('q' in request.GET) and request.GET['q'].strip():
 		query_string = request.GET['q']
-
+		
 		entry_query = get_query(query_string, search_fields)
 		found_places = Place.objects.filter(entry_query).order_by('id')
 		found_trips = Trip.objects.filter(entry_query).order_by('id')
+		
+		found_trip_tags = TripTag.objects.filter(tagText=query_string)
+		found_place_tags = PlaceTag.objects.filter(tagText=query_string)
+		
+		for t_tag in found_trip_tags:
+			found_trips |= Trip.objects.filter(pk=t_tag.tripId.id)
+			
+		for p_tag in found_place_tags:
+			found_places |= Place.objects.filter(pk=p_tag.placeId.id)
+		
 		found_users = UserProfile.objects.filter(get_query(query_string, user_search_fields)).order_by('user__id')
 		found = found_places.exists() or found_trips.exists() or found_users.exists()
 

@@ -17,7 +17,7 @@ function fix_tags() {
 
     var tag_pattern = /(#(\S*))/gi;
 
-    var tag_text = '<a style="color:red; text-decoration:none;" href="/placeholdr/search?=$2">$1</a>';
+    var tag_text = '<a style="color:red; text-decoration:none;" href="/placeholdr/search?q=$2">$1</a>';
 
 	var tag_patt_two = /(href=".*)(<\/a>)(")/gi;
 	
