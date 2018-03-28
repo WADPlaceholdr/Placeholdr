@@ -15,9 +15,9 @@
                 <div class='col'>
                     {% if user.is_authenticated %}
                         {% if following %}
-                            <button class="btn btn-primary" id="follows" onclick="user_follow('unfollow_user')" value="Unfollow" type="button">Unfollow</button>
+                            <button class="btn btn-primary btn-sm" id="follows" onclick="user_follow('unfollow_user')" value="Unfollow" type="button">Unfollow</button>
                         {% elif user.get_username != submitter %}
-                            <button class="btn btn-primary" id="follows" onclick="user_follow('follow_user')" value="Follow" type="button">Follow</button>
+                            <button class="btn btn-primary btn-sm" id="follows" onclick="user_follow('follow_user')" value="Follow" type="button">Follow</button>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -28,8 +28,8 @@
             {% endif %}
             {% if user.get_username != submitter %}
                 <div class="col" id="rep_section">
-                    <img src="{% static 'svg/arrow-up.svg' %}" id="repup" onclick="do_rep(1)">
-                    <img src="{% static 'svg/arrow-down.svg' %}" id="repdown" onclick="do_rep(-1)">
+                    <img src="{% static 'images/uprep.png' %}" id="repup" onclick="do_rep(1)">
+                    <img src="{% static 'images/downrep.png' %}" id="repdown" onclick="do_rep(-1)">
                 </div>
             {% endif %}
 
