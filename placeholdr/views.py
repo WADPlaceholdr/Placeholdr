@@ -207,7 +207,7 @@ def show_trip(request, trip_slug):
 						   'review_inf': review_inf, 'reviews': trip_reviews, 'stars': trip.get_stars(),
 						   "review_dict": review_dict, "nbr_reviews": nbr_reviews, "submitter": submitter,
 						   "following": following, "related_sec_one":get_related_trips(trip, 0),
-						   "related_sec_two":get_related_trips(trip, 1), "related_sec_three":get_related_trips(trip, 2)}})
+						   "related_sec_two":get_related_trips(trip, 1), "related_sec_three":get_related_trips(trip, 2)})
 		else:
 			return HttpResponse("Invalid trip slug supplied.")
 	else:
