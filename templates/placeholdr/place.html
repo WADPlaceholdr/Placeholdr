@@ -31,6 +31,18 @@
 			<div id="review_sec">
 			{% include "placeholdr/review_section.html" %}
 			</div>
+			<h2>Related Places</h2>
+			<div class="card-deck" id="related">
+				{% if related_sec_one %}
+					{{ related_sec_one }}
+				{% endif %}
+				{% if related_sec_two %}
+					{{ related_sec_two }}
+				{% endif %}
+				{% if related_sec_three %}
+					{{ related_sec_three }}
+				{% endif %}
+			</div>
 		{% else %}
 			The specified place does not exist!
 		{% endif %}

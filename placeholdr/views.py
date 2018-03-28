@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 from django.db.models import Count
+from django.template.loader import render_to_string
 import json, re, time
 
 # Import User
@@ -73,7 +74,8 @@ def show_place(request, place_slug):
 						  'placeholdr/place.html',
 						  {'place': place, 'reviews': place_reviews, 'mapsUrl': mapsUrl, 'review_inf': review_inf,
 						   'stars': place.get_stars(), 'review_dict': review_dict, "nbr_reviews": nbr_reviews,
-						   "submitter": submitter, "following": following})
+						   "submitter": submitter, "following": following, "related_sec_one":get_related_places(place, 0),
+						   "related_sec_two":get_related_places(place, 1), "related_sec_three":get_related_places(place, 2)})
 		else:
 			return HttpResponse("Invalid place slug supplied.")
 	else:
@@ -204,7 +206,8 @@ def show_trip(request, trip_slug):
 						  {'trip': trip, 'places': places, 'trip_nodes': trip_nodes, 'mapsUrl': mapsUrl,
 						   'review_inf': review_inf, 'reviews': trip_reviews, 'stars': trip.get_stars(),
 						   "review_dict": review_dict, "nbr_reviews": nbr_reviews, "submitter": submitter,
-						   "following": following})
+						   "following": following, "related_sec_one":get_related_trips(trip, 0),
+						   "related_sec_two":get_related_trips(trip, 1), "related_sec_three":get_related_trips(trip, 2)}})
 		else:
 			return HttpResponse("Invalid trip slug supplied.")
 	else:
@@ -850,5 +853,58 @@ def is_following(userP, followingP):
 def get_user_prof(user):
 	return UserProfile.objects.get(user_id=user.id)
 
-def get_related_places(place, tag):
-	None
+def get_related_places(place, offset):
+	tags = PlaceTag.objects.filter(placeId=place).values('tagText').distinct().annotate(
+			tagNum=Count('tagText')).order_by('-tagNum')
+	# Get the most popular tags for this place		
+	if not (tags):
+		return "No Related Places"
+	places = Place.objects.none()
+	
+	# Then get other places with these tags and display them
+	for tag in tags:
+		actual_tags = PlaceTag.objects.filter(tagText=tag['tagText'])
+		for a_tag in actual_tags:
+			places |= Place.objects.filter(pk=a_tag.placeId.id)
+		
+	counter = 0
+	
+	# Can only display one at a time otherwise it's displayed as raw html
+	for pla in places:
+		if pla == place:
+			continue
+		if counter > 3:
+			break
+		if counter == offset:
+			return render_to_string('placeholdr/place_trip_card.html', {"object": pla})
+		counter += 1
+		
+	return ""
+	
+def get_related_trips(trip, offset):
+	tags = TripTag.objects.filter(tripId=trip).values('tagText').distinct().annotate(
+			tagNum=Count('tagText')).order_by('-tagNum')
+	# Get the most popular tags for this trip		
+	if not (tags):
+		return "No Related Places"
+	trips = Trip.objects.none()
+	
+	# Then get other places with these tags and display them
+	for tag in tags:
+		actual_tags = TripTag.objects.filter(tagText=tag['tagText'])
+		for a_tag in actual_tags:
+			trips |= Trip.objects.filter(pk=a_tag.tripId.id)
+		
+	counter = 0
+	
+	# Can only display one at a time otherwise it's displayed as raw html
+	for tri in trips:
+		if tri == trip:
+			continue
+		if counter > 3:
+			break
+		if counter == offset:
+			return render_to_string('placeholdr/place_trip_card.html', {"object": tri})
+		counter += 1
+		
+	return ""
