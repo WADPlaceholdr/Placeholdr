@@ -859,7 +859,7 @@ def get_related_places(place, offset):
 			tagNum=Count('tagText')).order_by('-tagNum')
 	# Get the most popular tags for this place		
 	if not (tags):
-		return "No Related Places"
+		return ""
 	places = Place.objects.none()
 	
 	# Then get other places with these tags and display them
@@ -887,7 +887,7 @@ def get_related_trips(trip, offset):
 			tagNum=Count('tagText')).order_by('-tagNum')
 	# Get the most popular tags for this trip		
 	if not (tags):
-		return "No Related Places"
+		return ""
 	trips = Trip.objects.none()
 	
 	# Then get other places with these tags and display them

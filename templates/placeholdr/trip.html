@@ -80,6 +80,8 @@
 			<div class="card-deck" id="related">
 				{% if related_sec_one %}
 					{{ related_sec_one }}
+				{% else %}
+					<h5>No Related Trips</h5>
 				{% endif %}
 				{% if related_sec_two %}
 					{{ related_sec_two }}
